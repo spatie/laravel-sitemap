@@ -2,13 +2,10 @@
 
 namespace Spatie\Sitemap\Tags;
 
-
-abstract class Tag {
-
-    public function getType(): string
+abstract class Tag
 {
-    return class_basename(static::class);
-}
-
-
+    public function getType(): string
+    {
+        return class_basename(static::class);
+    }
 }

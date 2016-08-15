@@ -27,5 +27,4 @@ class Sitemap
 
         return $this;
     }
-
 }

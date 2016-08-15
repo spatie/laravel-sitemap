@@ -28,7 +28,7 @@ class Observer implements CrawlObserver
     /**
      * Called when the crawler has crawled the given url.
      *
-     * @param \Spatie\Crawler\Url $url
+     * @param \Spatie\Crawler\Url                      $url
      * @param \Psr\Http\Message\ResponseInterface|null $response
      */
     public function hasBeenCrawled(Url $url, $response)
@@ -41,6 +41,5 @@ class Observer implements CrawlObserver
      */
     public function finishedCrawling()
     {
-
     }
 }
