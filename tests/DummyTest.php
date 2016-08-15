@@ -15,7 +15,7 @@ class DummyTest extends TestCase
 
         $sitemap->add(Url::create('https://spatie.be'));
 
-        $sitemap ->writeToFile($this->getTempDirectory('dummy.xml'));
+        $sitemap->writeToFile($this->getTempDirectory('dummy.xml'));
     }
 
     /** @test */

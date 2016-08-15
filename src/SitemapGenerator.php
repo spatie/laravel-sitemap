@@ -9,10 +9,9 @@ use Spatie\Sitemap\Tags\Url;
 
 /**
  * 	$siteMap = SitemapGenerator::create('https://spatie.be')
-* ->hasCrawled(SitemapProfile::class) // or closure
-* ->writeToFile($path);
+ * ->hasCrawled(SitemapProfile::class) // or closure
+ * ->writeToFile($path);.
  */
-
 class SitemapGenerator
 {
     /** @var string */
@@ -34,7 +33,7 @@ class SitemapGenerator
      */
     public static function create(string $url)
     {
-        return app(SitemapGenerator::class)->setUrl($url);
+        return app(self::class)->setUrl($url);
     }
 
     public function __construct(Crawler $crawler)
@@ -43,7 +42,7 @@ class SitemapGenerator
 
         $this->sitemap = new Sitemap();
 
-        $this->hasCrawled = function(Url $url) {
+        $this->hasCrawled = function (Url $url) {
             return $url;
         };
     }
@@ -87,8 +86,7 @@ class SitemapGenerator
     protected function getObserver()
     {
         $performAfterUrlHasBeenCrawled = function (CrawlerUrl $crawlerUrl) {
-
-            $sitemapUrl = ($this->hasCrawled)(Url::create((string)$crawlerUrl));
+            $sitemapUrl = ($this->hasCrawled)(Url::create((string) $crawlerUrl));
 
             if ($sitemapUrl) {
                 $this->sitemap->add($sitemapUrl);

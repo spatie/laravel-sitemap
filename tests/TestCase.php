@@ -33,16 +33,15 @@ abstract class TestCase extends OrchestraTestCase
             $path = "/{$path}";
         }
 
-        return __DIR__.'/temp' . $path;
+        return __DIR__.'/temp'.$path;
     }
 
     protected function initializeTempDirectory()
     {
         $this->initializeDirectory($this->getTempDirectory());
 
-        file_put_contents($this->getTempDirectory() . '/.gitignore', '*' . PHP_EOL . '!.gitignore');
+        file_put_contents($this->getTempDirectory().'/.gitignore', '*'.PHP_EOL.'!.gitignore');
     }
-
 
     protected function initializeDirectory($directory)
     {
