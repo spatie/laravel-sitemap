@@ -24,7 +24,7 @@ class Url extends Tag
 
     public static function create(string $url): Url
     {
-        return static ($url);
+        return new static($url);
     }
 
     public function __construct(string $url)

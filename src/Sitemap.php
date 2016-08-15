@@ -7,7 +7,7 @@ class Sitemap
     /** @var array */
     protected $tags = [];
 
-    public function add(Tag $tag)
+    public function add($tag)
     {
         $this->tags[] = $tag;
     }
@@ -16,8 +16,8 @@ class Sitemap
     {
         $tags = $this->tags;
 
-        return view('laravel-sitemap:sitemap')
-            ->with(compact($tags))
+        return view('laravel-sitemap::sitemap')
+            ->with(compact('tags'))
             ->render();
     }
 
