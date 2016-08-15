@@ -86,8 +86,9 @@ class SitemapGenerator
      */
     protected function getObserver()
     {
-        $performAfterUrlHasBeenCrawled = function (CrawlerUrl $url) {
-            $sitemapUrl = ($this->hasCrawled)(Url::create((string)$url));
+        $performAfterUrlHasBeenCrawled = function (CrawlerUrl $crawlerUrl) {
+
+            $sitemapUrl = ($this->hasCrawled)(Url::create((string)$crawlerUrl));
 
             if ($sitemapUrl) {
                 $this->sitemap->add($sitemapUrl);

@@ -15,13 +15,13 @@ class DummyTest extends TestCase
 
         $sitemap->add(Url::create('https://spatie.be'));
 
-        $sitemap->render();
+        $sitemap ->writeToFile($this->getTempDirectory('dummy.xml'));
     }
 
     /** @test */
     public function it_crawls()
     {
         $sitemapGenerator = SitemapGenerator::create('https://spatie.be')
-            ->writeToFile($this->getTempDirectory('test.xml') );
+            ->writeToFile($this->getTempDirectory('test.xml'));
     }
 }

@@ -1,18 +1,18 @@
 <url>
-    @if (! empty($entry->url))
-        <loc>{{ $entry->url }}</loc>
+    @if (! empty($tag->url))
+        <loc>{{ $tag->url }}</loc>
     @endif
 
-    @if (! empty($entry->lastModificationDate))
-        <lastmod>{{ $entry->lastModificationDate->toAtomString() }}</lastmod>
+    @if (! empty($tag->lastModificationDate))
+        <lastmod>{{ $tag->lastModificationDate->toAtomString() }}</lastmod>
     @endif
 
-    @if (! empty($entry->changeFrequency))
-        <changefreq>{{ $entry->changeFrequency }}</changefreq>
+    @if (! empty($tag->changeFrequency))
+        <changefreq>{{ $tag->changeFrequency }}</changefreq>
     @endif
 
-    @if (! empty($entry->priority))
-        <priority>{{ $entry->priority }}</priority>
+    @if (! empty($tag->priority))
+        <priority>{{ $tag->priority }}</priority>
     @endif
 
 </url>
