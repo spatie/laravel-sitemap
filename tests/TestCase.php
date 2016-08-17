@@ -68,7 +68,7 @@ abstract class TestCase extends OrchestraTestCase
 
     protected function getContentOfStub($stubName): string
     {
-        return file_get_contents(__DIR__ . "/sitemapStubs/{$stubName}.xml");
+        return file_get_contents(__DIR__."/sitemapStubs/{$stubName}.xml");
     }
 
     protected function sanitizeHtmlWhitespace(string $subject) : string
@@ -78,5 +78,4 @@ abstract class TestCase extends OrchestraTestCase
 
         return preg_replace($find, $replace, $subject);
     }
-
 }

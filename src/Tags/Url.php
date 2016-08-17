@@ -87,5 +87,4 @@ class Url extends Tag
 
         return $this;
     }
-
 }
