@@ -7,7 +7,6 @@ use Spatie\Crawler\Url;
 
 class Profile implements CrawlProfile
 {
-
     public function __construct(callable $profile)
     {
         $this->profile = $profile;
