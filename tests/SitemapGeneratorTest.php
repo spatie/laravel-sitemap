@@ -14,7 +14,5 @@ class SitemapGeneratorTest extends TestCase
         SitemapGenerator::create('http://localhost:4020')->writeToFile($sitemapPath);
 
         $this->assertIsEqualToContentsOfStub('generator', file_get_contents($sitemapPath));
-
-
     }
 }
