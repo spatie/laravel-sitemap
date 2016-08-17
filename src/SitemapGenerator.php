@@ -2,6 +2,7 @@
 
 namespace Spatie\Sitemap;
 
+use Psr\Http\Message\ResponseInterface;
 use Spatie\Crawler\Crawler;
 use Spatie\Crawler\Url as CrawlerUrl;
 use Spatie\Sitemap\Crawler\Observer;
@@ -41,7 +42,7 @@ class SitemapGenerator
 
         $this->sitemap = new Sitemap();
 
-        $this->hasCrawled = function (Url $url) {
+        $this->hasCrawled = function (Url $url, ResponseInterface $response) {
             return $url;
         };
 
@@ -86,8 +87,8 @@ class SitemapGenerator
 
     protected function getObserver(): Observer
     {
-        $performAfterUrlHasBeenCrawled = function (CrawlerUrl $crawlerUrl) {
-            $sitemapUrl = ($this->hasCrawled)(Url::create((string) $crawlerUrl));
+        $performAfterUrlHasBeenCrawled = function (CrawlerUrl $crawlerUrl, ResponseInterface $response) {
+            $sitemapUrl = ($this->hasCrawled)(Url::create((string) $crawlerUrl), $response);
 
             if ($sitemapUrl) {
                 $this->sitemap->add($sitemapUrl);

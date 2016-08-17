@@ -35,7 +35,7 @@ class Observer implements CrawlObserver
      */
     public function hasBeenCrawled(Url $url, $response)
     {
-        ($this->hasCrawled)($url);
+        ($this->hasCrawled)($url, $response);
     }
 
     /**
