@@ -1,4 +1,4 @@
-# Create and generate sitemaps with ease [WIP]
+# Generate sitemaps with ease [WIP]
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/spatie/laravel-sitemap.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-sitemap)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
@@ -8,7 +8,15 @@
 [![StyleCI](https://styleci.io/repos/65549848/shield)](https://styleci.io/repos/65549848)
 [![Total Downloads](https://img.shields.io/packagist/dt/spatie/laravel-sitemap.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-sitemap)
 
-This package makes it easy to create a sitemap manually:
+This package can generate a sitemap without you having to add urls to it manually. This works by just crawling your entire site.
+
+```php
+use Spatie\Sitemap\Sitemap\SitemapGenerator;
+
+SitemapGenerator::create('https://spatie')->writeToFile($path);
+```
+
+You can also create your sitemap by hand:
 
 ```php
 use Spatie\Sitemap\Sitemap;
@@ -26,14 +34,7 @@ Sitemap::create()
    ->writeToFile($path);
 ```
 
-It can also generate a sitemap without you having to add urls to it manually. This works by just crawling your entire site.
 
-```php
-use Spatie\Sitemap\Sitemap\SitemapGenerator;
-
-//magic
-SitemapGenerator::create('https://spatie')->writeToFile($path);
-```
 
 Spatie is a webdesign agency based in Antwerp, Belgium. You'll find an overview of all our open source projects [on our website](https://spatie.be/opensource).
 
@@ -65,9 +66,9 @@ You must install the service provider
 
 ## Usage
 
-### Creating a sitemap
+### Generating a sitemap
 
-
+A sitemap contains ... wip
 
 ## Changelog
 
