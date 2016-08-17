@@ -42,7 +42,7 @@ class SitemapGenerator
 
         $this->sitemap = new Sitemap();
 
-        $this->hasCrawled = function (Url $url, ResponseInterface $response) {
+        $this->hasCrawled = function (Url $url, ResponseInterface $response = null) {
             return $url;
         };
 
@@ -87,7 +87,7 @@ class SitemapGenerator
 
     protected function getObserver(): Observer
     {
-        $performAfterUrlHasBeenCrawled = function (CrawlerUrl $crawlerUrl, ResponseInterface $response) {
+        $performAfterUrlHasBeenCrawled = function (CrawlerUrl $crawlerUrl, ResponseInterface $response = null) {
             $sitemapUrl = ($this->hasCrawled)(Url::create((string) $crawlerUrl), $response);
 
             if ($sitemapUrl) {
