@@ -14,9 +14,9 @@ class UrlTest extends TestCase
     {
         parent::setUp();
 
-        $this->time = Carbon::now();
+        $this->now = Carbon::now();
 
-        Carbon::setTestNow($this->time);
+        Carbon::setTestNow($this->now);
 
 
         $this->url = new Url('testUrl');
@@ -33,7 +33,7 @@ class UrlTest extends TestCase
     /** @test */
     public function it_will_use_the_current_date_time_as_the_default_for_last_modification_date()
     {
-        $this->assertEquals($this->time->toAtomString(), $this->url->lastModificationDate->toAtomString());
+        $this->assertEquals($this->now->toAtomString(), $this->url->lastModificationDate->toAtomString());
     }
 
     /** @test */
@@ -41,9 +41,23 @@ class UrlTest extends TestCase
     {
         $carbon = Carbon::now()->subDay();
 
-        $this->url->setLastModificationDate($carbon);
+        $this->url->lastModificationDate($carbon);
 
         $this->assertEquals($carbon->toAtomString(), $this->url->lastModificationDate->toAtomString());
+    }
+
+    public function priority_can_be_set()
+    {
+        $this->url->priority(0.1);
+
+        $this->assertEquals(0.1, $this->url->priority);
+    }
+
+    public function change_frequency_can_be_set()
+    {
+        $this->url->changeFrequency(Url::CHANGE_FREQUENCY_YEARLY);
+
+        $this->assertEquals(Url::CHANGE_FREQUENCY_YEARLY, $this->url->changeFrequency);
     }
 
     /** @test */

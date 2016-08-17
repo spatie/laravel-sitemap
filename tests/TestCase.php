@@ -10,15 +10,15 @@ use Spatie\Sitemap\SitemapServiceProvider;
 abstract class TestCase extends OrchestraTestCase
 {
     /** @var \Carbon\Carbon */
-    protected $time;
+    protected $now;
 
     public function setUp()
     {
         parent::setUp();
 
-        $this->time = Carbon::now();
+        $this->now = Carbon::create('2016', '1', '1', '0', '0', '0');
 
-        Carbon::setTestNow($this->time);
+        Carbon::setTestNow($this->now);
 
         $this->initializeTempDirectory();
     }
@@ -35,7 +35,7 @@ abstract class TestCase extends OrchestraTestCase
         ];
     }
 
-    public function getTempDirectory($path = '')
+    public function getTempDirectory($path = ''): string
     {
         if ($path) {
             $path = "/{$path}";
@@ -58,4 +58,25 @@ abstract class TestCase extends OrchestraTestCase
         }
         File::makeDirectory($directory);
     }
+
+    protected function assertIsEqualToContentsOfStub($stubName, $actualOutput)
+    {
+        $expectedOutput = $this->getContentOfStub($stubName);
+
+        $this->assertEquals($this->sanitizeHtmlWhitespace($expectedOutput), $this->sanitizeHtmlWhitespace($actualOutput));
+    }
+
+    protected function getContentOfStub($stubName): string
+    {
+        return file_get_contents(__DIR__ . "/sitemapStubs/{$stubName}.xml");
+    }
+
+    protected function sanitizeHtmlWhitespace(string $subject) : string
+    {
+        $find = ['/>\s+</', '/(^\s+)|(\s+$)/'];
+        $replace = ['><', ''];
+
+        return preg_replace($find, $replace, $subject);
+    }
+
 }

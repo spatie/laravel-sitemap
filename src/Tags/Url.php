@@ -40,10 +40,52 @@ class Url extends Tag
         $this->changeFrequency = static::CHANGE_FREQUENCY_DAILY;
     }
 
-    public function setLastModificationDate(Carbon $lastModificationDate)
+    /**
+     * @param string $url
+     *
+     * @return $this
+     */
+    public function url(string $url = '')
+    {
+        $this->url = $url;
+
+        return $this;
+    }
+
+    /**
+     * @param \Carbon\Carbon $lastModificationDate
+     *
+     * @return $this
+     */
+    public function lastModificationDate(Carbon $lastModificationDate)
     {
         $this->lastModificationDate = $lastModificationDate;
 
         return $this;
     }
+
+    /**
+     * @param string $changeFrequency
+     *
+     * @return $this
+     */
+    public function changeFrequency(string $changeFrequency)
+    {
+        $this->changeFrequency = $changeFrequency;
+
+        return $this;
+    }
+
+    /**
+     * @param float $priority
+     *
+     * @return $this
+     */
+    public function priority(float $priority)
+    {
+        $this->priority = $priority;
+
+        return $this;
+    }
+
 }
