@@ -9,8 +9,7 @@ use Spatie\Sitemap\SitemapServiceProvider;
 
 abstract class TestCase extends OrchestraTestCase
 {
-
-    /** @var \Carbon\Carbon  */
+    /** @var \Carbon\Carbon */
     protected $time;
 
     public function setUp()
