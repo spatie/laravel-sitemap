@@ -51,6 +51,4 @@ class UrlTest extends TestCase
     {
         $this->assertEquals('url', $this->url->getType());
     }
-
-
 }

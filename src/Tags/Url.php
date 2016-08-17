@@ -20,7 +20,7 @@ class Url extends Tag
     /** @var \Carbon\Carbon */
     public $lastModificationDate;
 
-    /** @var string  */
+    /** @var string */
     public $changeFrequency;
 
     /** @var float */
