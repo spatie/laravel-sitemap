@@ -68,7 +68,40 @@ You must install the service provider
 
 ### Generating a sitemap
 
-A sitemap contains ... wip
+
+The basic way to generate a sitemap is this
+
+```php
+SitemapGenerator::create('https://my-ite.com')->writeToFile($path)
+```
+
+This will crawl all links on the same domain as the `$url` given and put write them in a sitemap at `$path`.
+
+The sitemap will look something like this:
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+        <loc>https://my-ite.com'</loc>
+        <lastmod>2016-01-01T00:00:00+00:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https//my-site.com/page</loc>
+        <lastmod>2016-01-01T00:00:00+00:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    ...
+</urlset>
+```
+
+### Customizing the sitemap
+
+WIP
 
 ## Changelog
 
