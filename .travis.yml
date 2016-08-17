@@ -4,14 +4,19 @@ php:
   - 7.0
   - 7.1
 
+node_js:
+  - "5"
+
+before_script:
+  - ./tests/server/start_server.sh
+  - sleep 5 # give server some time to start
+  - travis_retry composer self-update
+  - travis_retry composer update ${COMPOSER_FLAGS} --no-interaction --prefer-source
+
 env:
   matrix:
     - COMPOSER_FLAGS="--prefer-lowest"
     - COMPOSER_FLAGS=""
-
-before_script:
-  - travis_retry composer self-update
-  - travis_retry composer update ${COMPOSER_FLAGS} --no-interaction --prefer-source
 
 script:
   - phpunit --coverage-text --coverage-clover=coverage.clover
