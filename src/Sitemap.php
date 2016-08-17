@@ -9,7 +9,6 @@ class Sitemap
     /** @var array */
     protected $tags = [];
 
-
     /**
      * @return static
      */
