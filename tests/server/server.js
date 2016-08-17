@@ -7,7 +7,7 @@ app.get('/', function (req, res) {
         return '<a href="' + statusCode + '">' + statusCode + '</a><br />';
     }).join('');
 
-    var html + '<a href="https://spatie.be">Do not index this link</a>'
+    html = html + '<a href="https://spatie.be">Do not index this link</a>'
 
     console.log('Visit on /');
 
@@ -20,7 +20,7 @@ app.get('/:page', function (req, res) {
 
     console.log('Visit on ' + page);
 
-    var html = 'You are on page' + page + '. Here is <a href="/page4">another one</a>'
+    var html = 'You are on ' + page + '. Here is <a href="/page4">another one</a>'
 
     res.writeHead(200, { 'Content-Type': 'text/html' });
     res.end(html);

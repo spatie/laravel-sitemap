@@ -5,13 +5,9 @@ namespace Spatie\Sitemap;
 use Spatie\Crawler\Crawler;
 use Spatie\Crawler\Url as CrawlerUrl;
 use Spatie\Sitemap\Crawler\Observer;
+use Spatie\Sitemap\Crawler\Profile;
 use Spatie\Sitemap\Tags\Url;
 
-/**
- * 	$siteMap = SitemapGenerator::create('https://spatie.be')
- * ->hasCrawled(SitemapProfile::class) // or closure
- * ->writeToFile($path);.
- */
 class SitemapGenerator
 {
     /** @var string */
@@ -22,6 +18,9 @@ class SitemapGenerator
 
     /** @var callable */
     protected $hasCrawled;
+
+    /** @var callable */
+    protected $crawlProfile;
 
     /** @var \Spatie\Sitemap\Sitemap */
     protected $sitemap;
@@ -45,6 +44,10 @@ class SitemapGenerator
         $this->hasCrawled = function (Url $url) {
             return $url;
         };
+
+        $this->crawlProfile = function (CrawlerUrl $url) {
+            return $url->host == CrawlerUrl::create($this->url)->host;
+        };
     }
 
     public function setUrl(string $url)
@@ -67,6 +70,7 @@ class SitemapGenerator
     public function getSitemap()
     {
         $this->crawler
+            ->setCrawlProfile($this->getProfile())
             ->setCrawlObserver($this->getObserver())
             ->startCrawling($this->url);
 
@@ -80,10 +84,7 @@ class SitemapGenerator
         return $this;
     }
 
-    /**
-     * @return \Spatie\Sitemap\Crawler\Observer
-     */
-    protected function getObserver()
+    protected function getObserver(): Observer
     {
         $performAfterUrlHasBeenCrawled = function (CrawlerUrl $crawlerUrl) {
             $sitemapUrl = ($this->hasCrawled)(Url::create((string) $crawlerUrl));
@@ -94,5 +95,10 @@ class SitemapGenerator
         };
 
         return new Observer($performAfterUrlHasBeenCrawled);
+    }
+
+    protected function getProfile(): Profile
+    {
+        return new Profile($this->crawlProfile);
     }
 }
