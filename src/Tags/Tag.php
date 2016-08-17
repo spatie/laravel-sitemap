@@ -6,6 +6,6 @@ abstract class Tag
 {
     public function getType(): string
     {
-        return class_basename(static::class);
+        return strtolower(class_basename(static::class));
     }
 }

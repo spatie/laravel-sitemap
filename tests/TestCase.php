@@ -2,15 +2,24 @@
 
 namespace Spatie\Sitemap\Test;
 
+use Carbon\Carbon;
 use File;
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
 use Spatie\Sitemap\SitemapServiceProvider;
 
 abstract class TestCase extends OrchestraTestCase
 {
+
+    /** @var \Carbon\Carbon  */
+    protected $time;
+
     public function setUp()
     {
         parent::setUp();
+
+        $this->time = Carbon::now();
+
+        Carbon::setTestNow($this->time);
 
         $this->initializeTempDirectory();
     }

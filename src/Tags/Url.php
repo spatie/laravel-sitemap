@@ -14,12 +14,16 @@ class Url extends Tag
     const CHANGE_FREQUENCY_YEARLY = 'yearly';
     const CHANGE_FREQUENCY_NEVER = 'never';
 
+    /** @var string */
     public $url = '';
 
+    /** @var \Carbon\Carbon */
     public $lastModificationDate;
 
+    /** @var string  */
     public $changeFrequency;
 
+    /** @var float */
     public $priority = 0.8;
 
     public static function create(string $url): Url
