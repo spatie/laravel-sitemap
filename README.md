@@ -8,7 +8,32 @@
 [![StyleCI](https://styleci.io/repos/65549848/shield)](https://styleci.io/repos/65549848)
 [![Total Downloads](https://img.shields.io/packagist/dt/spatie/laravel-sitemap.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-sitemap)
 
-This is where your description should go. Try and limit it to a paragraph or two, and maybe throw in a mention of what PSRs you support to avoid any confusion with users and contributors.
+This package makes it easy to create a sitemap manually:
+
+```php
+use Spatie\Sitemap\Sitemap;
+use Spatie\Tags\Url;
+
+Sitemap::create()
+
+    ->add(Url::create('/home')
+        ->lastModificationDate($this->now->subDay())
+        ->changeFrequency(Url::CHANGE_FREQUENCY_YEARLY)
+        ->priority(0.1)
+        
+   ->add(...)
+   
+   ->writeToFile($path);
+```
+
+It can also generate a sitemap without you having to add urls to it manually. This works by just crawling your entire site.
+
+```php
+use Spatie\Sitemap\Sitemap\SitemapGenerator;
+
+//magic
+SitemapGenerator::create('https://spatie')->writeToFile($path);
+```
 
 Spatie is a webdesign agency based in Antwerp, Belgium. You'll find an overview of all our open source projects [on our website](https://spatie.be/opensource).
 
@@ -28,12 +53,21 @@ You can install the package via composer:
 composer require spatie/laravel-sitemap
 ```
 
+You must install the service provider
+
+```php
+// config/app.php
+'providers' => [
+    ...
+    Spatie\Sitemap\Sitemap::class,
+];
+```
+
 ## Usage
 
-``` php
-$skeleton = new Spatie\Skeleton();
-echo $skeleton->echoPhrase('Hello, Spatie!');
-```
+### Creating a sitemap
+
+
 
 ## Changelog
 
