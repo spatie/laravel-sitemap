@@ -6,7 +6,6 @@ use Spatie\Sitemap\SitemapGenerator;
 
 class SitemapGeneratorTest extends TestCase
 {
-
     /** @var string */
     protected $appUrl = 'http://localhost:4020';
 
@@ -17,7 +16,5 @@ class SitemapGeneratorTest extends TestCase
         SitemapGenerator::create($this->appUrl)->writeToFile($sitemapPath);
 
         $this->assertIsEqualToContentsOfStub('generator.xml', file_get_contents($sitemapPath));
-
-
     }
 }
