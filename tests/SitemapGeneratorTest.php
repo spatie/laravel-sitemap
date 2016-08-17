@@ -23,7 +23,7 @@ class SitemapGeneratorTest extends TestCase
         $sitemapPath = $this->getTempDirectory('test.xml');
 
         SitemapGenerator::create('http://localhost:4020')
-            ->hasCrawled(function(Url $url) {
+            ->hasCrawled(function (Url $url) {
                 if ($url->url === 'http://localhost:4020/page3') {
                     $url->priority(0.6);
                 }
@@ -41,7 +41,7 @@ class SitemapGeneratorTest extends TestCase
         $sitemapPath = $this->getTempDirectory('test.xml');
 
         SitemapGenerator::create('http://localhost:4020')
-            ->hasCrawled(function(Url $url) {
+            ->hasCrawled(function (Url $url) {
                 if ($url->url === 'http://localhost:4020/page3') {
                     return;
                 }
