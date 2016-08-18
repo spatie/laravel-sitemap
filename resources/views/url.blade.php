@@ -14,5 +14,4 @@
     @if (! empty($tag->priority))
         <priority>{{ $tag->priority }}</priority>
     @endif
-
 </url>
