@@ -18,10 +18,10 @@ class SitemapGenerator
     protected $crawler;
 
     /** @var callable */
-    protected $hasCrawled;
+    protected $shouldCrawl;
 
     /** @var callable */
-    protected $crawlProfile;
+    protected $hasCrawled;
 
     /** @var \Spatie\Sitemap\Sitemap */
     protected $sitemap;
@@ -42,18 +42,25 @@ class SitemapGenerator
 
         $this->sitemap = new Sitemap();
 
-        $this->hasCrawled = function (Url $url, ResponseInterface $response = null) {
-            return $url;
+        $this->shouldCrawl = function (CrawlerUrl $url) {
+            return $url->host === CrawlerUrl::create($this->url)->host;
         };
 
-        $this->crawlProfile = function (CrawlerUrl $url) {
-            return $url->host === CrawlerUrl::create($this->url)->host;
+        $this->hasCrawled = function (Url $url, ResponseInterface $response = null) {
+            return $url;
         };
     }
 
     public function setUrl(string $url)
     {
         $this->url = $url;
+
+        return $this;
+    }
+
+    public function shouldCrawl(callable $shouldCrawl)
+    {
+        $this->shouldCrawl = $shouldCrawl;
 
         return $this;
     }
@@ -71,21 +78,26 @@ class SitemapGenerator
     public function getSitemap()
     {
         $this->crawler
-            ->setCrawlProfile($this->getProfile())
-            ->setCrawlObserver($this->getObserver())
+            ->setCrawlProfile($this->getCrawlProfile())
+            ->setCrawlObserver($this->getCrawlObserver())
             ->startCrawling($this->url);
 
         return $this->sitemap;
     }
 
-    public function writeToFile($path)
+    public function writeToFile(string $path)
     {
         $this->getSitemap()->writeToFile($path);
 
         return $this;
     }
 
-    protected function getObserver(): Observer
+    protected function getCrawlProfile(): Profile
+    {
+        return new Profile($this->shouldCrawl);
+    }
+
+    protected function getCrawlObserver(): Observer
     {
         $performAfterUrlHasBeenCrawled = function (CrawlerUrl $crawlerUrl, ResponseInterface $response = null) {
             $sitemapUrl = ($this->hasCrawled)(Url::create((string) $crawlerUrl), $response);
@@ -96,10 +108,5 @@ class SitemapGenerator
         };
 
         return new Observer($performAfterUrlHasBeenCrawled);
-    }
-
-    protected function getProfile(): Profile
-    {
-        return new Profile($this->crawlProfile);
     }
 }
