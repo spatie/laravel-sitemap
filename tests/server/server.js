@@ -3,8 +3,8 @@
 var app = require('express')();
 
 app.get('/', function (req, res) {
-    var html = ['page1', 'page2', 'page3'].map(function (statusCode) {
-        return '<a href="' + statusCode + '">' + statusCode + '</a><br />';
+    var html = ['page1', 'page2', 'page3'].map(function (pageName) {
+        return '<a href="' + pageName + '">' + pageName + '</a><br />';
     }).join('');
 
     html = html + '<a href="https://spatie.be">Do not index this link</a>'
