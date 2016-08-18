@@ -1,4 +1,4 @@
-# Create and generate sitemaps with ease [WIP]
+# Generate sitemaps with ease [WIP]
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/spatie/laravel-sitemap.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-sitemap)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
@@ -8,7 +8,33 @@
 [![StyleCI](https://styleci.io/repos/65549848/shield)](https://styleci.io/repos/65549848)
 [![Total Downloads](https://img.shields.io/packagist/dt/spatie/laravel-sitemap.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-sitemap)
 
-This is where your description should go. Try and limit it to a paragraph or two, and maybe throw in a mention of what PSRs you support to avoid any confusion with users and contributors.
+This package can generate a sitemap without you having to add urls to it manually. This works by just crawling your entire site.
+
+```php
+use Spatie\Sitemap\Sitemap\SitemapGenerator;
+
+SitemapGenerator::create('https://example.com')->writeToFile($path);
+```
+
+You can also create your sitemap by hand:
+
+```php
+use Spatie\Sitemap\Sitemap;
+use Spatie\Tags\Url;
+
+Sitemap::create()
+
+    ->add(Url::create('/home')
+        ->lastModificationDate($this->now->subDay())
+        ->changeFrequency(Url::CHANGE_FREQUENCY_YEARLY)
+        ->priority(0.1)
+        
+   ->add(...)
+   
+   ->writeToFile($path);
+```
+
+
 
 Spatie is a webdesign agency based in Antwerp, Belgium. You'll find an overview of all our open source projects [on our website](https://spatie.be/opensource).
 
@@ -28,12 +54,54 @@ You can install the package via composer:
 composer require spatie/laravel-sitemap
 ```
 
+You must install the service provider
+
+```php
+// config/app.php
+'providers' => [
+    ...
+    Spatie\Sitemap\Sitemap::class,
+];
+```
+
 ## Usage
 
-``` php
-$skeleton = new Spatie\Skeleton();
-echo $skeleton->echoPhrase('Hello, Spatie!');
+### Generating a sitemap
+
+
+The basic way to generate a sitemap is this
+
+```php
+SitemapGenerator::create('https://example.com')->writeToFile($path)
 ```
+
+This will crawl all links on the same domain as the `$url` given and put write them in a sitemap at `$path`.
+
+The sitemap will look something like this:
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+        <loc>https://example.com</loc>
+        <lastmod>2016-01-01T00:00:00+00:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://example.com/page</loc>
+        <lastmod>2016-01-01T00:00:00+00:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    ...
+</urlset>
+```
+
+### Customizing the sitemap
+
+WIP
 
 ## Changelog
 

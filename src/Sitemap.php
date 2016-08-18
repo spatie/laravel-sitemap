@@ -9,6 +9,15 @@ class Sitemap
     /** @var array */
     protected $tags = [];
 
+
+    /**
+     * @return static
+     */
+    public static function create()
+    {
+        return new static();
+    }
+
     /**
      * @param string|\Spatie\Sitemap\Tags\Tag $tag
      *

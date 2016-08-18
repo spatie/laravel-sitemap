@@ -19,6 +19,14 @@ class SitemapTest extends TestCase
     }
 
     /** @test */
+    public function it_provides_a_create_method()
+    {
+        $sitemap = Sitemap::create();
+
+        $this->assertInstanceOf(Sitemap::class, $sitemap);
+    }
+
+    /** @test */
     public function it_can_render_an_empty_sitemap()
     {
         $this->assertIsEqualToContentsOfStub('empty', $this->sitemap->render());
