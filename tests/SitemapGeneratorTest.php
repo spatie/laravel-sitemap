@@ -61,7 +61,7 @@ class SitemapGeneratorTest extends TestCase
 
         SitemapGenerator::create('http://localhost:4020')
             ->shouldCrawl(function (CrawlerUrl $url) {
-               return $url->segment(1) !== 'page3';
+                return $url->segment(1) !== 'page3';
             })
             ->writeToFile($sitemapPath);
 

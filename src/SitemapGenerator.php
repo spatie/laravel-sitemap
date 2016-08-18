@@ -94,7 +94,7 @@ class SitemapGenerator
 
     protected function getCrawlProfile(): Profile
     {
-        $shouldCrawl = function(CrawlerUrl $url) {
+        $shouldCrawl = function (CrawlerUrl $url) {
             if ($url->host !== CrawlerUrl::create($this->url)->host) {
                 return false;
             }
