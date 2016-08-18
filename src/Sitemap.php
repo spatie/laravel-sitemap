@@ -2,6 +2,7 @@
 
 namespace Spatie\Sitemap;
 
+use Spatie\Sitemap\Tags\Tag;
 use Spatie\Sitemap\Tags\Url;
 
 class Sitemap
@@ -31,6 +32,23 @@ class Sitemap
         $this->tags[] = $tag;
 
         return $this;
+    }
+
+    /**
+     * @param string $url
+     *
+     * @return \Spatie\Sitemap\Tags\Url|null
+     */
+    public function getUrl(string $url)
+    {
+        return collect($this->tags)->first(function(Tag $tag) use ($url) {
+            return $tag->getType() === 'url' && $tag->url;
+        });
+    }
+
+    public function hasUrl(string $url): bool
+    {
+        return (bool)$this->getUrl($url);
     }
 
     public function render(): string

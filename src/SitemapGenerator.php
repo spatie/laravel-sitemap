@@ -11,8 +11,11 @@ use Spatie\Sitemap\Tags\Url;
 
 class SitemapGenerator
 {
+    /** @var \Spatie\Sitemap\Sitemap */
+    protected $sitemap;
+
     /** @var string */
-    protected $url = '';
+    protected $urlToBeCrawled = '';
 
     /** @var \Spatie\Crawler\Crawler */
     protected $crawler;
@@ -23,17 +26,14 @@ class SitemapGenerator
     /** @var callable */
     protected $hasCrawled;
 
-    /** @var \Spatie\Sitemap\Sitemap */
-    protected $sitemap;
-
     /**
-     * @param string $url
+     * @param string $urlToBeCrawled
      *
      * @return static
      */
-    public static function create(string $url)
+    public static function create(string $urlToBeCrawled)
     {
-        return app(static::class)->setUrl($url);
+        return app(static::class)->setUrl($urlToBeCrawled);
     }
 
     public function __construct(Crawler $crawler)
@@ -51,9 +51,9 @@ class SitemapGenerator
         };
     }
 
-    public function setUrl(string $url)
+    public function setUrl(string $urlToBeCrawled)
     {
-        $this->url = $url;
+        $this->urlToBeCrawled = $urlToBeCrawled;
 
         return $this;
     }
@@ -72,19 +72,21 @@ class SitemapGenerator
         return $this;
     }
 
-    /**
-     * @return \Spatie\Sitemap\Sitemap
-     */
-    public function getSitemap()
+    public function getSitemap(): Sitemap
     {
         $this->crawler
             ->setCrawlProfile($this->getCrawlProfile())
             ->setCrawlObserver($this->getCrawlObserver())
-            ->startCrawling($this->url);
+            ->startCrawling($this->urlToBeCrawled);
 
         return $this->sitemap;
     }
 
+    /**
+     * @param string $path
+     *
+     * @return $this
+     */
     public function writeToFile(string $path)
     {
         $this->getSitemap()->writeToFile($path);
@@ -95,7 +97,7 @@ class SitemapGenerator
     protected function getCrawlProfile(): Profile
     {
         $shouldCrawl = function (CrawlerUrl $url) {
-            if ($url->host !== CrawlerUrl::create($this->url)->host) {
+            if ($url->host !== CrawlerUrl::create($this->urlToBeCrawled)->host) {
                 return false;
             }
 
