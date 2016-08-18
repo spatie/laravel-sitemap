@@ -41,14 +41,14 @@ class Sitemap
      */
     public function getUrl(string $url)
     {
-        return collect($this->tags)->first(function(Tag $tag) use ($url) {
+        return collect($this->tags)->first(function (Tag $tag) use ($url) {
             return $tag->getType() === 'url' && $tag->url;
         });
     }
 
     public function hasUrl(string $url): bool
     {
-        return (bool)$this->getUrl($url);
+        return (bool) $this->getUrl($url);
     }
 
     public function render(): string

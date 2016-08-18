@@ -68,7 +68,6 @@ class SitemapTest extends TestCase
         $this->assertIsEqualToContentsOfStub('multipleUrls', $this->sitemap->render());
     }
 
-
     /** @test */
     public function it_can_render_an_url_with_all_its_set_properties()
     {
