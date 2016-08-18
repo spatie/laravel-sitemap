@@ -42,6 +42,11 @@ class Sitemap
             ->render();
     }
 
+    /**
+     * @param string $path
+     *
+     * @return $this
+     */
     public function writeToFile(string $path)
     {
         file_put_contents($path, $this->render());

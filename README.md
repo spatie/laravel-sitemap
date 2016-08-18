@@ -68,7 +68,6 @@ You must install the service provider
 
 ### Generating a sitemap
 
-
 The basic way to generate a sitemap is this
 
 ```php
@@ -101,7 +100,48 @@ The sitemap will look something like this:
 
 ### Customizing the sitemap
 
-WIP
+### Changing properties
+
+Let's say you want to change the `lastmod`, `changefreq` and `priority` of the contact page in your sitemap. Here's how to do that.
+
+```php
+use Spatie\Sitemap\SitemapGenerator;
+use Spatie\Tags\Url;
+
+SitemapGenerator::create('http://example.com')
+   ->hasCrawled(function (Url $url) {
+       if ($url->segment(1) === 'contact') {
+           $url->setPriority(0.9)
+               ->setLastModifiedDate
+               ->setLastModificationDate(Carbon::create('2016', '1', '1'));
+       }
+
+       return $url;
+   })
+   ->writeToFile($sitemapPath)
+```
+
+### Leaving out some pages
+
+If you don't want a crawled link to appear in the sitemap, just don't return it.
+
+```php
+use Spatie\Sitemap\SitemapGenerator;
+use Spatie\Tags\Url;
+
+SitemapGenerator::create('http://example.com')
+   ->hasCrawled(function (Url $url) {
+   
+       if ($url->segment(1) === 'contact') {
+           return;
+       }
+
+       return $url;
+   })
+   ->writeToFile($sitemapPath)
+```
+
+
 
 ## Changelog
 

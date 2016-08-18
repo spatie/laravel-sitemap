@@ -4,7 +4,7 @@
     @endif
 
     @if (! empty($tag->lastModificationDate))
-        <lastmod>{{ $tag->lastModificationDate->toAtomString() }}</lastmod>
+        <lastmod>{{ $tag->lastModificationDate->format(DateTime::ATOM) }}</lastmod>
     @endif
 
     @if (! empty($tag->changeFrequency))

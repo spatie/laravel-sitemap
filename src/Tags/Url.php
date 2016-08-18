@@ -3,6 +3,7 @@
 namespace Spatie\Sitemap\Tags;
 
 use Carbon\Carbon;
+use DateTime;
 
 class Url extends Tag
 {
@@ -53,11 +54,11 @@ class Url extends Tag
     }
 
     /**
-     * @param \Carbon\Carbon $lastModificationDate
+     * @param \DateTime $lastModificationDate
      *
      * @return $this
      */
-    public function setLastModificationDate(Carbon $lastModificationDate)
+    public function setLastModificationDate(DateTime $lastModificationDate)
     {
         $this->lastModificationDate = $lastModificationDate;
 
