@@ -33,7 +33,7 @@ class SitemapGenerator
      */
     public static function create(string $url)
     {
-        return app(self::class)->setUrl($url);
+        return app(static::class)->setUrl($url);
     }
 
     public function __construct(Crawler $crawler)
@@ -47,7 +47,7 @@ class SitemapGenerator
         };
 
         $this->crawlProfile = function (CrawlerUrl $url) {
-            return $url->host == CrawlerUrl::create($this->url)->host;
+            return $url->host === CrawlerUrl::create($this->url)->host;
         };
     }
 
