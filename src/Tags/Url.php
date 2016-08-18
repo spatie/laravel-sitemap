@@ -45,7 +45,7 @@ class Url extends Tag
      *
      * @return $this
      */
-    public function url(string $url = '')
+    public function setUrl(string $url = '')
     {
         $this->url = $url;
 
@@ -57,7 +57,7 @@ class Url extends Tag
      *
      * @return $this
      */
-    public function lastModificationDate(Carbon $lastModificationDate)
+    public function setLastModificationDate(Carbon $lastModificationDate)
     {
         $this->lastModificationDate = $lastModificationDate;
 
@@ -69,7 +69,7 @@ class Url extends Tag
      *
      * @return $this
      */
-    public function changeFrequency(string $changeFrequency)
+    public function setChangeFrequency(string $changeFrequency)
     {
         $this->changeFrequency = $changeFrequency;
 
@@ -81,10 +81,46 @@ class Url extends Tag
      *
      * @return $this
      */
-    public function priority(float $priority)
+    public function setPriority(float $priority)
     {
         $this->priority = $priority;
 
         return $this;
+    }
+
+    public function path(): string
+    {
+        return parse_url($this->url)['path'] ?? '';
+    }
+
+    /**
+     * @param int|null $index
+     *
+     * @return array|null|string
+     */
+    public function segments(int $index = null)
+    {
+        $segments = collect(explode('/', $this->path()))
+            ->filter(function ($value) {
+                return $value !== '';
+            })
+            ->values()
+            ->toArray();
+
+        if (! is_null($index)) {
+            return $this->segment($index);
+        }
+
+        return $segments;
+    }
+
+    /**
+     * @param int $index
+     *
+     * @return string|null
+     */
+    public function segment(int $index)
+    {
+        return $this->segments()[$index - 1] ?? null;
     }
 }

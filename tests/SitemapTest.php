@@ -73,9 +73,9 @@ class SitemapTest extends TestCase
     {
         $this->sitemap
             ->add(Url::create('/home')
-                ->lastModificationDate($this->now->subDay())
-                ->changeFrequency(Url::CHANGE_FREQUENCY_YEARLY)
-                ->priority(0.1)
+                ->setLastModificationDate($this->now->subDay())
+                ->setChangeFrequency(Url::CHANGE_FREQUENCY_YEARLY)
+                ->setPriority(0.1)
             );
 
         $this->assertIsEqualToContentsOfStub('customUrl', $this->sitemap->render());

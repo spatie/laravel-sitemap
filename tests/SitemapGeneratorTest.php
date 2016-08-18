@@ -24,8 +24,8 @@ class SitemapGeneratorTest extends TestCase
 
         SitemapGenerator::create('http://localhost:4020')
             ->hasCrawled(function (Url $url) {
-                if ($url->url === 'http://localhost:4020/page3') {
-                    $url->priority(0.6);
+                if ($url->segment(1) === 'page3') {
+                    $url->setPriority(0.6);
                 }
 
                 return $url;
