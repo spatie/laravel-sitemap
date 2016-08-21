@@ -121,7 +121,7 @@ SitemapGenerator::create('http://example.com')
    ->writeToFile($sitemapPath)
 ```
 
-### Leaving out some pages
+#### Leaving out some pages
 
 If you don't want a crawled link to appear in the sitemap, just don't return it.
 
