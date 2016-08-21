@@ -42,10 +42,6 @@ class SitemapGenerator
 
         $this->sitemap = new Sitemap();
 
-        $this->shouldCrawl = function (CrawlerUrl $url) {
-            return true;
-        };
-
         $this->hasCrawled = function (Url $url, ResponseInterface $response = null) {
             return $url;
         };
@@ -99,6 +95,10 @@ class SitemapGenerator
         $shouldCrawl = function (CrawlerUrl $url) {
             if ($url->host !== CrawlerUrl::create($this->urlToBeCrawled)->host) {
                 return false;
+            }
+
+            if (! is_callable($this->shouldCrawl)) {
+                return true;
             }
 
             return ($this->shouldCrawl)($url);
