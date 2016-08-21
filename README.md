@@ -122,7 +122,7 @@ SitemapGenerator::create('http://example.com')
 
 #### Leaving out some links
 
-If you don't want a crawled link to appear in the sitemap, just don't return it.
+If you don't want a crawled link to appear in the sitemap, just don't return it in the callable you pass to `hasCrawled `.
 
 ```php
 use Spatie\Sitemap\SitemapGenerator;
