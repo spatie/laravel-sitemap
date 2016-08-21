@@ -137,7 +137,7 @@ SitemapGenerator::create('http://example.com')
 
        return $url;
    })
-   ->writeToFile($sitemapPath)
+   ->writeToFile($sitemapPath);
 ```
 
 You can also instruct the underlying crawler to not crawl some pages by passing a `callable` to `shouldCrawl`
