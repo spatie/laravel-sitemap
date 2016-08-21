@@ -100,7 +100,7 @@ The sitemap will look something like this:
 
 ### Customizing the sitemap
 
-### Changing properties
+#### Changing properties
 
 Let's say you want to change the `lastmod`, `changefreq` and `priority` of the contact page in your sitemap. Here's how to do that.
 
