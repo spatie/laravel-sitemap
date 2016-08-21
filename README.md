@@ -167,7 +167,7 @@ Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recen
 First start the test server in a seperate terminal session:
 
 ``` bash
-cd  tests/server
+cd tests/server
 ./start_server.sh
 ```
 

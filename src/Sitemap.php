@@ -41,7 +41,7 @@ class Sitemap
      */
     public function getUrl(string $url)
     {
-        return collect($this->tags)->first(function (Tag $tag) use ($url) {
+        return collect($this->tags)->first(function ($index, Tag $tag) use ($url) {
             return $tag->getType() === 'url' && $tag->url;
         });
     }

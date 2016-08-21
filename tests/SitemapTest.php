@@ -80,4 +80,33 @@ class SitemapTest extends TestCase
 
         $this->assertIsEqualToContentsOfStub('customUrl', $this->sitemap->render());
     }
+
+    /** @test */
+    public function it_can_determine_if_it_contains_a_given_url()
+    {
+        $this->sitemap
+            ->add('/page1')
+            ->add('/page2')
+            ->add('/page3');
+
+        $this->assertTrue($this->sitemap->hasUrl('/page1'));
+        $this->assertTrue($this->sitemap->hasUrl('/page4'));
+    }
+
+    /** @test */
+    public function it_can_get_a_specific_url()
+    {
+        $this->sitemap->add('/page1');
+
+        $url = $this->sitemap->getUrl('/page1');
+
+        $this->assertInstanceOf(Url::class, $url);
+        $this->assertSame('/page1', $url->url);
+    }
+
+    /** @test */
+    public function it_returns_null_when_getting_a_non_existing_url()
+    {
+        $this->assertNull($this->sitemap->getUrl('/page1'));
+    }
 }
