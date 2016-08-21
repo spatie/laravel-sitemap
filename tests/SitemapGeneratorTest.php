@@ -67,5 +67,4 @@ class SitemapGeneratorTest extends TestCase
 
         $this->assertIsEqualToContentsOfStub('dontCrawlWhileGenerating', file_get_contents($sitemapPath));
     }
-
 }
