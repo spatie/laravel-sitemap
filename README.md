@@ -117,7 +117,7 @@ SitemapGenerator::create('http://example.com')
 
        return $url;
    })
-   ->writeToFile($sitemapPath)
+   ->writeToFile($sitemapPath);
 ```
 
 #### Leaving out some links
