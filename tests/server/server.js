@@ -22,6 +22,10 @@ app.get('/:page', function (req, res) {
 
     var html = 'You are on ' + page + '. Here is <a href="/page4">another one</a>'
 
+    if (page == 'page3') {
+        html = html + 'This link only appears on page3: <a href="/page5">ooo page 5</a>'
+    }
+
     res.writeHead(200, { 'Content-Type': 'text/html' });
     res.end(html);
 });

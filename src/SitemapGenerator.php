@@ -101,7 +101,7 @@ class SitemapGenerator
                 return false;
             }
 
-            return $this->shouldCrawl;
+            return ($this->shouldCrawl)($url);
         };
 
         return new Profile($shouldCrawl);

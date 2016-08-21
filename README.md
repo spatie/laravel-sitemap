@@ -141,7 +141,22 @@ SitemapGenerator::create('http://example.com')
    ->writeToFile($sitemapPath)
 ```
 
+You can also instruct the underlying crawler to not crawl some pages by passing a `callable` to `shouldCrawl`
 
+```php
+use Spatie\Sitemap\SitemapGenerator;
+use Spatie\Crawler\Url;
+
+SitemapGenerator::create('http://example.com')
+   ->shouldCrawl(function (Url $url) {
+   
+       // all pages while be crawled, except the contact page.
+       // if there are some links are present only on the contact page
+       // they won't be added to the sitemap
+       return $url->segment(1) !== 'contact';
+   })
+   ->writeToFile($sitemapPath)
+```
 
 ## Changelog
 
@@ -156,7 +171,8 @@ cd  tests/server
 ./start_server.sh
 ```
 
-With the server running you can execute the tests
+With the server running you can execute the tests:
+
 ``` bash
 $ composer test
 ```
