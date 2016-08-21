@@ -98,7 +98,7 @@ The sitemap will look something like this:
 </urlset>
 ```
 
-### Customizing the sitemap
+### Customizing sitemap generator
 
 #### Changing properties
 
@@ -112,7 +112,6 @@ SitemapGenerator::create('http://example.com')
    ->hasCrawled(function (Url $url) {
        if ($url->segment(1) === 'contact') {
            $url->setPriority(0.9)
-               ->setLastModifiedDate
                ->setLastModificationDate(Carbon::create('2016', '1', '1'));
        }
 
@@ -121,7 +120,7 @@ SitemapGenerator::create('http://example.com')
    ->writeToFile($sitemapPath)
 ```
 
-#### Leaving out some pages
+#### Leaving out some links
 
 If you don't want a crawled link to appear in the sitemap, just don't return it.
 
@@ -158,6 +157,33 @@ SitemapGenerator::create('http://example.com')
    ->writeToFile($sitemapPath)
 ```
 
+#### Manually adding some links
+
+You can manually add some links to a sitemap. Here's an example on how to do that:
+
+```php
+use Spatie\Sitemap\SitemapGenerator;
+use Spatie\Tags\Url;
+
+SitemapGenerator::create('http://example.com')
+    ->getSitemap()
+    // here we add one extra link, but you can add as many as you'd like
+    ->add(Url::create('/extra-page')->setPriority(0.5))
+    ->writeToFile($sitemapPath);
+```
+
+### Manually creating a sitemap
+
+You can create a sitemap entirely by hand.
+
+```php 
+Sitemap::create()
+   ->add('/page1')
+   ->add('/page2')
+   ->add(Url::create('/page3')->setLastModificationDate(Carbon::create('2016', '1', '1')))
+   ->writeToFile($sitemapPath);
+```
+  
 ## Changelog
 
 Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.
