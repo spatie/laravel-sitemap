@@ -8,7 +8,7 @@
 [![StyleCI](https://styleci.io/repos/65549848/shield)](https://styleci.io/repos/65549848)
 [![Total Downloads](https://img.shields.io/packagist/dt/spatie/laravel-sitemap.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-sitemap)
 
-This package can generate a sitemap without you having to add urls to it manually. This works by just crawling your entire site.
+This package can generate a sitemap without you having to add urls manually. This works by just crawling your entire site.
 
 ```php
 use Spatie\Sitemap\Sitemap\SitemapGenerator;
@@ -16,27 +16,25 @@ use Spatie\Sitemap\Sitemap\SitemapGenerator;
 SitemapGenerator::create('https://example.com')->writeToFile($path);
 ```
 
-You can also create your sitemap by hand:
+You can also create your sitemap manually:
 
 ```php
+use Carbon\Carbon;
 use Spatie\Sitemap\Sitemap;
 use Spatie\Tags\Url;
 
 Sitemap::create()
 
     ->add(Url::create('/home')
-        ->lastModificationDate($this->now->subDay())
+        ->lastModificationDate(Carbon::yesterday())
         ->changeFrequency(Url::CHANGE_FREQUENCY_YEARLY)
-        ->priority(0.1)
+        ->priority(0.1))
         
    ->add(...)
    
    ->writeToFile($path);
 ```
 
-
-
-Spatie is a webdesign agency based in Antwerp, Belgium. You'll find an overview of all our open source projects [on our website](https://spatie.be/opensource).
 
 ## Postcardware
 
@@ -68,15 +66,14 @@ You must install the service provider
 
 ### Generating a sitemap
 
-The basic way to generate a sitemap is this
+The easiest way is to crawl the given domain and generate a sitemap with all found links.
+The destination of the sitemap should be specified by `$path`.
 
 ```php
-SitemapGenerator::create('https://example.com')->writeToFile($path)
+SitemapGenerator::create('https://example.com')->writeToFile($path);
 ```
 
-This will crawl all links on the same domain as the `$url` given and put write them in a sitemap at `$path`.
-
-The sitemap will look something like this:
+The generated sitemap will look similiar to this:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -98,17 +95,18 @@ The sitemap will look something like this:
 </urlset>
 ```
 
-### Customizing sitemap generator
+### Customizing the sitemap generator
 
 #### Changing properties
 
-Let's say you want to change the `lastmod`, `changefreq` and `priority` of the contact page in your sitemap. Here's how to do that.
+To change the `lastmod`, `changefreq` and `priority` of the contact page:
 
 ```php
+use Carbon\Carbon;
 use Spatie\Sitemap\SitemapGenerator;
 use Spatie\Tags\Url;
 
-SitemapGenerator::create('http://example.com')
+SitemapGenerator::create('https://example.com')
    ->hasCrawled(function (Url $url) {
        if ($url->segment(1) === 'contact') {
            $url->setPriority(0.9)
@@ -128,9 +126,8 @@ If you don't want a crawled link to appear in the sitemap, just don't return it 
 use Spatie\Sitemap\SitemapGenerator;
 use Spatie\Tags\Url;
 
-SitemapGenerator::create('http://example.com')
+SitemapGenerator::create('https://example.com')
    ->hasCrawled(function (Url $url) {
-   
        if ($url->segment(1) === 'contact') {
            return;
        }
@@ -140,32 +137,31 @@ SitemapGenerator::create('http://example.com')
    ->writeToFile($sitemapPath);
 ```
 
-You can also instruct the underlying crawler to not crawl some pages by passing a `callable` to `shouldCrawl`
+You can also instruct the underlying crawler to not crawl some pages by passing a `callable` to `shouldCrawl`.
 
 ```php
 use Spatie\Sitemap\SitemapGenerator;
 use Spatie\Crawler\Url;
 
-SitemapGenerator::create('http://example.com')
+SitemapGenerator::create('https://example.com')
    ->shouldCrawl(function (Url $url) {
-   
-       // all pages while be crawled, except the contact page.
-       // if there are some links are present only on the contact page
-       // they won't be added to the sitemap
+       // All pages will be crawled, except the contact page.
+       // Links present on the contact page won't be added to the 
+       // sitemap unless they are present on a crawlable page.
        return $url->segment(1) !== 'contact';
    })
-   ->writeToFile($sitemapPath)
+   ->writeToFile($sitemapPath);
 ```
 
-#### Manually adding some links
+#### Manually adding links
 
-You can manually add some links to a sitemap. Here's an example on how to do that:
+You can manually add links to a sitemap:
 
 ```php
 use Spatie\Sitemap\SitemapGenerator;
 use Spatie\Tags\Url;
 
-SitemapGenerator::create('http://example.com')
+SitemapGenerator::create('https://example.com')
     ->getSitemap()
     // here we add one extra link, but you can add as many as you'd like
     ->add(Url::create('/extra-page')->setPriority(0.5))
@@ -174,9 +170,11 @@ SitemapGenerator::create('http://example.com')
 
 ### Manually creating a sitemap
 
-You can create a sitemap entirely by hand.
+You can also create a sitemap fully manual:
 
 ```php 
+use Carbon\Carbon;
+
 Sitemap::create()
    ->add('/page1')
    ->add('/page2')

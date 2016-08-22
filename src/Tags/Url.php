@@ -89,6 +89,9 @@ class Url extends Tag
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function path(): string
     {
         return parse_url($this->url)['path'] ?? '';

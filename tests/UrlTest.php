@@ -18,7 +18,6 @@ class UrlTest extends TestCase
 
         Carbon::setTestNow($this->now);
 
-
         $this->url = new Url('testUrl');
     }
 
