@@ -19,15 +19,16 @@ SitemapGenerator::create('https://example.com')->writeToFile($path);
 You can also create your sitemap manually:
 
 ```php
+use Carbon\Carbon;
 use Spatie\Sitemap\Sitemap;
 use Spatie\Tags\Url;
 
 Sitemap::create()
 
     ->add(Url::create('/home')
-        ->lastModificationDate($this->now->subDay())
+        ->lastModificationDate(Carbon::yesterday())
         ->changeFrequency(Url::CHANGE_FREQUENCY_YEARLY)
-        ->priority(0.1)
+        ->priority(0.1))
         
    ->add(...)
    
@@ -101,6 +102,7 @@ The generated sitemap will look similiar to this:
 To change the `lastmod`, `changefreq` and `priority` of the contact page:
 
 ```php
+use Carbon\Carbon;
 use Spatie\Sitemap\SitemapGenerator;
 use Spatie\Tags\Url;
 
@@ -171,6 +173,8 @@ SitemapGenerator::create('https://example.com')
 You can also create a sitemap fully manual:
 
 ```php 
+use Carbon\Carbon;
+
 Sitemap::create()
    ->add('/page1')
    ->add('/page2')
