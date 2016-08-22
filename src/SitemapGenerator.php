@@ -110,7 +110,7 @@ class SitemapGenerator
     protected function getCrawlObserver(): Observer
     {
         $performAfterUrlHasBeenCrawled = function (CrawlerUrl $crawlerUrl, ResponseInterface $response = null) {
-            $sitemapUrl = ($this->hasCrawled)(Url::create((string) $crawlerUrl), $response);
+            $sitemapUrl = ($this->hasCrawled)(Url::create($crawlerUrl), $response);
 
             if ($sitemapUrl) {
                 $this->sitemap->add($sitemapUrl);
