@@ -1,4 +1,4 @@
-# Generate sitemaps with ease [WIP]
+# Generate sitemaps with ease
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/spatie/laravel-sitemap.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-sitemap)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
@@ -8,7 +8,7 @@
 [![StyleCI](https://styleci.io/repos/65549848/shield)](https://styleci.io/repos/65549848)
 [![Total Downloads](https://img.shields.io/packagist/dt/spatie/laravel-sitemap.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-sitemap)
 
-This package can generate a sitemap without you having to add urls manually. This works by just crawling your entire site.
+This package can generate a sitemap without you having to add urls to it manually. This works by just crawling your entire site.
 
 ```php
 use Spatie\Sitemap\Sitemap\SitemapGenerator;
@@ -35,6 +35,20 @@ Sitemap::create()
    ->writeToFile($path);
 ```
 
+Or you can have the best of both worlds by generating a sitemap and then adding more links to it:
+
+```php
+SitemapGenerator::create('https://example.com')
+   ->getSitemap()
+   ->add(Url::create('/home')
+        ->lastModificationDate(Carbon::yesterday())
+        ->changeFrequency(Url::CHANGE_FREQUENCY_YEARLY)
+        ->priority(0.1))   
+        
+    ->add(...)
+   
+    ->writeToFile($path);        
+```
 
 ## Postcardware
 
@@ -180,6 +194,60 @@ Sitemap::create()
    ->add('/page2')
    ->add(Url::create('/page3')->setLastModificationDate(Carbon::create('2016', '1', '1')))
    ->writeToFile($sitemapPath);
+```
+  
+## Generating the sitemap frequently
+  
+Your site will probably be updated from time to time. In order to let your sitemap reflect these changes you can run the generator periodically. The easiest way of doing this is do make use of Laravel's default scheduling capabilities.
+
+First you could setup an artisan command much like this one:
+
+```php
+namespace App\Console\Commands;
+
+use Illuminate\Console\Command;
+use Spatie\Sitemap\SitemapGenerator;
+
+class GenerateSitemap extends Command
+{
+    /**
+     * The console command name.
+     *
+     * @var string
+     */
+    protected $signature = 'sitemap:generate';
+
+    /**
+     * The console command description.
+     *
+     * @var string
+     */
+    protected $description = 'Generate the sitemap.';
+
+    /**
+     * Execute the console command.
+     *
+     * @return mixed
+     */
+    public function handle()
+    {
+        // modify this to your own needs
+        SitemapGenerator::create(config('app.url'))
+            ->writeToFile(public_path('sitemap.xml'));
+    }
+}
+```
+
+You can schedule this command in the console kernel.
+
+```php
+// app/Console/Kernel.php
+ protected function schedule(Schedule $schedule)
+    {
+        ...
+        $schedule->command('sitemap:generate')->daily();
+        ...
+    }
 ```
   
 ## Changelog
