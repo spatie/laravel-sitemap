@@ -58,7 +58,7 @@ You must install the service provider
 // config/app.php
 'providers' => [
     ...
-    Spatie\Sitemap\Sitemap::class,
+    Spatie\Sitemap\SitemapServiceProvider::class,
 ];
 ```
 
