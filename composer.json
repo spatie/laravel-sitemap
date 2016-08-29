@@ -17,13 +17,13 @@
     ],
     "require": {
         "php": "^7.0",
-        "illuminate/support": "~5.2.0|~5.3.0",
+        "illuminate/support": "~5.3.0",
         "nesbot/carbon": "^1.21",
         "spatie/crawler": "^1.3"
     },
     "require-dev": {
         "phpunit/phpunit": "5.*",
-        "orchestra/testbench": "3.2"
+        "orchestra/testbench": "^3.3"
     },
     "autoload": {
         "psr-4": {
