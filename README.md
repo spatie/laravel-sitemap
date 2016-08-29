@@ -8,7 +8,7 @@
 [![StyleCI](https://styleci.io/repos/65549848/shield)](https://styleci.io/repos/65549848)
 [![Total Downloads](https://img.shields.io/packagist/dt/spatie/laravel-sitemap.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-sitemap)
 
-This package can generate a sitemap without you having to add urls to it manually. This works by just crawling your entire site.
+This package can generate a sitemap without you having to add urls to it manually. This works by crawling your entire site.
 
 ```php
 use Spatie\Sitemap\Sitemap\SitemapGenerator;
@@ -242,12 +242,12 @@ You can schedule this command in the console kernel.
 
 ```php
 // app/Console/Kernel.php
- protected function schedule(Schedule $schedule)
-    {
-        ...
-        $schedule->command('sitemap:generate')->daily();
-        ...
-    }
+protected function schedule(Schedule $schedule)
+{
+    ...
+    $schedule->command('sitemap:generate')->daily();
+    ...
+}
 ```
   
 ## Changelog
