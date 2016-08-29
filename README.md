@@ -200,7 +200,7 @@ Sitemap::create()
   
 Your site will probably be updated from time to time. In order to let your sitemap reflect these changes you can run the generator periodically. The easiest way of doing this is do make use of Laravel's default scheduling capabilities.
 
-First you could setup an artisan command much like this one:
+You could setup an artisan command much like this one:
 
 ```php
 namespace App\Console\Commands;
@@ -238,7 +238,7 @@ class GenerateSitemap extends Command
 }
 ```
 
-You can schedule this command in the console kernel.
+That command should then be scheduled in the console kernel.
 
 ```php
 // app/Console/Kernel.php
