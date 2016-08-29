@@ -40,7 +40,7 @@ Or you can have the best of both worlds by generating a sitemap and then adding 
 ```php
 SitemapGenerator::create('https://example.com')
    ->getSitemap()
-   ->add(Url::create('/home')
+   ->add(Url::create('/extra-page')
         ->lastModificationDate(Carbon::yesterday())
         ->changeFrequency(Url::CHANGE_FREQUENCY_YEARLY)
         ->priority(0.1))   
