@@ -11,7 +11,7 @@
 This package can generate a sitemap without you having to add urls to it manually. This works by crawling your entire site.
 
 ```php
-use Spatie\Sitemap\Sitemap\SitemapGenerator;
+use Spatie\Sitemap\SitemapGenerator;
 
 SitemapGenerator::create('https://example.com')->writeToFile($path);
 ```
