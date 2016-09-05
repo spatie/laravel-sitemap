@@ -26,12 +26,12 @@ use Spatie\Tags\Url;
 Sitemap::create()
 
     ->add(Url::create('/home')
-        ->lastModificationDate(Carbon::yesterday())
-        ->changeFrequency(Url::CHANGE_FREQUENCY_YEARLY)
-        ->priority(0.1))
-        
+        ->setLastModificationDate(Carbon::yesterday())
+        ->setChangeFrequency(Url::CHANGE_FREQUENCY_YEARLY)
+        ->setPriority(0.1))
+
    ->add(...)
-   
+
    ->writeToFile($path);
 ```
 
@@ -41,12 +41,12 @@ Or you can have the best of both worlds by generating a sitemap and then adding 
 SitemapGenerator::create('https://example.com')
    ->getSitemap()
    ->add(Url::create('/extra-page')
-        ->lastModificationDate(Carbon::yesterday())
-        ->changeFrequency(Url::CHANGE_FREQUENCY_YEARLY)
-        ->priority(0.1))   
-        
+        ->setLastModificationDate(Carbon::yesterday())
+        ->setChangeFrequency(Url::CHANGE_FREQUENCY_YEARLY)
+        ->setPriority(0.1))   
+
     ->add(...)
-   
+
     ->writeToFile($path);        
 ```
 
@@ -104,7 +104,7 @@ The generated sitemap will look similiar to this:
         <changefreq>daily</changefreq>
         <priority>0.8</priority>
     </url>
-    
+
     ...
 </urlset>
 ```
@@ -161,7 +161,7 @@ use Spatie\Crawler\Url;
 SitemapGenerator::create('https://example.com')
    ->shouldCrawl(function (Url $url) {
        // All pages will be crawled, except the contact page.
-       // Links present on the contact page won't be added to the 
+       // Links present on the contact page won't be added to the
        // sitemap unless they are present on a crawlable page.
        return $url->segment(1) !== 'contact';
    })
@@ -187,7 +187,7 @@ SitemapGenerator::create('https://example.com')
 
 You can also create a sitemap fully manual:
 
-```php 
+```php
 use Carbon\Carbon;
 
 Sitemap::create()
@@ -196,9 +196,9 @@ Sitemap::create()
    ->add(Url::create('/page3')->setLastModificationDate(Carbon::create('2016', '1', '1')))
    ->writeToFile($sitemapPath);
 ```
-  
+
 ## Generating the sitemap frequently
-  
+
 Your site will probably be updated from time to time. In order to let your sitemap reflect these changes you can run the generator periodically. The easiest way of doing this is do make use of Laravel's default scheduling capabilities.
 
 You could setup an artisan command much like this one:
@@ -250,7 +250,7 @@ protected function schedule(Schedule $schedule)
     ...
 }
 ```
-  
+
 ## Changelog
 
 Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.
