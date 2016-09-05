@@ -21,7 +21,7 @@ You can also create your sitemap manually:
 ```php
 use Carbon\Carbon;
 use Spatie\Sitemap\Sitemap;
-use Spatie\Tags\Url;
+use Spatie\Sitemap\Tags\Url;
 
 Sitemap::create()
 
@@ -118,7 +118,7 @@ To change the `lastmod`, `changefreq` and `priority` of the contact page:
 ```php
 use Carbon\Carbon;
 use Spatie\Sitemap\SitemapGenerator;
-use Spatie\Tags\Url;
+use Spatie\Sitemap\Tags\Url;
 
 SitemapGenerator::create('https://example.com')
    ->hasCrawled(function (Url $url) {
@@ -138,7 +138,7 @@ If you don't want a crawled link to appear in the sitemap, just don't return it 
 
 ```php
 use Spatie\Sitemap\SitemapGenerator;
-use Spatie\Tags\Url;
+use Spatie\Sitemap\Tags\Url;
 
 SitemapGenerator::create('https://example.com')
    ->hasCrawled(function (Url $url) {
@@ -174,7 +174,7 @@ You can manually add links to a sitemap:
 
 ```php
 use Spatie\Sitemap\SitemapGenerator;
-use Spatie\Tags\Url;
+use Spatie\Sitemap\Tags\Url;
 
 SitemapGenerator::create('https://example.com')
     ->getSitemap()
