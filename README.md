@@ -43,11 +43,11 @@ SitemapGenerator::create('https://example.com')
    ->add(Url::create('/extra-page')
         ->setLastModificationDate(Carbon::yesterday())
         ->setChangeFrequency(Url::CHANGE_FREQUENCY_YEARLY)
-        ->setPriority(0.1))   
+        ->setPriority(0.1))
 
     ->add(...)
 
-    ->writeToFile($path);        
+    ->writeToFile($path);
 ```
 
 ## Postcardware
@@ -76,6 +76,14 @@ You must install the service provider
 ];
 ```
 
+Then
+
+```bash
+php artisan vendor:publish --provider="Spatie\Sitemap\SitemapServiceProvider"  --tag=config
+```
+
+and a new file will be created under `config/laravel-sitemap.php`
+
 ## Usage
 
 ### Generating a sitemap
@@ -84,6 +92,12 @@ The easiest way is to crawl the given domain and generate a sitemap with all fou
 The destination of the sitemap should be specified by `$path`.
 
 ```php
+/**
+ * if you want you can leave the 'create() and writeToFile()' blank like
+ * SitemapGenerator::create()->writeToFile()
+ * and the values will be automatically added from the config file.
+ */
+
 SitemapGenerator::create('https://example.com')->writeToFile($path);
 ```
 
@@ -233,7 +247,7 @@ class GenerateSitemap extends Command
     public function handle()
     {
         // modify this to your own needs
-        SitemapGenerator::create(config('app.url'))
+        SitemapGenerator::create('https://example.com')
             ->writeToFile(public_path('sitemap.xml'));
     }
 }

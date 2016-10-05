@@ -31,8 +31,12 @@ class SitemapGenerator
      *
      * @return static
      */
-    public static function create(string $urlToBeCrawled)
+    public static function create(string $urlToBeCrawled = null)
     {
+        if ( ! $urlToBeCrawled) {
+            $urlToBeCrawled = config('laravel-sitemap.url');
+        }
+
         return app(static::class)->setUrl($urlToBeCrawled);
     }
 
@@ -83,8 +87,12 @@ class SitemapGenerator
      *
      * @return $this
      */
-    public function writeToFile(string $path)
+    public function writeToFile(string $path = null)
     {
+        if ( ! $path) {
+            $path = config('laravel-sitemap.path');
+        }
+
         $this->getSitemap()->writeToFile($path);
 
         return $this;
@@ -97,7 +105,7 @@ class SitemapGenerator
                 return false;
             }
 
-            if (! is_callable($this->shouldCrawl)) {
+            if ( ! is_callable($this->shouldCrawl)) {
                 return true;
             }
 
