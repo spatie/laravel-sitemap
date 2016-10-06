@@ -60,13 +60,13 @@ The best postcards will get published on the open source page on our website.
 
 ## Installation
 
-You can install the package via composer:
+1- install the package via composer:
 
 ``` bash
 composer require spatie/laravel-sitemap
 ```
 
-You must install the service provider
+2- install the service provider
 
 ```php
 // config/app.php
@@ -76,13 +76,27 @@ You must install the service provider
 ];
 ```
 
-Then
+3- publish the config file
 
 ```bash
 php artisan vendor:publish --provider="Spatie\Sitemap\SitemapServiceProvider"  --tag=config
 ```
 
-and a new file will be created under `config/laravel-sitemap.php`
+4- edit the config file under `config/laravel-sitemap.php`
+
+```php
+return [
+    /*
+     * where we will save the sitemap file
+     */
+    'path' => public_path('sitemap.xml'),
+
+    /*
+     * the website url we want to crawl
+     */
+    'url'  => 'https://example.com',
+];
+```
 
 ## Usage
 
