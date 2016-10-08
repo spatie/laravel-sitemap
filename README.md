@@ -76,28 +76,6 @@ composer require spatie/laravel-sitemap
 ];
 ```
 
-3- publish the config file
-
-```bash
-php artisan vendor:publish --provider="Spatie\Sitemap\SitemapServiceProvider"  --tag=config
-```
-
-4- edit the config file under `config/laravel-sitemap.php`
-
-```php
-return [
-    /*
-     * where we will save the sitemap file
-     */
-    'path' => public_path('sitemap.xml'),
-
-    /*
-     * the website url we want to crawl
-     */
-    'url'  => 'https://example.com',
-];
-```
-
 ## Usage
 
 ### Generating a sitemap
@@ -106,12 +84,6 @@ The easiest way is to crawl the given domain and generate a sitemap with all fou
 The destination of the sitemap should be specified by `$path`.
 
 ```php
-/**
- * if you want you can leave the 'create() and writeToFile()' blank like
- * SitemapGenerator::create()->writeToFile()
- * and the values will be automatically added from the config file.
- */
-
 SitemapGenerator::create('https://example.com')->writeToFile($path);
 ```
 
@@ -261,7 +233,7 @@ class GenerateSitemap extends Command
     public function handle()
     {
         // modify this to your own needs
-        SitemapGenerator::create('https://example.com')
+        SitemapGenerator::create(config('app.url'))
             ->writeToFile(public_path('sitemap.xml'));
     }
 }
