@@ -43,11 +43,11 @@ SitemapGenerator::create('https://example.com')
    ->add(Url::create('/extra-page')
         ->setLastModificationDate(Carbon::yesterday())
         ->setChangeFrequency(Url::CHANGE_FREQUENCY_YEARLY)
-        ->setPriority(0.1))   
+        ->setPriority(0.1))
 
     ->add(...)
 
-    ->writeToFile($path);        
+    ->writeToFile($path);
 ```
 
 ## Postcardware
@@ -60,13 +60,13 @@ The best postcards will get published on the open source page on our website.
 
 ## Installation
 
-You can install the package via composer:
+1- install the package via composer:
 
 ``` bash
 composer require spatie/laravel-sitemap
 ```
 
-You must install the service provider
+2- install the service provider
 
 ```php
 // config/app.php
