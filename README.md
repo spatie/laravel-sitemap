@@ -60,13 +60,13 @@ The best postcards will get published on the open source page on our website.
 
 ## Installation
 
-1- install the package via composer:
+First, install the package via composer:
 
 ``` bash
 composer require spatie/laravel-sitemap
 ```
 
-2- install the service provider
+Next up: installing the service provider
 
 ```php
 // config/app.php
