@@ -30,6 +30,5 @@ class SitemapServiceProvider extends ServiceProvider
      */
     public function register()
     {
-
     }
 }
