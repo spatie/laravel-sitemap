@@ -7,19 +7,18 @@ use Spatie\Crawler\Url;
 
 class Profile implements CrawlProfile
 {
+    /** @var callable  */
+    protected $profile;
+
     public function __construct(callable $profile)
     {
         $this->profile = $profile;
     }
 
-    /**
+    /*
      * Determine if the given url should be crawled.
-     *
-     * @param \Spatie\Crawler\Url $url
-     *
-     * @return bool
      */
-    public function shouldCrawl(Url $url)
+    public function shouldCrawl(Url $url): bool
     {
         return ($this->profile)($url);
     }
