@@ -26,6 +26,9 @@ class SitemapGenerator
     /** @var callable */
     protected $hasCrawled;
 
+    /** @var int */
+    protected $concurrency = 10;
+
     /**
      * @param string $urlToBeCrawled
      *
@@ -45,6 +48,11 @@ class SitemapGenerator
         $this->hasCrawled = function (Url $url, ResponseInterface $response = null) {
             return $url;
         };
+    }
+
+    public function setConcurrency(int $concurrency)
+    {
+        $this->concurrency = $concurrency;
     }
 
     public function setUrl(string $urlToBeCrawled)
@@ -73,6 +81,7 @@ class SitemapGenerator
         $this->crawler
             ->setCrawlProfile($this->getCrawlProfile())
             ->setCrawlObserver($this->getCrawlObserver())
+            ->setConcurrency($this->concurrency)
             ->startCrawling($this->urlToBeCrawled);
 
         return $this->sitemap;

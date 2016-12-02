@@ -9,11 +9,16 @@ use Throwable;
 
 class SitemapGeneratorTest extends TestCase
 {
+    /** @var \Spatie\Sitemap\SitemapGenerator  */
+    protected $sitemapGenerator;
+
     public function setUp()
     {
         $this->skipIfTestServerIsNotRunning();
 
         parent::setUp();
+
+        $this->sitemapGenerator = SitemapGenerator::create('http://localhost:4020')->setConcurrency(1);
     }
 
     /** @test */
@@ -76,7 +81,7 @@ class SitemapGeneratorTest extends TestCase
         $this->assertIsEqualToContentsOfStub('dontCrawlWhileGenerating', file_get_contents($sitemapPath));
     }
 
-    public function skipIfTestServerIsNotRunning()
+    protected function skipIfTestServerIsNotRunning()
     {
         try {
             file_get_contents('http://localhost:4020');
