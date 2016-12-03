@@ -63,7 +63,7 @@ abstract class TestCase extends OrchestraTestCase
     {
         $expectedOutput = $this->getContentOfStub($stubName);
 
-        $this->assertEquals($this->sanitizeHtmlWhitespace($expectedOutput), $this->sanitizeHtmlWhitespace($actualOutput));
+        $this->assertXmlStringEqualsXmlString($this->sanitizeHtmlWhitespace($expectedOutput), $this->sanitizeHtmlWhitespace($actualOutput));
     }
 
     protected function getContentOfStub($stubName): string
