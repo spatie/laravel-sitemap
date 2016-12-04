@@ -2,8 +2,8 @@
 
 namespace Spatie\Sitemap\Crawler;
 
-use Spatie\Crawler\CrawlObserver;
 use Spatie\Crawler\Url;
+use Spatie\Crawler\CrawlObserver;
 
 class Observer implements CrawlObserver
 {
