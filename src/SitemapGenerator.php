@@ -2,12 +2,12 @@
 
 namespace Spatie\Sitemap;
 
-use Psr\Http\Message\ResponseInterface;
 use Spatie\Crawler\Crawler;
-use Spatie\Crawler\Url as CrawlerUrl;
-use Spatie\Sitemap\Crawler\Observer;
-use Spatie\Sitemap\Crawler\Profile;
 use Spatie\Sitemap\Tags\Url;
+use Spatie\Sitemap\Crawler\Profile;
+use Spatie\Sitemap\Crawler\Observer;
+use Spatie\Crawler\Url as CrawlerUrl;
+use Psr\Http\Message\ResponseInterface;
 
 class SitemapGenerator
 {

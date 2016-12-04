@@ -2,14 +2,14 @@
 
 namespace Spatie\Sitemap\Test;
 
-use Spatie\Crawler\Url as CrawlerUrl;
-use Spatie\Sitemap\SitemapGenerator;
-use Spatie\Sitemap\Tags\Url;
 use Throwable;
+use Spatie\Sitemap\Tags\Url;
+use Spatie\Sitemap\SitemapGenerator;
+use Spatie\Crawler\Url as CrawlerUrl;
 
 class SitemapGeneratorTest extends TestCase
 {
-    /** @var \Spatie\Sitemap\SitemapGenerator  */
+    /** @var \Spatie\Sitemap\SitemapGenerator */
     protected $sitemapGenerator;
 
     public function setUp()

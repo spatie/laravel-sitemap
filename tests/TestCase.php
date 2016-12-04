@@ -2,10 +2,10 @@
 
 namespace Spatie\Sitemap\Test;
 
-use Carbon\Carbon;
 use File;
-use Orchestra\Testbench\TestCase as OrchestraTestCase;
+use Carbon\Carbon;
 use Spatie\Sitemap\SitemapServiceProvider;
+use Orchestra\Testbench\TestCase as OrchestraTestCase;
 
 abstract class TestCase extends OrchestraTestCase
 {

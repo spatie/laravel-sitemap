@@ -2,8 +2,8 @@
 
 namespace Spatie\Sitemap;
 
-use Illuminate\Support\ServiceProvider;
 use Spatie\Crawler\Crawler;
+use Illuminate\Support\ServiceProvider;
 
 class SitemapServiceProvider extends ServiceProvider
 {
