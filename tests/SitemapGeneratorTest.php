@@ -5,9 +5,22 @@ namespace Spatie\Sitemap\Test;
 use Spatie\Crawler\Url as CrawlerUrl;
 use Spatie\Sitemap\SitemapGenerator;
 use Spatie\Sitemap\Tags\Url;
+use Throwable;
 
 class SitemapGeneratorTest extends TestCase
 {
+    /** @var \Spatie\Sitemap\SitemapGenerator  */
+    protected $sitemapGenerator;
+
+    public function setUp()
+    {
+        $this->skipIfTestServerIsNotRunning();
+
+        parent::setUp();
+
+        $this->sitemapGenerator = SitemapGenerator::create('http://localhost:4020')->setConcurrency(1);
+    }
+
     /** @test */
     public function it_can_generate_a_sitemap()
     {
@@ -66,5 +79,14 @@ class SitemapGeneratorTest extends TestCase
             ->writeToFile($sitemapPath);
 
         $this->assertIsEqualToContentsOfStub('dontCrawlWhileGenerating', file_get_contents($sitemapPath));
+    }
+
+    protected function skipIfTestServerIsNotRunning()
+    {
+        try {
+            file_get_contents('http://localhost:4020');
+        } catch (Throwable $e) {
+            $this->markTestSkipped('The testserver is not running.');
+        }
     }
 }

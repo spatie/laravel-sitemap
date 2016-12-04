@@ -41,12 +41,6 @@ class Sitemap
      */
     public function getUrl(string $url)
     {
-        if ($this->runningLaravelVersion('5.2')) {
-            return collect($this->tags)->first(function (int $index, Tag $tag) use ($url) {
-                return $tag->getType() === 'url' && $tag->url;
-            });
-        }
-
         return collect($this->tags)->first(function (Tag $tag) use ($url) {
             return $tag->getType() === 'url' && $tag->url;
         });
@@ -76,10 +70,5 @@ class Sitemap
         file_put_contents($path, $this->render());
 
         return $this;
-    }
-
-    protected function runningLaravelVersion(string $version): bool
-    {
-        return strpos(\App::version(), $version) === 0;
     }
 }
