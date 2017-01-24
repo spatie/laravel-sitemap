@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-sitemap` will be documented in this file
 
+## 2.1.0 - 2017-01-24
+
+- add support for Laravel 5.4
+
 ## 2.0.0 - 2016-12-05
 
 - improve speed of generator by crawling with multiple concurrent connections
