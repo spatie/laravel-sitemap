@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-sitemap` will be documented in this file
 
+## 2.1.1 - 2017-01-24
+
+- fix for installations that are using short open tags
+
 ## 2.1.0 - 2017-01-24
 
 - add support for Laravel 5.4
