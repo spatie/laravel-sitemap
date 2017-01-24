@@ -53,6 +53,8 @@ class Sitemap
 
     public function render(): string
     {
+        sort($this->tags);
+
         $tags = $this->tags;
 
         return view('laravel-sitemap::sitemap')
