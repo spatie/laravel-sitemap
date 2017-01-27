@@ -108,7 +108,7 @@ class SitemapTest extends TestCase
     public function it_returns_null_when_getting_a_non_existing_url()
     {
         $this->assertNull($this->sitemap->getUrl('/page1'));
-        
+
         $this->sitemap->add('/page1');
 
         $this->assertNull($this->sitemap->getUrl('/page2'));
