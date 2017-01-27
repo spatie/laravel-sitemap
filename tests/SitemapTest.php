@@ -111,6 +111,8 @@ class SitemapTest extends TestCase
 
         $this->sitemap->add('/page1');
 
+        $this->assertNotNull($this->sitemap->getUrl('/page1'));
+
         $this->assertNull($this->sitemap->getUrl('/page2'));
     }
 }

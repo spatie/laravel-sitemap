@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-sitemap` will be documented in this file
 
+## 2.1.2 - 2017-01-27
+
+- fix bugs in `getUrl` and `hasUrl`
+
 ## 2.1.1 - 2017-01-24
 
 - fix for installations that are using short open tags
