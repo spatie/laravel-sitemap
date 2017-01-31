@@ -36,7 +36,7 @@ class SitemapIndex
 
     /**
      * Get sitemap tag.
-     * 
+     *
      * @param string $url
      *
      * @return \Spatie\Sitemap\Tags\Sitemap|null
@@ -50,9 +50,9 @@ class SitemapIndex
 
     /**
      * Check if there is the provided sitemap in the index
-     * 
+     *
      * @param string $url
-     * 
+     *
      * @return bool
      */
     public function hasSitemap(string $url): bool
@@ -62,7 +62,7 @@ class SitemapIndex
 
     /**
      * Get the inflated template content
-     * 
+     *
      * @return string
      */
     public function render(): string
