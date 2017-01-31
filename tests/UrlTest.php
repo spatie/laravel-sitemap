@@ -34,6 +34,16 @@ class UrlTest extends TestCase
     {
         $this->assertEquals($this->now->toAtomString(), $this->url->lastModificationDate->toAtomString());
     }
+    
+    /** @test */
+    public function url_can_be_set()
+    {
+        $url = Url::create('defaultUrl');
+
+        $url->setUrl('testUrl');
+        
+        $this->assertEquals('testUrl', $url->url);
+    }
 
     /** @test */
     public function last_modification_date_can_be_set()
