@@ -49,7 +49,7 @@ class SitemapIndex
     }
 
     /**
-     * Check if there is the provided sitemap in the index
+     * Check if there is the provided sitemap in the index.
      *
      * @param string $url
      *
@@ -61,7 +61,7 @@ class SitemapIndex
     }
 
     /**
-     * Get the inflated template content
+     * Get the inflated template content.
      *
      * @return string
      */
