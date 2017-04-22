@@ -197,6 +197,43 @@ Sitemap::create()
    ->writeToFile($sitemapPath);
 ```
 
+### Creating a sitemap index
+You can even create a sitemap index:
+```php
+use Spatie\Sitemap\SitemapIndex;
+
+SitemapIndex::create()
+    ->add('/pages_sitemap.xml')
+    ->add('/posts_sitemap.xml')
+    ->writeToFile($sitemapIndexPath);
+```
+You can pass a `Spatie\Sitemap\Tags\Sitemap` object to manually set the `lastModificationDate` property.
+```php
+use Spatie\Sitemap\SitemapIndex;
+use Spatie\Sitemap\Tags\Sitemap;
+
+SitemapIndex::create()
+    ->add('/pages_sitemap.xml')
+    ->add(Sitemap::create('/posts_sitemap.xml')
+        ->setLastModificationDate(Carbon::yesterday()))
+    ->writeToFile($sitemapIndexPath);
+```
+the generated sitemap index will look similar to this:
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+   <sitemap>
+      <loc>http://www.example.com/pages_sitemap.xml</loc>
+      <lastmod>2016-01-01T00:00:00+00:00</lastmod>
+   </sitemap>
+   <sitemap>
+      <loc>http://www.example.com/posts_sitemap.xml</loc>
+      <lastmod>2015-12-31T00:00:00+00:00</lastmod>
+   </sitemap>
+</sitemapindex>
+```
+
+
 ## Generating the sitemap frequently
 
 Your site will probably be updated from time to time. In order to let your sitemap reflect these changes you can run the generator periodically. The easiest way of doing this is do make use of Laravel's default scheduling capabilities.
