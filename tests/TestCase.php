@@ -4,9 +4,9 @@ namespace Spatie\Sitemap\Test;
 
 use File;
 use Carbon\Carbon;
+use Spatie\Snapshots\MatchesSnapshots;
 use Spatie\Sitemap\SitemapServiceProvider;
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
-use Spatie\Snapshots\MatchesSnapshots;
 
 abstract class TestCase extends OrchestraTestCase
 {
