@@ -29,17 +29,17 @@ class SitemapIndexTest extends TestCase
     /** @test */
     public function it_can_render_an_empty_index()
     {
-        $this->assertIsEqualToContentsOfStub('emptyIndex', $this->index->render());
+        $this->assertMatchesXmlSnapshot($this->index->render());
     }
 
     /** @test */
     public function it_can_write_an_index_to_a_file()
     {
-        $path = $this->getTempDirectory('test.xml');
+        $path = $this->temporaryDirectory->path('test.xml');
 
         $this->index->writeToFile($path);
 
-        $this->assertIsEqualToContentsOfStub('emptyIndex', file_get_contents($path));
+        $this->assertMatchesXmlSnapshot(file_get_contents($path));
     }
 
     /** @test */
@@ -47,7 +47,7 @@ class SitemapIndexTest extends TestCase
     {
         $this->index->add('/sitemap1.xml');
 
-        $this->assertIsEqualToContentsOfStub('singleSitemap', $this->index->render());
+        $this->assertMatchesXmlSnapshot($this->index->render());
     }
 
     /** @test */
@@ -55,7 +55,7 @@ class SitemapIndexTest extends TestCase
     {
         $this->index->add(Sitemap::create('/sitemap1.xml'));
 
-        $this->assertIsEqualToContentsOfStub('singleSitemap', $this->index->render());
+        $this->assertMatchesXmlSnapshot($this->index->render());
     }
 
     /** @test */
@@ -65,7 +65,7 @@ class SitemapIndexTest extends TestCase
             ->add(Sitemap::create('/sitemap1.xml'))
             ->add(Sitemap::create('/sitemap2.xml'));
 
-        $this->assertIsEqualToContentsOfStub('multipleSitemaps', $this->index->render());
+        $this->assertMatchesXmlSnapshot($this->index->render());
     }
 
     /** @test */
@@ -76,7 +76,7 @@ class SitemapIndexTest extends TestCase
                 ->setLastModificationDate($this->now->subDay())
             );
 
-        $this->assertIsEqualToContentsOfStub('customSitemap', $this->index->render());
+        $this->assertMatchesXmlSnapshot($this->index->render());
     }
 
     /** @test */

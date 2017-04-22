@@ -19,17 +19,17 @@ class Sitemap
     }
 
     /**
-     * @param string|\Spatie\Sitemap\Tags\Tag $url
+     * @param string|\Spatie\Sitemap\Tags\Tag $tag
      *
      * @return $this
      */
-    public function add($url)
+    public function add($tag)
     {
-        if (is_string($url)) {
-            $url = Url::create($url);
+        if (is_string($tag)) {
+            $tag = Url::create($tag);
         }
 
-        $this->tags[] = $url;
+        $this->tags[] = $tag;
 
         return $this;
     }
