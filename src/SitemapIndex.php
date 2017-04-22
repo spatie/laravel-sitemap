@@ -3,9 +3,9 @@
 namespace Spatie\Sitemap;
 
 use Spatie\Sitemap\Tags\Tag;
-use Spatie\Sitemap\Tags\Url;
+use Spatie\Sitemap\Tags\Sitemap;
 
-class Sitemap
+class SitemapIndex
 {
     /** @var array */
     protected $tags = [];
@@ -19,45 +19,57 @@ class Sitemap
     }
 
     /**
-     * @param string|\Spatie\Sitemap\Tags\Tag $url
+     * @param string|\Spatie\Sitemap\Tags\Tag $tag
      *
      * @return $this
      */
-    public function add($url)
+    public function add($tag)
     {
-        if (is_string($url)) {
-            $url = Url::create($url);
+        if (is_string($tag)) {
+            $tag = Sitemap::create($tag);
         }
 
-        $this->tags[] = $url;
+        $this->tags[] = $tag;
 
         return $this;
     }
 
     /**
+     * Get sitemap tag.
+     *
      * @param string $url
      *
-     * @return \Spatie\Sitemap\Tags\Url|null
+     * @return \Spatie\Sitemap\Tags\Sitemap|null
      */
-    public function getUrl(string $url)
+    public function getSitemap(string $url)
     {
         return collect($this->tags)->first(function (Tag $tag) use ($url) {
-            return $tag->getType() === 'url' && $tag->url === $url;
+            return $tag->getType() === 'sitemap' && $tag->url === $url;
         });
     }
 
-    public function hasUrl(string $url): bool
+    /**
+     * Check if there is the provided sitemap in the index.
+     *
+     * @param string $url
+     *
+     * @return bool
+     */
+    public function hasSitemap(string $url): bool
     {
-        return (bool) $this->getUrl($url);
+        return (bool) $this->getSitemap($url);
     }
 
+    /**
+     * Get the inflated template content.
+     *
+     * @return string
+     */
     public function render(): string
     {
-        sort($this->tags);
-
         $tags = $this->tags;
 
-        return view('laravel-sitemap::sitemap')
+        return view('laravel-sitemap::sitemapIndex/index')
             ->with(compact('tags'))
             ->render();
     }
