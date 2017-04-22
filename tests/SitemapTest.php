@@ -35,7 +35,7 @@ class SitemapTest extends TestCase
     /** @test */
     public function it_can_write_a_sitemap_to_a_file()
     {
-        $path = $this->getTempDirectory('test.xml');
+        $path = $this->temporaryDirectory->path('test.xml');
 
         $this->sitemap->writeToFile($path);
 
