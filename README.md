@@ -198,7 +198,7 @@ Sitemap::create()
 ```
 
 ### Creating a sitemap index
-You can even create a sitemap index:
+You can create a sitemap index:
 ```php
 use Spatie\Sitemap\SitemapIndex;
 
@@ -207,7 +207,9 @@ SitemapIndex::create()
     ->add('/posts_sitemap.xml')
     ->writeToFile($sitemapIndexPath);
 ```
+
 You can pass a `Spatie\Sitemap\Tags\Sitemap` object to manually set the `lastModificationDate` property.
+
 ```php
 use Spatie\Sitemap\SitemapIndex;
 use Spatie\Sitemap\Tags\Sitemap;
@@ -218,7 +220,9 @@ SitemapIndex::create()
         ->setLastModificationDate(Carbon::yesterday()))
     ->writeToFile($sitemapIndexPath);
 ```
+
 the generated sitemap index will look similar to this:
+
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
@@ -232,7 +236,6 @@ the generated sitemap index will look similar to this:
    </sitemap>
 </sitemapindex>
 ```
-
 
 ## Generating the sitemap frequently
 
