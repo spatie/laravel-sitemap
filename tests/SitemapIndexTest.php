@@ -10,7 +10,6 @@ class SitemapIndexTest extends TestCase
     /** @var \Spatie\Sitemap\SitemapIndex */
     protected $index;
 
-    /** @test */
     public function setUp()
     {
         parent::setUp();
