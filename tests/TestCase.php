@@ -6,9 +6,12 @@ use File;
 use Carbon\Carbon;
 use Spatie\Sitemap\SitemapServiceProvider;
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
+use Spatie\Snapshots\MatchesSnapshots;
 
 abstract class TestCase extends OrchestraTestCase
 {
+    use MatchesSnapshots;
+
     /** @var \Carbon\Carbon */
     protected $now;
 
@@ -57,25 +60,5 @@ abstract class TestCase extends OrchestraTestCase
             File::deleteDirectory($directory);
         }
         File::makeDirectory($directory);
-    }
-
-    protected function assertIsEqualToContentsOfStub($stubName, $actualOutput)
-    {
-        $expectedOutput = $this->getContentOfStub($stubName);
-
-        $this->assertXmlStringEqualsXmlString($this->sanitizeHtmlWhitespace($expectedOutput), $this->sanitizeHtmlWhitespace($actualOutput));
-    }
-
-    protected function getContentOfStub($stubName): string
-    {
-        return file_get_contents(__DIR__."/sitemapStubs/{$stubName}.xml");
-    }
-
-    protected function sanitizeHtmlWhitespace(string $subject) : string
-    {
-        $find = ['/>\s+</', '/(^\s+)|(\s+$)/'];
-        $replace = ['><', ''];
-
-        return preg_replace($find, $replace, $subject);
     }
 }

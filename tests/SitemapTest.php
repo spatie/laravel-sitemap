@@ -29,7 +29,7 @@ class SitemapTest extends TestCase
     /** @test */
     public function it_can_render_an_empty_sitemap()
     {
-        $this->assertIsEqualToContentsOfStub('empty', $this->sitemap->render());
+        $this->assertMatchesXmlSnapshot($this->sitemap->render());
     }
 
     /** @test */
@@ -39,7 +39,7 @@ class SitemapTest extends TestCase
 
         $this->sitemap->writeToFile($path);
 
-        $this->assertIsEqualToContentsOfStub('empty', file_get_contents($path));
+        $this->assertMatchesXmlSnapshot(file_get_contents($path));
     }
 
     /** @test */
@@ -47,7 +47,7 @@ class SitemapTest extends TestCase
     {
         $this->sitemap->add('/home');
 
-        $this->assertIsEqualToContentsOfStub('singleUrl', $this->sitemap->render());
+        $this->assertMatchesXmlSnapshot($this->sitemap->render());
     }
 
     /** @test */
@@ -55,7 +55,7 @@ class SitemapTest extends TestCase
     {
         $this->sitemap->add(Url::create('/home'));
 
-        $this->assertIsEqualToContentsOfStub('singleUrl', $this->sitemap->render());
+        $this->assertMatchesXmlSnapshot($this->sitemap->render());
     }
 
     /** @test */
@@ -65,7 +65,7 @@ class SitemapTest extends TestCase
             ->add(Url::create('/home'))
             ->add(Url::create('/contact'));
 
-        $this->assertIsEqualToContentsOfStub('multipleUrls', $this->sitemap->render());
+        $this->assertMatchesXmlSnapshot($this->sitemap->render());
     }
 
     /** @test */
@@ -78,7 +78,7 @@ class SitemapTest extends TestCase
                 ->setPriority(0.1)
             );
 
-        $this->assertIsEqualToContentsOfStub('customUrl', $this->sitemap->render());
+        $this->assertMatchesXmlSnapshot($this->sitemap->render());
     }
 
     /** @test */

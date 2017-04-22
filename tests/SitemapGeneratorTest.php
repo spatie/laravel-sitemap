@@ -28,7 +28,7 @@ class SitemapGeneratorTest extends TestCase
 
         SitemapGenerator::create('http://localhost:4020')->writeToFile($sitemapPath);
 
-        $this->assertIsEqualToContentsOfStub('generateEntireSite', file_get_contents($sitemapPath));
+        $this->assertMatchesXmlSnapshot(file_get_contents($sitemapPath));
     }
 
     /** @test */
@@ -46,7 +46,7 @@ class SitemapGeneratorTest extends TestCase
             })
             ->writeToFile($sitemapPath);
 
-        $this->assertIsEqualToContentsOfStub('modifyGenerated', file_get_contents($sitemapPath));
+        $this->assertMatchesXmlSnapshot(file_get_contents($sitemapPath));
     }
 
     /** @test */
@@ -64,7 +64,7 @@ class SitemapGeneratorTest extends TestCase
             })
             ->writeToFile($sitemapPath);
 
-        $this->assertIsEqualToContentsOfStub('skipUrlWhileGenerating', file_get_contents($sitemapPath));
+        $this->assertMatchesXmlSnapshot(file_get_contents($sitemapPath));
     }
 
     /** @test */
@@ -78,7 +78,7 @@ class SitemapGeneratorTest extends TestCase
             })
             ->writeToFile($sitemapPath);
 
-        $this->assertIsEqualToContentsOfStub('dontCrawlWhileGenerating', file_get_contents($sitemapPath));
+        $this->assertMatchesXmlSnapshot(file_get_contents($sitemapPath));
     }
 
     protected function skipIfTestServerIsNotRunning()
