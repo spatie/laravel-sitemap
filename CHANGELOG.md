@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-sitemap` will be documented in this file
 
+## 2.2.0 - 2017-04-22
+
+- add support for sitemap indexes
+
 ## 2.1.2 - 2017-01-27
 
 - fix bugs in `getUrl` and `hasUrl`
