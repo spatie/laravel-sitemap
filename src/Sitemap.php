@@ -53,7 +53,6 @@ class Sitemap
 
     public function render(): string
     {
-        sort($this->tags);
 
         $tags = $this->tags;
 
