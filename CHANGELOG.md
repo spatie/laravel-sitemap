@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-sitemap` will be documented in this file
 
+## 2.2.1 - 2017-05-05
+
+- fix whitespace problems in sitemap indexes
+
 ## 2.2.0 - 2017-04-22
 
 - add support for sitemap indexes
