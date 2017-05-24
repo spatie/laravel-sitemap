@@ -75,6 +75,8 @@ Next up: installing the service provider
 ];
 ```
 
+If you want to update your sitemap automatically and frequently you need to perform [some extra steps](https://github.com/spatie/laravel-sitemap#generating-the-sitemap-frequently).
+
 ## Usage
 
 ### Generating a sitemap
