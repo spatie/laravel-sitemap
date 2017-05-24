@@ -284,8 +284,14 @@ That command should then be scheduled in the console kernel.
 
 ```php
 // app/Console/Kernel.php
+
+protected $commands = [
+        'App\Console\Commands\GenerateSitemap'
+];
+
 protected function schedule(Schedule $schedule)
 {
+   
     ...
     $schedule->command('sitemap:generate')->daily();
     ...
