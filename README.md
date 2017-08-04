@@ -77,6 +77,18 @@ Next up: installing the service provider
 
 If you want to update your sitemap automatically and frequently you need to perform [some extra steps](https://github.com/spatie/laravel-sitemap#generating-the-sitemap-frequently).
 
+
+## Configuration
+
+You can override the default options for the crawler. First publish the configuration:
+
+``` bash
+php artisan vendor:publish --provider="Spatie\Sitemap\SitemapServiceProvider" --tag=config
+```
+
+This will copy the default config to `config/laravel-sitemap.php` where you can edit it.
+
+
 ## Usage
 
 ### Generating a sitemap
