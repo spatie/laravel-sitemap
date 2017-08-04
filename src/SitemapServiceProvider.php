@@ -3,6 +3,7 @@
 namespace Spatie\Sitemap;
 
 use Spatie\Crawler\Crawler;
+use GuzzleHttp\RequestOptions;
 use Illuminate\Support\ServiceProvider;
 
 class SitemapServiceProvider extends ServiceProvider
@@ -18,10 +19,19 @@ class SitemapServiceProvider extends ServiceProvider
             __DIR__.'/../resources/views' => base_path('resources/views/vendor/laravel-sitemap'),
         ], 'views');
 
+        $this->publishes([
+            __DIR__.'/../resources/config/laravel-sitemap.php' => config_path('laravel-sitemap.php'),
+        ], 'config');
+
         $this->app->when(SitemapGenerator::class)
             ->needs(Crawler::class)
             ->give(function () {
-                return Crawler::create();
+                return Crawler::create([
+                    RequestOptions::COOKIES => config('laravel-sitemap.cookies'),
+                    RequestOptions::CONNECT_TIMEOUT => config('laravel-sitemap.connect_timeout'),
+                    RequestOptions::TIMEOUT => config('laravel-sitemap.timeout'),
+                    RequestOptions::ALLOW_REDIRECTS => config('laravel-sitemap.allow_redirects'),
+                ]);
             });
     }
 
@@ -30,5 +40,6 @@ class SitemapServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->mergeConfigFrom(__DIR__.'/../resources/config/laravel-sitemap.php', 'laravel-sitemap');
     }
 }
