@@ -32,6 +32,6 @@ return [
          * Describes the redirect behavior of a request.
          */
         RequestOptions::ALLOW_REDIRECTS => false,
-    ]
+    ],
 
 ];
