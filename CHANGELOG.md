@@ -2,6 +2,11 @@
 
 All notable changes to `laravel-sitemap` will be documented in this file
 
+## 3.0.0 - 2017-XX-XX
+
+- support for Laravel 5.5
+- dropped support for older Laravel versions
+
 ## 2.3.0 - 2017-08-05
 
 - added config file with guzzle options
