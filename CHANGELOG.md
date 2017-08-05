@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-sitemap` will be documented in this file
 
+## 2.3.0 - 2017-08-05
+
+- added config file with guzzle options
+
 ## 2.2.1 - 2017-05-05
 
 - fix whitespace problems in sitemap indexes
