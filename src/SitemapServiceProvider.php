@@ -20,18 +20,13 @@ class SitemapServiceProvider extends ServiceProvider
         ], 'views');
 
         $this->publishes([
-            __DIR__.'/../resources/config/laravel-sitemap.php' => config_path('laravel-sitemap.php'),
+            __DIR__.'/../config/sitemap.php' => config_path('sitemap.php'),
         ], 'config');
 
         $this->app->when(SitemapGenerator::class)
             ->needs(Crawler::class)
             ->give(function () {
-                return Crawler::create([
-                    RequestOptions::COOKIES => config('laravel-sitemap.cookies'),
-                    RequestOptions::CONNECT_TIMEOUT => config('laravel-sitemap.connect_timeout'),
-                    RequestOptions::TIMEOUT => config('laravel-sitemap.timeout'),
-                    RequestOptions::ALLOW_REDIRECTS => config('laravel-sitemap.allow_redirects'),
-                ]);
+                return Crawler::create(config('sitemap.guzzle_options'));
             });
     }
 
@@ -40,6 +35,6 @@ class SitemapServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->mergeConfigFrom(__DIR__.'/../resources/config/laravel-sitemap.php', 'laravel-sitemap');
+        $this->mergeConfigFrom(__DIR__.'/../config/sitemap.php', 'sitemap');
     }
 }

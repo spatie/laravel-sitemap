@@ -82,12 +82,49 @@ If you want to update your sitemap automatically and frequently you need to perf
 
 You can override the default options for the crawler. First publish the configuration:
 
-``` bash
+```bash
 php artisan vendor:publish --provider="Spatie\Sitemap\SitemapServiceProvider" --tag=config
 ```
 
-This will copy the default config to `config/laravel-sitemap.php` where you can edit it.
+This will copy the default config to `config/sitemap.php` where you can edit it.
 
+```php
+use GuzzleHttp\RequestOptions;
+
+return [
+
+    /*
+     * Options that is passed to GuzzleHttp\Client when it is creeated.
+     * For in-depth information on all options see the Guzzle docs:
+     *
+     * http://docs.guzzlephp.org/en/stable/request-options.html
+     */
+    'guzzle_options' => [
+
+        /*
+         * Whether or not cookies are used in a request.
+         */
+        RequestOptions::COOKIES => true,
+
+        /*
+         * The number of seconds to wait while trying to connect to a server.
+         * Use 0 to wait indefinitely.
+         */
+        RequestOptions::CONNECT_TIMEOUT => 10,
+
+        /*
+         * The timeout of the request in seconds. Use 0 to wait indefinitely.
+         */
+        RequestOptions::TIMEOUT => 10,
+
+        /*
+         * Describes the redirect behavior of a request.
+         */
+        RequestOptions::ALLOW_REDIRECTS => false,
+    ]
+
+];
+```
 
 ## Usage
 
