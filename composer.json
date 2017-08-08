@@ -20,12 +20,12 @@
         "illuminate/support": "~5.3.0|~5.4.0",
         "nesbot/carbon": "^1.21",
         "spatie/crawler": "^2.0.2",
-        "spatie/phpunit-snapshot-assertions": "^0.4.1",
         "spatie/temporary-directory": "^1.1"
     },
     "require-dev": {
         "orchestra/testbench": "~3.3.0|~3.4.0",
-        "phpunit/phpunit": "^5.7"
+        "phpunit/phpunit": "^5.7",
+        "spatie/phpunit-snapshot-assertions": "^0.4.1"
     },
     "autoload": {
         "psr-4": {
