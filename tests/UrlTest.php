@@ -73,11 +73,12 @@ class UrlTest extends TestCase
     /** @test */
     public function alternate_can_be_added()
     {
-        $alternate = Alternate::create('defaultUrl', 'en');
+        $url = 'defaultUrl';
+        $locale = 'en';
 
-        $this->url->addAlternate($alternate);
+        $this->url->addAlternate($url, $locale);
 
-        $this->assertEquals($alternate, $this->url->alternates[0]);
+        $this->assertEquals(new Alternate($url, $locale), $this->url->alternates[0]);
     }
 
     /** @test */

@@ -233,6 +233,23 @@ SitemapGenerator::create('https://example.com')
     ->writeToFile($sitemapPath);
 ```
 
+#### Adding alternates to links
+
+Multilingual sites may have several alternate versions of the same page (one per language). Based on the previous example adding an alterante can be done as follows:
+
+```php
+use Spatie\Sitemap\SitemapGenerator;
+use Spatie\Sitemap\Tags\Url;
+
+SitemapGenerator::create('https://example.com')
+    ->getSitemap()
+    // here we add one extra link, but you can add as many as you'd like
+    ->add(Url::create('/extra-page')->setPriority(0.5)->addAlternate('/extra-pagina', 'nl'))
+    ->writeToFile($sitemapPath);
+```
+
+Note the ```addAlternate``` function which takes an alternate URL and the locale it belongs to.
+
 ### Manually creating a sitemap
 
 You can also create a sitemap fully manual:

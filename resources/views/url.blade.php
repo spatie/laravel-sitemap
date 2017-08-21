@@ -3,7 +3,7 @@
     <loc>{{ $tag->url }}</loc>
     @endif
 
-    @if (! empty($tag->alternates))
+    @if (count($tag->alternates))
     @foreach ($tag->alternates as $alternate)
     <xhtml:link rel="alternate" hreflang="{{ $alternate->locale }}" href="{{ $alternate->url }}" />
     @endforeach

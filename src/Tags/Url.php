@@ -95,11 +95,13 @@ class Url extends Tag
     /**
      * @param Alternate $alternate
      *
+     * @param string $url
+     * @param string $locale
      * @return $this
      */
-    public function addAlternate(Alternate $alternate)
+    public function addAlternate(string $url, string $locale = '')
     {
-        $this->alternates[] = $alternate;
+        $this->alternates[] = new Alternate($url, $locale);
 
         return $this;
     }
