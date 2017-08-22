@@ -18,6 +18,7 @@ class Alternate
     public function __construct(string $url, $locale = '')
     {
         $this->setUrl($url);
+
         $this->setLocale($locale);
     }
 
