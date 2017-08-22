@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-sitemap` will be documented in this file
 
+## 2.4.0 - 2017-08-22
+
+- add support for alternates
+
 ## 2.3.1 - 2017-08-08
 
 - move snapshots to dev dependencies
