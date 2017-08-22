@@ -27,6 +27,9 @@ class Url extends Tag
     /** @var float */
     public $priority = 0.8;
 
+    /** @var array */
+    public $alternates = [];
+
     public static function create(string $url): Url
     {
         return new static($url);
@@ -85,6 +88,20 @@ class Url extends Tag
     public function setPriority(float $priority)
     {
         $this->priority = $priority;
+
+        return $this;
+    }
+
+    /**
+     * @param Alternate $alternate
+     *
+     * @param string $url
+     * @param string $locale
+     * @return $this
+     */
+    public function addAlternate(string $url, string $locale = '')
+    {
+        $this->alternates[] = new Alternate($url, $locale);
 
         return $this;
     }
