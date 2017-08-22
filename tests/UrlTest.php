@@ -4,6 +4,7 @@ namespace Spatie\Sitemap\Test;
 
 use Carbon\Carbon;
 use Spatie\Sitemap\Tags\Url;
+use Spatie\Sitemap\Tags\Alternate;
 
 class UrlTest extends TestCase
 {
@@ -67,6 +68,17 @@ class UrlTest extends TestCase
         $this->url->setChangeFrequency(Url::CHANGE_FREQUENCY_YEARLY);
 
         $this->assertEquals(Url::CHANGE_FREQUENCY_YEARLY, $this->url->changeFrequency);
+    }
+
+    /** @test */
+    public function alternate_can_be_added()
+    {
+        $url = 'defaultUrl';
+        $locale = 'en';
+
+        $this->url->addAlternate($url, $locale);
+
+        $this->assertEquals(new Alternate($url, $locale), $this->url->alternates[0]);
     }
 
     /** @test */

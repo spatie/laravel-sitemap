@@ -50,6 +50,18 @@ class SitemapTest extends TestCase
     }
 
     /** @test */
+    public function an_url_with_an_alternate_can_be_added_to_the_sitemap()
+    {
+        $url = Url::create('/home')
+            ->addAlternate('/thuis', 'nl')
+            ->addAlternate('/maison', 'fr');
+
+        $this->sitemap->add($url);
+
+        $this->assertMatchesXmlSnapshot($this->sitemap->render());
+    }
+
+    /** @test */
     public function an_url_object_can_be_added_to_the_sitemap()
     {
         $this->sitemap->add(Url::create('/home'));
