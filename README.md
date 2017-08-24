@@ -65,15 +65,7 @@ First, install the package via composer:
 composer require spatie/laravel-sitemap
 ```
 
-Next up: installing the service provider
-
-```php
-// config/app.php
-'providers' => [
-    ...
-    Spatie\Sitemap\SitemapServiceProvider::class,
-];
-```
+The package will automatically register itself.
 
 If you want to update your sitemap automatically and frequently you need to perform [some extra steps](https://github.com/spatie/laravel-sitemap#generating-the-sitemap-frequently).
 
