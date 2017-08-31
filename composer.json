@@ -17,14 +17,14 @@
     ],
     "require": {
         "php": "^7.0",
-        "illuminate/support": "5.5.x-dev",
+        "illuminate/support": "~5.5.0",
         "nesbot/carbon": "^1.21",
         "spatie/crawler": "^2.0.2",
         "spatie/temporary-directory": "^1.1"
     },
     "require-dev": {
-        "orchestra/testbench": "3.5.x-dev",
-        "phpunit/phpunit": "^6.2",
+        "orchestra/testbench": "~3.5.0",
+        "phpunit/phpunit": "^6.3",
         "spatie/phpunit-snapshot-assertions": "^1.0.0",
         "spatie/temporary-directory": "^1.1"
     },
@@ -50,7 +50,5 @@
                "Spatie\\Sitemap\\SitemapServiceProvider"
            ]
        }
-   },
-    "minimum-stability": "dev",
-    "prefer-stable": true
+   }
 }
