@@ -78,6 +78,10 @@ class SitemapGenerator
 
     public function getSitemap(): Sitemap
     {
+        if (config('sitemap.execute_javascript')) {
+            $this->crawler->executeJavaScript(config('sitemap.chrome_binary_path'));
+        }
+
         $this->crawler
             ->setCrawlProfile($this->getCrawlProfile())
             ->setCrawlObserver($this->getCrawlObserver())

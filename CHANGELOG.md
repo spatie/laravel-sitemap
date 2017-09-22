@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-sitemap` will be documented in this file
 
+## 3.1.0 - 2017-09-22
+
+- add ability to execute JavaScript
+
 ## 3.0.0 - 2017-08-31
 
 - support for Laravel 5.5
