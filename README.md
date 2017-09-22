@@ -49,6 +49,8 @@ SitemapGenerator::create('https://example.com')
     ->writeToFile($path);
 ```
 
+The generator has [the ability to execute JavaScript](https://github.com/spatie/laravel-sitemap#executing-javascript) on each page so links injected into the dom by JavaScript will be crawled as well.
+
 ## Postcardware
 
 You're free to use this package (it's [MIT-licensed](LICENSE.md)), but if it makes it to your production environment we highly appreciated you sending us postcard from your hometown, mentioning which of our package(s) you are using.
