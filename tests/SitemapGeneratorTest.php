@@ -17,8 +17,6 @@ class SitemapGeneratorTest extends TestCase
         $this->skipIfTestServerIsNotRunning();
 
         parent::setUp();
-
-        $this->sitemapGenerator = SitemapGenerator::create('http://localhost:4020')->setConcurrency(1);
     }
 
     /** @test */
