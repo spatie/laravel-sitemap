@@ -144,7 +144,7 @@ The destination of the sitemap should be specified by `$path`.
 SitemapGenerator::create('https://example.com')->writeToFile($path);
 ```
 
-The generated sitemap will look similiar to this:
+The generated sitemap will look similar to this:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -252,7 +252,7 @@ SitemapGenerator::create('https://example.com')
 
 #### Adding alternates to links
 
-Multilingual sites may have several alternate versions of the same page (one per language). Based on the previous example adding an alterante can be done as follows:
+Multilingual sites may have several alternate versions of the same page (one per language). Based on the previous example adding an alternate can be done as follows:
 
 ```php
 use Spatie\Sitemap\SitemapGenerator;
@@ -381,7 +381,7 @@ Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recen
 
 ## Testing
 
-First start the test server in a seperate terminal session:
+First start the test server in a separate terminal session:
 
 ``` bash
 cd tests/server
