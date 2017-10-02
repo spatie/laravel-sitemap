@@ -3,8 +3,8 @@
 namespace Spatie\Sitemap;
 
 use Spatie\Crawler\Crawler;
-use Illuminate\Support\ServiceProvider;
 use Spatie\Sitemap\Crawler\Profile;
+use Illuminate\Support\ServiceProvider;
 
 class SitemapServiceProvider extends ServiceProvider
 {
@@ -29,7 +29,7 @@ class SitemapServiceProvider extends ServiceProvider
                 return Crawler::create(config('sitemap.guzzle_options'));
             });
 
-        $this->app->bind(Profile::class, function($app, $params) {
+        $this->app->bind(Profile::class, function ($app, $params) {
             return new Profile(reset($params));
         });
     }
