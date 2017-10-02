@@ -130,6 +130,12 @@ return [
      */
     'chrome_binary_path' => '',
 
+    /*
+     * The sitemap generator uses a CrawlProfile implementation to determine
+     * which urls should be crawled for the sitemap.
+     */
+    'crawl_profile' => Profile::class,
+    
 ];
 ```
 

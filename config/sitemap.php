@@ -1,6 +1,7 @@
 <?php
 
 use GuzzleHttp\RequestOptions;
+use Spatie\Sitemap\Crawler\Profile;
 
 return [
 
@@ -46,5 +47,11 @@ return [
      * You can also manually pass it's location here.
      */
     'chrome_binary_path' => null,
+
+    /*
+     * The sitemap generator uses a CrawlProfile implementation to determine
+     * which urls should be crawled for the sitemap.
+     */
+    'crawl_profile' => Profile::class,
 
 ];
