@@ -2,8 +2,8 @@
 
 namespace Spatie\Sitemap\Test;
 
-use Spatie\Crawler\CrawlProfile;
 use Spatie\Crawler\Url;
+use Spatie\Crawler\CrawlProfile;
 
 class CustomCrawlProfile implements CrawlProfile
 {

@@ -3,8 +3,8 @@
 namespace Spatie\Sitemap;
 
 use Spatie\Crawler\Crawler;
-use Spatie\Crawler\CrawlProfile;
 use Spatie\Sitemap\Tags\Url;
+use Spatie\Crawler\CrawlProfile;
 use Spatie\Sitemap\Crawler\Profile;
 use Spatie\Sitemap\Crawler\Observer;
 use Spatie\Crawler\Url as CrawlerUrl;

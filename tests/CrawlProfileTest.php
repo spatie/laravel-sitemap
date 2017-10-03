@@ -3,8 +3,8 @@
 namespace Spatie\Sitemap\Test;
 
 use Spatie\Crawler\Crawler;
-use Spatie\Sitemap\Crawler\Profile;
 use Spatie\Sitemap\Sitemap;
+use Spatie\Sitemap\Crawler\Profile;
 use Spatie\Sitemap\SitemapGenerator;
 
 class CrawlProfileTest extends TestCase
