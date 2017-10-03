@@ -4,6 +4,7 @@ namespace Spatie\Sitemap;
 
 use Spatie\Crawler\Crawler;
 use Spatie\Sitemap\Tags\Url;
+use Spatie\Crawler\CrawlProfile;
 use Spatie\Sitemap\Crawler\Profile;
 use Spatie\Sitemap\Crawler\Observer;
 use Spatie\Crawler\Url as CrawlerUrl;
@@ -103,7 +104,7 @@ class SitemapGenerator
         return $this;
     }
 
-    protected function getCrawlProfile(): Profile
+    protected function getCrawlProfile(): CrawlProfile
     {
         $shouldCrawl = function (CrawlerUrl $url) {
             if ($url->host !== CrawlerUrl::create($this->urlToBeCrawled)->host) {
@@ -117,7 +118,9 @@ class SitemapGenerator
             return ($this->shouldCrawl)($url);
         };
 
-        return new Profile($shouldCrawl);
+        $profileClass = config('sitemap.crawl_profile', Profile::class);
+
+        return app($profileClass, [$shouldCrawl]);
     }
 
     protected function getCrawlObserver(): Observer
