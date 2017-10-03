@@ -20,7 +20,4 @@ env:
     - COMPOSER_FLAGS=""
 
 script:
-  - phpunit --coverage-text --coverage-clover=coverage.clover
-
-after_script:
-  - php vendor/bin/ocular code-coverage:upload --format=php-clover coverage.clover
+  - phpunit
