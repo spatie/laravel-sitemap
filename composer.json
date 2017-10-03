@@ -17,6 +17,7 @@
     ],
     "require": {
         "php": "^7.0",
+        "guzzlehttp/guzzle": "^6.3",
         "illuminate/support": "~5.5.0",
         "nesbot/carbon": "^1.21",
         "spatie/crawler": "^2.3",

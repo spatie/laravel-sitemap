@@ -25,7 +25,7 @@ class CrawlProfileTest extends TestCase
     }
 
     /** @test */
-    public function it_should_use_the_default_crawl_profile()
+    public function it_can_use_the_default_profile()
     {
         $this->crawler
             ->method('setCrawlProfile')
@@ -40,7 +40,7 @@ class CrawlProfileTest extends TestCase
     }
 
     /** @test */
-    public function it_should_use_a_custom_crawl_profile()
+    public function it_can_use_the_custom_profile()
     {
         config(['sitemap.crawl_profile' => CustomCrawlProfile::class]);
 

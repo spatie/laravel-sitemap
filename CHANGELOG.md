@@ -2,6 +2,9 @@
 
 All notable changes to `laravel-sitemap` will be documented in this file
 
+## 3.2.0 - 2017-10-03
+- add `crawl_profile` config key
+
 ## 3.1.0 - 2017-09-22
 
 - add ability to execute JavaScript

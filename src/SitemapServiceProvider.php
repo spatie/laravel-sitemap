@@ -30,7 +30,7 @@ class SitemapServiceProvider extends ServiceProvider
             });
 
         $this->app->bind(Profile::class, function ($app, $params) {
-            return new Profile(reset($params));
+            return new Profile(...$params);
         });
     }
 

@@ -79,6 +79,19 @@ class SitemapGeneratorTest extends TestCase
         $this->assertMatchesXmlSnapshot(file_get_contents($sitemapPath));
     }
 
+    /** @test */
+    public function it_can_use_a_custom_profile()
+    {
+        config(['sitemap.crawl_profile' => CustomCrawlProfile::class]);
+
+        $sitemapPath = $this->temporaryDirectory->path('test.xml');
+
+        SitemapGenerator::create('http://localhost:4020')
+            ->writeToFile($sitemapPath);
+
+        $this->assertMatchesXmlSnapshot(file_get_contents($sitemapPath));
+    }
+
     protected function skipIfTestServerIsNotRunning()
     {
         try {

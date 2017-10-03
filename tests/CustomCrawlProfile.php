@@ -16,6 +16,10 @@ class CustomCrawlProfile implements CrawlProfile
      */
     public function shouldCrawl(Url $url): bool
     {
-        return true;
+        if ($url->host !== 'localhost') {
+            return false;
+        }
+
+        return is_null($url->segment(1));
     }
 }
