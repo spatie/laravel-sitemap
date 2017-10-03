@@ -7,7 +7,6 @@ use Spatie\Crawler\CrawlProfile;
 
 class CustomCrawlProfile implements CrawlProfile
 {
-
     /**
      * Determine if the given url should be crawled.
      *
