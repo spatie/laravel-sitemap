@@ -10,7 +10,7 @@
     @endif
 
     @if (! empty($tag->lastModificationDate))
-    <lastmod>{{ $tag->lastModificationDate->format(DateTime::ATOM) }}</lastmod>
+    <lastmod>{{ $tag->lastModificationDate->format(config('sitemap.last_modification_date_format', DateTime::ATOM)) }}</lastmod>
     @endif
 
     @if (! empty($tag->changeFrequency))

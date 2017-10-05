@@ -54,4 +54,9 @@ return [
      */
     'crawl_profile' => Profile::class,
 
+    /**
+     * The sitemap generator uses this to format the date inside <lastmod> tag.
+     */
+    'last_modification_date_format' => DateTime::ATOM,
+
 ];
