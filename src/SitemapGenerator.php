@@ -120,7 +120,7 @@ class SitemapGenerator
 
         $profileClass = config('sitemap.crawl_profile', Profile::class);
 
-        return app($profileClass, [$shouldCrawl]);
+        return new $profileClass($shouldCrawl);
     }
 
     protected function getCrawlObserver(): Observer
