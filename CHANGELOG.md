@@ -2,6 +2,9 @@
 
 All notable changes to `laravel-sitemap` will be documented in this file
 
+## 3.2.1 - 2017-10-07
+- fix bug introduced in 3.2.0
+
 ## 3.2.0 - 2017-10-03
 - add `crawl_profile` config key
 
