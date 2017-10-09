@@ -205,8 +205,6 @@ class CustomCrawlProfile implements CrawlProfile
 and register your `CustomCrawlProfile::class` in `config/sitemap.php`.
 
 ```php
-use GuzzleHttp\RequestOptions;
-
 return [
     ...
     /*
