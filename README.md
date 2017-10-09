@@ -174,6 +174,50 @@ The generated sitemap will look similar to this:
 
 ### Customizing the sitemap generator
 
+#### Define a custom Crawl Profile
+
+You can create a custom crawl profile by implementing the `Spatie\Crawler\CrawlProfile` interface and by customizing the `shouldCrawl()` method for full control over what url/domain/sub-domain should be crawled:
+
+```php
+use Spatie\Crawler\Url;
+use Spatie\Crawler\CrawlProfile;
+
+class CustomCrawlProfile implements CrawlProfile
+{
+    /**
+     * Determine if the given url should be crawled.
+     *
+     * @param \Spatie\Crawler\Url $url
+     *
+     * @return bool
+     */
+    public function shouldCrawl(Url $url): bool
+    {
+        if ($url->host !== 'localhost') {
+            return false;
+        }
+
+        return is_null($url->segment(1));
+    }
+}
+```
+
+and register your `CustomCrawlProfile::class` in `config/sitemap.php`.
+
+```php
+use GuzzleHttp\RequestOptions;
+
+return [
+    ...
+    /*
+     * The sitemap generator uses a CrawlProfile implementation to determine
+     * which urls should be crawled for the sitemap.
+     */
+    'crawl_profile' => CustomCrawlProfile::class,
+    
+];
+```
+
 #### Changing properties
 
 To change the `lastmod`, `changefreq` and `priority` of the contact page:
