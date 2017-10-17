@@ -3,11 +3,11 @@
 namespace Spatie\Sitemap\Test;
 
 use Spatie\Crawler\Crawler;
-use Spatie\Crawler\CrawlInternalUrls;
-use Spatie\Crawler\CrawlSubdomains;
 use Spatie\Sitemap\Sitemap;
+use Spatie\Crawler\CrawlSubdomains;
 use Spatie\Sitemap\Crawler\Profile;
 use Spatie\Sitemap\SitemapGenerator;
+use Spatie\Crawler\CrawlInternalUrls;
 
 class CrawlProfileTest extends TestCase
 {
