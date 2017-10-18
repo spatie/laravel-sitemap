@@ -19,7 +19,7 @@
         "php": "^7.0",
         "illuminate/support": "~5.5.0",
         "nesbot/carbon": "^1.21",
-        "spatie/crawler": "^2.3",
+        "spatie/crawler": "^2.6",
         "spatie/temporary-directory": "^1.1"
     },
     "require-dev": {
