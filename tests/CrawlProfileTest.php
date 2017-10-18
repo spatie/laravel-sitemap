@@ -4,8 +4,8 @@ namespace Spatie\Sitemap\Test;
 
 use Spatie\Crawler\Crawler;
 use Spatie\Sitemap\Sitemap;
-use Spatie\Sitemap\Crawler\Profile;
 use Spatie\Crawler\CrawlSubdomains;
+use Spatie\Sitemap\Crawler\Profile;
 use Spatie\Sitemap\SitemapGenerator;
 use Spatie\Crawler\CrawlInternalUrls;
 
