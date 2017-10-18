@@ -119,12 +119,13 @@ class SitemapGenerator
         };
 
         $profileClass = config('sitemap.crawl_profile', Profile::class);
+        $profile = new $profileClass($this->urlToBeCrawled);
 
-        if (is_a($profileClass, Profile::class, true)) {
-            return new $profileClass($shouldCrawl);
+        if (method_exists($profile, 'shouldCrawlCallback')) {
+            $profile->shouldCrawlCallback($shouldCrawl);
         }
 
-        return new $profileClass($this->urlToBeCrawled);
+        return $profile;
     }
 
     protected function getCrawlObserver(): Observer
