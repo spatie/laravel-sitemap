@@ -4,15 +4,26 @@ namespace Spatie\Sitemap\Crawler;
 
 use Spatie\Crawler\Url;
 use Spatie\Crawler\CrawlProfile;
+use Spatie\Crawler\Url as CrawlerUrl;
 
 class Profile implements CrawlProfile
 {
     /** @var callable */
     protected $profile;
 
-    public function __construct(callable $profile)
+    /** @var string */
+    protected $baseUrl;
+
+    public function __construct(string $baseUrl)
     {
-        $this->profile = $profile;
+        $this->baseUrl = $baseUrl;
+    }
+
+    public function shouldCrawlCallback(callable $callback): self
+    {
+        $this->profile = $callback;
+
+        return $this;
     }
 
     /*
@@ -20,6 +31,14 @@ class Profile implements CrawlProfile
      */
     public function shouldCrawl(Url $url): bool
     {
-        return ($this->profile)($url);
+        if ($url->host !== CrawlerUrl::create($this->baseUrl)->host) {
+            return false;
+        }
+
+        if (is_callable($this->profile)) {
+            return ($this->profile)($url);
+        }
+
+        return true;
     }
 }

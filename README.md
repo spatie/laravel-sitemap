@@ -251,6 +251,9 @@ SitemapGenerator::create('https://example.com')
 #### Preventing the crawler from crawling some pages
 You can also instruct the underlying crawler to not crawl some pages by passing a `callable` to `shouldCrawl`.
 
+**Note:** `shouldCrawl` is deprecated and will be removed in the next major version of the package.
+We advise you to define a [custom crawl profile](#define-a-custom-crawl-profile) for any custom rules.
+
 ```php
 use Spatie\Sitemap\SitemapGenerator;
 use Spatie\Crawler\Url;

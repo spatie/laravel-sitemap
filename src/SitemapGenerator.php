@@ -63,6 +63,7 @@ class SitemapGenerator
         return $this;
     }
 
+    /** @deprecated Any custom crawling rules should be defined in a custom crawl profile. */
     public function shouldCrawl(callable $shouldCrawl)
     {
         $this->shouldCrawl = $shouldCrawl;
@@ -106,21 +107,14 @@ class SitemapGenerator
 
     protected function getCrawlProfile(): CrawlProfile
     {
-        $shouldCrawl = function (CrawlerUrl $url) {
-            if ($url->host !== CrawlerUrl::create($this->urlToBeCrawled)->host) {
-                return false;
-            }
-
-            if (! is_callable($this->shouldCrawl)) {
-                return true;
-            }
-
-            return ($this->shouldCrawl)($url);
-        };
+        if (is_callable($this->shouldCrawl)) {
+            return (new Profile($this->urlToBeCrawled))
+                ->shouldCrawlCallback($this->shouldCrawl);
+        }
 
         $profileClass = config('sitemap.crawl_profile', Profile::class);
 
-        return new $profileClass($shouldCrawl);
+        return new $profileClass($this->urlToBeCrawled);
     }
 
     protected function getCrawlObserver(): Observer
