@@ -4,8 +4,10 @@ namespace Spatie\Sitemap\Test;
 
 use Spatie\Crawler\Crawler;
 use Spatie\Sitemap\Sitemap;
+use Spatie\Crawler\CrawlSubdomains;
 use Spatie\Sitemap\Crawler\Profile;
 use Spatie\Sitemap\SitemapGenerator;
+use Spatie\Crawler\CrawlInternalUrls;
 
 class CrawlProfileTest extends TestCase
 {
@@ -47,6 +49,40 @@ class CrawlProfileTest extends TestCase
         $this->crawler
             ->method('setCrawlProfile')
             ->with($this->isInstanceOf(CustomCrawlProfile::class))
+            ->willReturn($this->crawler);
+
+        $sitemapGenerator = new SitemapGenerator($this->crawler);
+
+        $sitemap = $sitemapGenerator->getSitemap();
+
+        $this->assertInstanceOf(Sitemap::class, $sitemap);
+    }
+
+    /** @test */
+    public function it_can_use_the_subdomain_profile()
+    {
+        config(['sitemap.crawl_profile' => CrawlSubdomains::class]);
+
+        $this->crawler
+            ->method('setCrawlProfile')
+            ->with($this->isInstanceOf(CrawlSubdomains::class))
+            ->willReturn($this->crawler);
+
+        $sitemapGenerator = new SitemapGenerator($this->crawler);
+
+        $sitemap = $sitemapGenerator->getSitemap();
+
+        $this->assertInstanceOf(Sitemap::class, $sitemap);
+    }
+
+    /** @test */
+    public function it_can_use_the_internal_profile()
+    {
+        config(['sitemap.crawl_profile' => CrawlInternalUrls::class]);
+
+        $this->crawler
+            ->method('setCrawlProfile')
+            ->with($this->isInstanceOf(CrawlInternalUrls::class))
             ->willReturn($this->crawler);
 
         $sitemapGenerator = new SitemapGenerator($this->crawler);

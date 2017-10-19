@@ -10,9 +10,9 @@ class Profile implements CrawlProfile
     /** @var callable */
     protected $profile;
 
-    public function __construct(callable $profile)
+    public function shouldCrawlCallback(callable $callback)
     {
-        $this->profile = $profile;
+        $this->profile = $callback;
     }
 
     /*
