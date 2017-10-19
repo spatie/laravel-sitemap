@@ -14,7 +14,7 @@ class SitemapGeneratorTest extends TestCase
 
     public function setUp()
     {
-        $this->skipIfTestServerIsNotRunning();
+        $this->checkIfTestServerIsRunning();
 
         parent::setUp();
     }
@@ -92,12 +92,21 @@ class SitemapGeneratorTest extends TestCase
         $this->assertMatchesXmlSnapshot(file_get_contents($sitemapPath));
     }
 
-    protected function skipIfTestServerIsNotRunning()
+    protected function checkIfTestServerIsRunning()
     {
         try {
             file_get_contents('http://localhost:4020');
         } catch (Throwable $e) {
-            $this->markTestSkipped('The testserver is not running.');
+            $this->handleTestServerNotRunning();
         }
+    }
+
+    protected function handleTestServerNotRunning()
+    {
+        if (getenv('TRAVIS')) {
+            $this->fail('The test server is not running on Travis.');
+        }
+
+        $this->markTestSkipped('The test server is not running.');
     }
 }
