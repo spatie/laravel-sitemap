@@ -20,4 +20,4 @@ env:
     - COMPOSER_FLAGS=""
 
 script:
-  - phpunit
+  - vendor/bin/phpunit
