@@ -267,6 +267,19 @@ SitemapGenerator::create('https://example.com')
    ->writeToFile($sitemapPath);
 ```
 
+#### Limiting the amount of pages crawled
+
+You can limit the amount of pages crawled by calling `setMaximumCrawlCount`
+
+```php
+use Spatie\Sitemap\SitemapGenerator;
+use Spatie\Crawler\Url;
+
+SitemapGenerator::create('https://example.com')
+    ->setMaximumCrawlCount(500) // only the 500 first pages will be crawled
+    ...
+```
+
 #### Executing Javascript
 
    

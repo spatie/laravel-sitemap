@@ -30,6 +30,9 @@ class SitemapGenerator
     /** @var int */
     protected $concurrency = 10;
 
+    /** @var int|null */
+    protected $maximumCrawlCount = null;
+
     /**
      * @param string $urlToBeCrawled
      *
@@ -54,6 +57,11 @@ class SitemapGenerator
     public function setConcurrency(int $concurrency)
     {
         $this->concurrency = $concurrency;
+    }
+
+    public function setMaximumCrawlCount(int $maximumCrawlCount)
+    {
+        $this->maximumCrawlCount = $maximumCrawlCount;
     }
 
     public function setUrl(string $urlToBeCrawled)
@@ -83,10 +91,15 @@ class SitemapGenerator
             $this->crawler->executeJavaScript(config('sitemap.chrome_binary_path'));
         }
 
+        if (! is_null($this->maximumCrawlCount)) {
+            $this->crawler->setMaximumCrawlCount($this->maximumCrawlCount);
+        }
+
         $this->crawler
             ->setCrawlProfile($this->getCrawlProfile())
             ->setCrawlObserver($this->getCrawlObserver())
             ->setConcurrency($this->concurrency)
+
             ->startCrawling($this->urlToBeCrawled);
 
         return $this->sitemap;

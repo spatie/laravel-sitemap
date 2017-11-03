@@ -2,6 +2,9 @@
 
 All notable changes to `laravel-sitemap` will be documented in this file
 
+## 3.3.0 - 2017-11-03
+- add `setMaximumCrawlCount`
+
 ## 3.2.2 - 2017-10-19
 - fix custom profiles
 
