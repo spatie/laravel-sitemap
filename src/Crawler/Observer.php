@@ -2,8 +2,8 @@
 
 namespace Spatie\Sitemap\Crawler;
 
-use Psr\Http\Message\UriInterface;
 use Spatie\Crawler\CrawlObserver;
+use Psr\Http\Message\UriInterface;
 
 class Observer implements CrawlObserver
 {
