@@ -2,12 +2,13 @@
 
 namespace Spatie\Sitemap;
 
+use GuzzleHttp\Psr7\Uri;
+use Psr\Http\Message\UriInterface;
 use Spatie\Crawler\Crawler;
 use Spatie\Sitemap\Tags\Url;
 use Spatie\Crawler\CrawlProfile;
 use Spatie\Sitemap\Crawler\Profile;
 use Spatie\Sitemap\Crawler\Observer;
-use Spatie\Crawler\Url as CrawlerUrl;
 use Psr\Http\Message\ResponseInterface;
 
 class SitemapGenerator
@@ -119,8 +120,8 @@ class SitemapGenerator
 
     protected function getCrawlProfile(): CrawlProfile
     {
-        $shouldCrawl = function (CrawlerUrl $url) {
-            if ($url->host !== CrawlerUrl::create($this->urlToBeCrawled)->host) {
+        $shouldCrawl = function (UriInterface $url) {
+            if ((string) $url !== (string) (new Uri($this->urlToBeCrawled))) {
                 return false;
             }
 
@@ -143,8 +144,8 @@ class SitemapGenerator
 
     protected function getCrawlObserver(): Observer
     {
-        $performAfterUrlHasBeenCrawled = function (CrawlerUrl $crawlerUrl, ResponseInterface $response = null) {
-            $sitemapUrl = ($this->hasCrawled)(Url::create($crawlerUrl), $response);
+        $performAfterUrlHasBeenCrawled = function (UriInterface $crawlerUrl, ResponseInterface $response = null) {
+            $sitemapUrl = ($this->hasCrawled)(Url::create((string) $crawlerUrl), $response);
 
             if ($sitemapUrl) {
                 $this->sitemap->add($sitemapUrl);
