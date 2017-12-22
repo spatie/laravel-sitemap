@@ -2,7 +2,7 @@
 
 namespace Spatie\Sitemap\Crawler;
 
-use Spatie\Crawler\Url;
+use Psr\Http\Message\UriInterface;
 use Spatie\Crawler\CrawlProfile;
 
 class Profile implements CrawlProfile
@@ -18,7 +18,7 @@ class Profile implements CrawlProfile
     /*
      * Determine if the given url should be crawled.
      */
-    public function shouldCrawl(Url $url): bool
+    public function shouldCrawl(UriInterface $url): bool
     {
         return ($this->profile)($url);
     }
