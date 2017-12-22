@@ -30,7 +30,7 @@ class Url extends Tag
     /** @var array */
     public $alternates = [];
 
-    public static function create(string $url): Url
+    public static function create(string $url): self
     {
         return new static($url);
     }
