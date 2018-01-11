@@ -10,7 +10,7 @@ class Alternate
     /** @var string */
     public $url;
 
-    public static function create(string $url, string $locale = ''): Alternate
+    public static function create(string $url, string $locale = ''): self
     {
         return new static($url, $locale);
     }

@@ -13,7 +13,7 @@ class Sitemap extends Tag
     /** @var \Carbon\Carbon */
     public $lastModificationDate;
 
-    public static function create(string $url): Sitemap
+    public static function create(string $url): self
     {
         return new static($url);
     }
