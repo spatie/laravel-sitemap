@@ -93,9 +93,9 @@ class SitemapTest extends TestCase
     public function newer_urls_will_be_replaced_and_not_added_anew()
     {
         $old = Url::create('http://example.com')
-            ->setLastModificationDate(Carbon::create(2018, 1, 01));
+            ->setLastModificationDate(Carbon::create(2018, 1, 01, 0, 0, 0));
         $new = Url::create('http://example.com')
-            ->setLastModificationDate(Carbon::create(2018, 1, 11));
+            ->setLastModificationDate(Carbon::create(2018, 1, 11, 0, 0, 0));
 
         $this->sitemap
             ->add($old)
@@ -108,9 +108,9 @@ class SitemapTest extends TestCase
     public function older_urls_will_be_rejected_and_not_added()
     {
         $old = Url::create('http://example.com')
-            ->setLastModificationDate(Carbon::create(2018, 1, 01));
+            ->setLastModificationDate(Carbon::create(2018, 1, 01, 0, 0, 0));
         $new = Url::create('http://example.com')
-            ->setLastModificationDate(Carbon::create(2018, 1, 11));
+            ->setLastModificationDate(Carbon::create(2018, 1, 11, 0, 0, 0));
 
         $this->sitemap
             ->add($new)
