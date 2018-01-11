@@ -29,7 +29,9 @@ class Sitemap
             $tag = Url::create($tag);
         }
 
-        $this->tags[] = $tag;
+        if (!in_array($tag, $this->tags)) {
+            $this->tags[] = $tag;
+        }
 
         return $this;
     }

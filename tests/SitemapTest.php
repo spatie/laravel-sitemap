@@ -50,6 +50,15 @@ class SitemapTest extends TestCase
     }
 
     /** @test */
+    public function a_url_string_can_not_be_added_twice_to_the_sitemap()
+    {
+        $this->sitemap->add('/home');
+        $this->sitemap->add('/home');
+
+        $this->assertMatchesXmlSnapshot($this->sitemap->render());
+    }
+
+    /** @test */
     public function an_url_with_an_alternate_can_be_added_to_the_sitemap()
     {
         $url = Url::create('/home')
