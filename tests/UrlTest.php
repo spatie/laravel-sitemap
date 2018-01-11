@@ -132,4 +132,28 @@ class UrlTest extends TestCase
     {
         $this->assertNull(Url::create('http://example.com/part1/part2/part3')->segment(5));
     }
+
+    /** @test */
+    public function it_can_determine_most_recent_modification()
+    {
+        $old = Url::create('http://example.com')
+            ->setLastModificationDate(Carbon::create(2018, 1, 01));
+        $new = Url::create('http://example.com')
+            ->setLastModificationDate(Carbon::create(2018, 1, 11));
+
+        $this->assertEquals($old->max($new), $new);
+        $this->assertEquals($new->max($old), $new);
+    }
+
+    /** @test */
+    public function it_can_decide_newer_urls()
+    {
+        $old = Url::create('http://example.com')
+            ->setLastModificationDate(Carbon::create(2018, 1, 01));
+        $new = Url::create('http://example.com')
+            ->setLastModificationDate(Carbon::create(2018, 1, 11));
+
+        $this->assertTrue($new->isNewer($old));
+        $this->assertFalse($old->isNewer($new));
+    }
 }
