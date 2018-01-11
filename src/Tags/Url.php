@@ -150,7 +150,7 @@ class Url extends Tag
      *
      * @return Url
      */
-    public function max(Url $compare)
+    public function max(self $compare)
     {
         return $this->lastModificationDate->gt($compare->lastModificationDate) ? $this : $compare;
     }
@@ -160,7 +160,7 @@ class Url extends Tag
      *
      * @return bool
      */
-    public function isNewer(Url $compare)
+    public function isNewer(self $compare)
     {
         return $this->max($compare) === $this;
     }
