@@ -2,6 +2,7 @@
 
 namespace Spatie\Sitemap\Test;
 
+use Carbon\Carbon;
 use Spatie\Sitemap\Sitemap;
 use Spatie\Sitemap\Tags\Url;
 
@@ -84,6 +85,36 @@ class SitemapTest extends TestCase
         $this->sitemap
             ->add(Url::create('/home'))
             ->add(Url::create('/contact'));
+
+        $this->assertMatchesXmlSnapshot($this->sitemap->render());
+    }
+
+    /** @test */
+    public function newer_urls_will_be_replaced_and_not_added_anew()
+    {
+        $old = Url::create('http://example.com')
+            ->setLastModificationDate(Carbon::create(2018, 1, 01, 0, 0, 0));
+        $new = Url::create('http://example.com')
+            ->setLastModificationDate(Carbon::create(2018, 1, 11, 0, 0, 0));
+
+        $this->sitemap
+            ->add($old)
+            ->add($new);
+
+        $this->assertMatchesXmlSnapshot($this->sitemap->render());
+    }
+
+    /** @test */
+    public function older_urls_will_be_rejected_and_not_added()
+    {
+        $old = Url::create('http://example.com')
+            ->setLastModificationDate(Carbon::create(2018, 1, 01, 0, 0, 0));
+        $new = Url::create('http://example.com')
+            ->setLastModificationDate(Carbon::create(2018, 1, 11, 0, 0, 0));
+
+        $this->sitemap
+            ->add($new)
+            ->add($old);
 
         $this->assertMatchesXmlSnapshot($this->sitemap->render());
     }

@@ -29,9 +29,27 @@ class Sitemap
             $tag = Url::create($tag);
         }
 
-        if (! in_array($tag, $this->tags)) {
+        if (! $this->hasUrl($tag->url)) {
             $this->tags[] = $tag;
+        } else {
+            $oldTag = $this->getUrl($tag->url);
+            if ($tag->isNewer($oldTag)) {
+                $this->update($oldTag, $tag);
+            }
         }
+
+        return $this;
+    }
+
+    /**
+     * @param Url $oldTag
+     * @param Url $newTag
+     *
+     * @return $this
+     */
+    public function update(Url $oldTag, Url $newTag)
+    {
+        array_splice($this->tags, array_search($oldTag, $this->tags), 1, [$newTag]);
 
         return $this;
     }

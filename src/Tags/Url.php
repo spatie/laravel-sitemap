@@ -144,4 +144,24 @@ class Url extends Tag
     {
         return $this->segments()[$index - 1] ?? null;
     }
+
+    /**
+     * @param Url $compare
+     *
+     * @return Url
+     */
+    public function max(self $compare)
+    {
+        return $this->lastModificationDate->gt($compare->lastModificationDate) ? $this : $compare;
+    }
+
+    /**
+     * @param Url $compare
+     *
+     * @return bool
+     */
+    public function isNewer(self $compare)
+    {
+        return $this->max($compare) === $this;
+    }
 }
