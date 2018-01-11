@@ -2,6 +2,9 @@
 
 All notable changes to `laravel-sitemap` will be documented in this file
 
+## 3.3.1 - 2018-01-11
+- avoid having duplicates in the sitemap
+
 ## 3.3.0 - 2017-11-03
 - add `setMaximumCrawlCount`
 
