@@ -42,6 +42,28 @@ class SitemapTest extends TestCase
     }
 
     /** @test */
+    public function it_can_append_a_link_to_existing_sitemap()
+    {
+        $path = $this->temporaryDirectory->path('test.xml');
+
+        $this->sitemap->add('/home')->writeToFile($path);
+
+        $sitemap = Sitemap::createFromFile($path);
+
+        $sitemap->add('/contact');
+
+        $this->assertMatchesXmlSnapshot($sitemap->render());
+    }
+
+    /** @test */
+    public function it_returns_empty_sitemap_if_file_does_not_exist()
+    {
+        $sitemap = Sitemap::createFromFile('non-existing-file.xml');
+
+        $this->assertInstanceOf(Sitemap::class, $sitemap);
+    }
+
+    /** @test */
     public function an_url_string_can_be_added_to_the_sitemap()
     {
         $this->sitemap->add('/home');
