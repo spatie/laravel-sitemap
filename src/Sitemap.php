@@ -18,6 +18,28 @@ class Sitemap
         return new static();
     }
 
+    public static function createFromFile(string $path)
+    {
+        $sitemap = new static();
+
+        if (! file_exists($path)) {
+            return $sitemap;
+        }
+
+        $tags = json_decode(json_encode(simplexml_load_string(file_get_contents($path))), true);
+
+        collect($tags)->each(function ($tag) use ($sitemap) {
+            $url = new Url($tag['loc']);
+            $url->setPriority($tag['priority']);
+            $url->setChangeFrequency($tag['changefreq']);
+            $url->setLastModificationDate(new \DateTime($tag['lastmod']));
+
+            $sitemap->add($url);
+        });
+
+        return $sitemap;
+    }
+
     /**
      * @param string|\Spatie\Sitemap\Tags\Tag $tag
      *
