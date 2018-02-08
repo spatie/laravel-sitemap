@@ -2,7 +2,7 @@
 
 All notable changes to `laravel-sitemap` will be documented in this file
 
-## 4.0.0 - 2018
+## 4.0.0 - 2018-08-02
 
 - Update to Laravel 5.6
 - Update to phpunit 7
