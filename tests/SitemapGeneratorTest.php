@@ -2,11 +2,10 @@
 
 namespace Spatie\Sitemap\Test;
 
-use Psr\Http\Message\UriInterface;
 use Throwable;
 use Spatie\Sitemap\Tags\Url;
+use Psr\Http\Message\UriInterface;
 use Spatie\Sitemap\SitemapGenerator;
-use Spatie\Crawler\Url as CrawlerUrl;
 
 class SitemapGeneratorTest extends TestCase
 {
@@ -74,7 +73,7 @@ class SitemapGeneratorTest extends TestCase
 
         SitemapGenerator::create('http://localhost:4020')
             ->shouldCrawl(function (UriInterface $url) {
-                return !strpos($url->getPath(), 'page3');
+                return ! strpos($url->getPath(), 'page3');
             })
             ->writeToFile($sitemapPath);
 
