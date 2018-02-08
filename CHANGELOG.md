@@ -2,6 +2,12 @@
 
 All notable changes to `laravel-sitemap` will be documented in this file
 
+## 4.0.0 - 2018
+
+- Update to Laravel 5.6
+- Update to phpunit 7
+- Update to Crawler 3.0
+
 ## 3.3.1 - 2018-01-11
 - avoid having duplicates in the sitemap
 

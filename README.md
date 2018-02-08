@@ -179,16 +179,16 @@ class CustomCrawlProfile implements CrawlProfile
     /**
      * Determine if the given url should be crawled.
      *
-     * @param \Spatie\Crawler\Url $url
+     * @param \GuzzleHttp\Psr7\Uri $url
      *
      * @return bool
      */
-    public function shouldCrawl(Url $url): bool
+    public function shouldCrawl(Uri $url): bool
     {
-        if ($url->host !== 'localhost') {
+        if ($url->getHost() !== 'localhost') {
             return false;
         }
-
+        
         return is_null($url->segment(1));
     }
 }

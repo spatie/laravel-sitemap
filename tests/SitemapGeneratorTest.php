@@ -2,6 +2,7 @@
 
 namespace Spatie\Sitemap\Test;
 
+use Psr\Http\Message\UriInterface;
 use Throwable;
 use Spatie\Sitemap\Tags\Url;
 use Spatie\Sitemap\SitemapGenerator;
@@ -24,7 +25,8 @@ class SitemapGeneratorTest extends TestCase
     {
         $sitemapPath = $this->temporaryDirectory->path('test.xml');
 
-        SitemapGenerator::create('http://localhost:4020')->writeToFile($sitemapPath);
+        SitemapGenerator::create('http://localhost:4020')
+            ->writeToFile($sitemapPath);
 
         $this->assertMatchesXmlSnapshot(file_get_contents($sitemapPath));
     }
@@ -71,8 +73,8 @@ class SitemapGeneratorTest extends TestCase
         $sitemapPath = $this->temporaryDirectory->path('test.xml');
 
         SitemapGenerator::create('http://localhost:4020')
-            ->shouldCrawl(function (CrawlerUrl $url) {
-                return $url->segment(1) !== 'page3';
+            ->shouldCrawl(function (UriInterface $url) {
+                return !strpos($url->getPath(), 'page3');
             })
             ->writeToFile($sitemapPath);
 
