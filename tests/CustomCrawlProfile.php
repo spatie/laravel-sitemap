@@ -5,7 +5,7 @@ namespace Spatie\Sitemap\Test;
 use Spatie\Crawler\CrawlProfile;
 use Psr\Http\Message\UriInterface;
 
-class CustomCrawlProfile implements CrawlProfile
+class CustomCrawlProfile extends CrawlProfile
 {
     /**
      * Determine if the given url should be crawled.

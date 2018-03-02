@@ -5,7 +5,7 @@ namespace Spatie\Sitemap\Crawler;
 use Spatie\Crawler\CrawlProfile;
 use Psr\Http\Message\UriInterface;
 
-class Profile implements CrawlProfile
+class Profile extends CrawlProfile
 {
     /** @var callable */
     protected $profile;

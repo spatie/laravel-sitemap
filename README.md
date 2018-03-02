@@ -174,7 +174,7 @@ You can create a custom crawl profile by implementing the `Spatie\Crawler\CrawlP
 use Spatie\Crawler\Url;
 use Spatie\Crawler\CrawlProfile;
 
-class CustomCrawlProfile implements CrawlProfile
+class CustomCrawlProfile extends CrawlProfile
 {
     /**
      * Determine if the given url should be crawled.
