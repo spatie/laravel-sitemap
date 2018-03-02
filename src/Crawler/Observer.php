@@ -2,10 +2,10 @@
 
 namespace Spatie\Sitemap\Crawler;
 
-use GuzzleHttp\Exception\RequestException;
-use Psr\Http\Message\ResponseInterface;
 use Spatie\Crawler\CrawlObserver;
 use Psr\Http\Message\UriInterface;
+use Psr\Http\Message\ResponseInterface;
+use GuzzleHttp\Exception\RequestException;
 
 class Observer extends CrawlObserver
 {
@@ -60,6 +60,5 @@ class Observer extends CrawlObserver
         RequestException $requestException,
         ?UriInterface $foundOnUrl = null
     ) {
-        return;
     }
 }
