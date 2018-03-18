@@ -151,13 +151,13 @@ The generated sitemap will look similar to this:
         <loc>https://example.com</loc>
         <lastmod>2016-01-01T00:00:00+00:00</lastmod>
         <changefreq>daily</changefreq>
-        <priority>0.8</priority>
+        <priority>0.5</priority>
     </url>
     <url>
         <loc>https://example.com/page</loc>
         <lastmod>2016-01-01T00:00:00+00:00</lastmod>
         <changefreq>daily</changefreq>
-        <priority>0.8</priority>
+        <priority>0.5</priority>
     </url>
 
     ...
