@@ -56,6 +56,7 @@ class UrlTest extends TestCase
         $this->assertEquals($carbon->toAtomString(), $this->url->lastModificationDate->toAtomString());
     }
 
+    /** @test */
     public function priority_can_be_set()
     {
         $this->url->setPriority(0.1);
@@ -63,6 +64,17 @@ class UrlTest extends TestCase
         $this->assertEquals(0.1, $this->url->priority);
     }
 
+    /** @test */
+    public function priority_is_clamped()
+    {
+        $this->url->setPriority(-0.1);
+        $this->assertEquals(0, $this->url->priority);
+
+        $this->url->setPriority(1.1);
+        $this->assertEquals(1, $this->url->priority);
+    }
+
+    /** @test */
     public function change_frequency_can_be_set()
     {
         $this->url->setChangeFrequency(Url::CHANGE_FREQUENCY_YEARLY);

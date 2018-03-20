@@ -4,12 +4,12 @@
     <loc>/contact</loc>
     <lastmod>2016-01-01T00:00:00+00:00</lastmod>
     <changefreq>daily</changefreq>
-    <priority>0.8</priority>
+    <priority>0.5</priority>
   </url>
   <url>
     <loc>/home</loc>
     <lastmod>2016-01-01T00:00:00+00:00</lastmod>
     <changefreq>daily</changefreq>
-    <priority>0.8</priority>
+    <priority>0.5</priority>
   </url>
 </urlset>
