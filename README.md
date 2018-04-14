@@ -280,6 +280,19 @@ SitemapGenerator::create('https://example.com')
     ...
 ```
 
+#### Limiting the max crawl depth
+
+By default, the crawler continues until it has crawled every page of the supplied URL. If you want to limit the depth of the crawler you can use the `setMaximumDepth` method.
+
+```php
+use Spatie\Sitemap\SitemapGenerator;
+use Spatie\Crawler\Url;
+
+SitemapGenerator::create('https://example.com')
+    ->setMaximumDepth(500)
+    ...
+```
+
 #### Executing Javascript
 
    

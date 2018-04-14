@@ -93,6 +93,30 @@ class SitemapGeneratorTest extends TestCase
         $this->assertMatchesXmlSnapshot(file_get_contents($sitemapPath));
     }
 
+    /** @test */
+    public function it_can_use_a_max_depth_option()
+    {
+        $sitemapPath = $this->temporaryDirectory->path('test.xml');
+
+        SitemapGenerator::create('http://localhost:4020')
+            ->setMaximumDepth(1)
+            ->writeToFile($sitemapPath);
+
+        $this->assertMatchesXmlSnapshot(file_get_contents($sitemapPath));
+    }
+
+    /** @test */
+    public function it_can_use_a_max_crawl_count_option()
+    {
+        $sitemapPath = $this->temporaryDirectory->path('test.xml');
+
+        SitemapGenerator::create('http://localhost:4020')
+            ->setMaximumCrawlCount(2)
+            ->writeToFile($sitemapPath);
+
+        $this->assertMatchesXmlSnapshot(file_get_contents($sitemapPath));
+    }
+
     protected function checkIfTestServerIsRunning()
     {
         try {

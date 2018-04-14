@@ -34,6 +34,9 @@ class SitemapGenerator
     /** @var int|null */
     protected $maximumCrawlCount = null;
 
+    /** @var int|null */
+    protected $maximumDepth = null;
+
     /**
      * @param string $urlToBeCrawled
      *
@@ -58,11 +61,22 @@ class SitemapGenerator
     public function setConcurrency(int $concurrency)
     {
         $this->concurrency = $concurrency;
+
+        return $this;
     }
 
     public function setMaximumCrawlCount(int $maximumCrawlCount)
     {
         $this->maximumCrawlCount = $maximumCrawlCount;
+
+        return $this;
+    }
+
+    public function setMaximumDepth(int $maximumDepth)
+    {
+        $this->maximumDepth = $maximumDepth;
+
+        return $this;
     }
 
     public function setUrl(string $urlToBeCrawled)
@@ -98,6 +112,10 @@ class SitemapGenerator
 
         if (! is_null($this->maximumCrawlCount)) {
             $this->crawler->setMaximumCrawlCount($this->maximumCrawlCount);
+        }
+
+        if (! is_null($this->maximumDepth)) {
+            $this->crawler->setMaximumDepth($this->maximumDepth);
         }
 
         $this->crawler
