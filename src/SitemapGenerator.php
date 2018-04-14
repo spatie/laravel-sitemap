@@ -83,14 +83,14 @@ class SitemapGenerator
     public function shouldCrawl(callable $shouldCrawl)
     {
         $this->shouldCrawl = $shouldCrawl;
-
+        
         return $this;
     }
 
     public function hasCrawled(callable $hasCrawled)
     {
         $this->hasCrawled = $hasCrawled;
-
+        
         return $this;
     }
 
