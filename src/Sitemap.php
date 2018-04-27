@@ -36,6 +36,16 @@ class Sitemap
         return $this;
     }
 
+	/**
+	 * Returns tags
+	 *
+	 * @return array
+	 */
+	public function getTags()
+	{
+		return $this->tags;
+	}
+
     /**
      * @param string $url
      *

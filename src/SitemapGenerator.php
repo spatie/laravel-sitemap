@@ -3,6 +3,7 @@
 namespace Spatie\Sitemap;
 
 use GuzzleHttp\Psr7\Uri;
+use Illuminate\Support\Collection;
 use Spatie\Crawler\Crawler;
 use Spatie\Sitemap\Tags\Url;
 use Spatie\Crawler\CrawlProfile;
@@ -13,8 +14,8 @@ use Psr\Http\Message\ResponseInterface;
 
 class SitemapGenerator
 {
-    /** @var \Spatie\Sitemap\Sitemap */
-    protected $sitemap;
+    /** @var \Illuminate\Support\Collection */
+    protected $sitemaps;
 
     /** @var \GuzzleHttp\Psr7\Uri */
     protected $urlToBeCrawled = '';
@@ -30,6 +31,9 @@ class SitemapGenerator
 
     /** @var int */
     protected $concurrency = 10;
+
+    /** @var bool $chunk */
+    protected $chunk = false;
 
     /** @var int|null */
     protected $maximumCrawlCount = null;
@@ -48,7 +52,7 @@ class SitemapGenerator
     {
         $this->crawler = $crawler;
 
-        $this->sitemap = new Sitemap();
+        $this->sitemaps = new Collection([new Sitemap]);
 
         $this->hasCrawled = function (Url $url, ResponseInterface $response = null) {
             return $url;
@@ -63,6 +67,19 @@ class SitemapGenerator
     public function setMaximumCrawlCount(int $maximumCrawlCount)
     {
         $this->maximumCrawlCount = $maximumCrawlCount;
+    }
+
+    /**
+     * Enable chunk
+     *
+     * @param int $chunk
+     * @return self
+     */
+    public function setChunck(int $chunk = 50000)
+    {
+        $this->chunk = $chunk;
+
+        return $this;
     }
 
     public function setUrl(string $urlToBeCrawled)
@@ -106,7 +123,7 @@ class SitemapGenerator
             ->setConcurrency($this->concurrency)
             ->startCrawling($this->urlToBeCrawled);
 
-        return $this->sitemap;
+        return $this->sitemaps->first();
     }
 
     /**
@@ -116,7 +133,25 @@ class SitemapGenerator
      */
     public function writeToFile(string $path)
     {
-        $this->getSitemap()->writeToFile($path);
+        $sitemap = $this->getSitemap();
+
+        if ($this->chunk) {
+            // Call the sitemap generation and process each created sitemap
+            $index = SitemapIndex::create();
+            $format = preg_replace('/\.xml/', '_%d.xml', $path);
+            $this->sitemaps->each(function (Sitemap $sitemap, int $key) use ($index, $format) {
+                $path = sprintf($format, $key);
+
+                $sitemap->writeToFile(sprintf($format, $key));
+                $index->add(last(explode('public', $path)));
+            });
+
+            $index->writeToFile($path);
+        }
+
+        else {
+            $sitemap->writeToFile($path);
+        }
 
         return $this;
     }
@@ -150,8 +185,12 @@ class SitemapGenerator
         $performAfterUrlHasBeenCrawled = function (UriInterface $crawlerUrl, ResponseInterface $response = null) {
             $sitemapUrl = ($this->hasCrawled)(Url::create((string) $crawlerUrl), $response);
 
+            if ($this->chunk and count($this->sitemaps->first()->getTags()) >= $this->chunk) {
+                $this->sitemaps->prepend(new Sitemap);
+            }
+
             if ($sitemapUrl) {
-                $this->sitemap->add($sitemapUrl);
+                $this->sitemaps->first()->add($sitemapUrl);
             }
         };
 
