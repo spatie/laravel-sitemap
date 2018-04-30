@@ -10,10 +10,7 @@ class Sitemap
     /** @var array */
     protected $tags = [];
 
-    /**
-     * @return static
-     */
-    public static function create()
+    public static function create(): self
     {
         return new static();
     }
@@ -23,7 +20,7 @@ class Sitemap
      *
      * @return $this
      */
-    public function add($tag)
+    public function add($tag): self
     {
         if (is_string($tag)) {
             $tag = Url::create($tag);
@@ -36,22 +33,12 @@ class Sitemap
         return $this;
     }
 
-	/**
-	 * Returns tags
-	 *
-	 * @return array
-	 */
-	public function getTags()
+	public function getTags(): array
 	{
 		return $this->tags;
 	}
 
-    /**
-     * @param string $url
-     *
-     * @return \Spatie\Sitemap\Tags\Url|null
-     */
-    public function getUrl(string $url)
+    public function getUrl(string $url): ?Url
     {
         return collect($this->tags)->first(function (Tag $tag) use ($url) {
             return $tag->getType() === 'url' && $tag->url === $url;
@@ -74,12 +61,7 @@ class Sitemap
             ->render();
     }
 
-    /**
-     * @param string $path
-     *
-     * @return $this
-     */
-    public function writeToFile(string $path)
+    public function writeToFile(string $path): self
     {
         file_put_contents($path, $this->render());
 

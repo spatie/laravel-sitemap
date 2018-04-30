@@ -31,12 +31,12 @@ class SitemapGeneratorTest extends TestCase
     }
 
 	/** @test */
-	public function it_can_generate_a_sitemap_with_max_per_sitemap()
+	public function it_will_create_new_sitemaps_if_the_maximum_amount_is_crossed()
 	{
         $sitemapPath = $this->temporaryDirectory->path('test_chunk.xml');
 
         SitemapGenerator::create('http://localhost:4020')
-            ->maxItemsPerSitemap(1)
+            ->maxTagsPerSitemap(1)
             ->writeToFile($sitemapPath);
 
         $content = file_get_contents($sitemapPath);

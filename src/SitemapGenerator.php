@@ -32,8 +32,8 @@ class SitemapGenerator
     /** @var int */
     protected $concurrency = 10;
 
-    /** @var bool|int $chunk */
-    protected $chunk = false;
+    /** @var bool|int $maximumTagsPerSitemap */
+    protected $maximumTagsPerSitemap = false;
 
     /** @var int|null */
     protected $maximumCrawlCount = null;
@@ -69,9 +69,9 @@ class SitemapGenerator
         $this->maximumCrawlCount = $maximumCrawlCount;
     }
 
-    public function maxItemsPerSitemap(int $chunk = 50000): self
+    public function maxTagsPerSitemap(int $maximumTagsPerSitemap = 50000): self
     {
-        $this->chunk = $chunk;
+        $this->maximumTagsPerSitemap = $maximumTagsPerSitemap;
 
         return $this;
     }
@@ -129,7 +129,7 @@ class SitemapGenerator
     {
         $sitemap = $this->getSitemap();
 
-        if ($this->chunk) {
+        if ($this->maximumTagsPerSitemap) {
             $sitemap = SitemapIndex::create();
             $format = str_replace('.xml', '_%d.xml', $path);
 
@@ -177,20 +177,26 @@ class SitemapGenerator
         $performAfterUrlHasBeenCrawled = function (UriInterface $crawlerUrl, ResponseInterface $response = null) {
             $sitemapUrl = ($this->hasCrawled)(Url::create((string) $crawlerUrl), $response);
 
-            if ($this->shouldAddSitemap()) {
-                $this->sitemaps->prepend(new Sitemap);
+            if ($this->shouldStartNewSitemapFile()) {
+                $this->sitemaps->push(new Sitemap);
             }
 
             if ($sitemapUrl) {
-                $this->sitemaps->first()->add($sitemapUrl);
+                $this->sitemaps->last()->add($sitemapUrl);
             }
         };
 
         return new Observer($performAfterUrlHasBeenCrawled);
     }
 
-    protected function shouldAddSitemap(): bool
+    protected function shouldStartNewSitemapFile(): bool
     {
-        return ($this->chunk && count($this->sitemaps->first()->getTags()) >= $this->chunk);
+        if (! $this->maximumTagsPerSitemap) {
+            return false;
+        }
+
+        $currentNumberOfTags = count($this->sitemaps->last()->getTags());
+
+        return $currentNumberOfTags >= $this->maximumTagsPerSitemap;
     }
 }
