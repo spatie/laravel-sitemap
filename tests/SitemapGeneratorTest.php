@@ -31,26 +31,26 @@ class SitemapGeneratorTest extends TestCase
     }
 
 	/** @test */
-	public function it_can_generate_a_sitemap_with_chunk()
+	public function it_can_generate_a_sitemap_with_max_per_sitemap()
 	{
-		$sitemapPath = $this->temporaryDirectory->path('test_chunk.xml');
+        $sitemapPath = $this->temporaryDirectory->path('test_chunk.xml');
 
-		SitemapGenerator::create('http://localhost:4020')
-			->setChunck(1)
-			->writeToFile($sitemapPath);
+        SitemapGenerator::create('http://localhost:4020')
+            ->maxItemsPerSitemap(1)
+            ->writeToFile($sitemapPath);
 
-		$content = file_get_contents($sitemapPath);
+        $content = file_get_contents($sitemapPath);
 
-		foreach (range(0, 5) as $index) {
-			$filename = sprintf('test_chunk_%d.xml', $index);
-			$subsitemap = file_get_contents($this->temporaryDirectory->path($filename));
+        foreach (range(0, 5) as $index) {
+            $filename = "test_chunk_{$index}.xml";
+            $subsitemap = file_get_contents($this->temporaryDirectory->path($filename));
 
-			$this->assertNotEmpty($subsitemap);
-			$this->assertTrue((bool) preg_match('/test_chunk_' . $index . '\.xml/', $content));
-			$this->assertTrue((bool) preg_match('<loc>', $subsitemap));
-			$this->assertTrue((bool) preg_match('<url>', $subsitemap));
-			$this->assertTrue((bool) preg_match('<urlset>', $subsitemap));
-		}
+            $this->assertNotEmpty($subsitemap);
+            $this->assertContains("test_chunk_{$index}.xml", $content);
+            $this->assertContains('<loc>', $subsitemap);
+            $this->assertContains('<url>', $subsitemap);
+            $this->assertContains('<urlset', $subsitemap);
+        }
 	}
 
     /** @test */

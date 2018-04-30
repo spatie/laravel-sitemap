@@ -32,7 +32,7 @@ class SitemapGenerator
     /** @var int */
     protected $concurrency = 10;
 
-    /** @var bool $chunk */
+    /** @var bool|int $chunk */
     protected $chunk = false;
 
     /** @var int|null */
@@ -69,13 +69,7 @@ class SitemapGenerator
         $this->maximumCrawlCount = $maximumCrawlCount;
     }
 
-    /**
-     * Enable chunk
-     *
-     * @param int $chunk
-     * @return self
-     */
-    public function setChunck(int $chunk = 50000)
+    public function maxItemsPerSitemap(int $chunk = 50000): self
     {
         $this->chunk = $chunk;
 
@@ -136,22 +130,20 @@ class SitemapGenerator
         $sitemap = $this->getSitemap();
 
         if ($this->chunk) {
-            // Call the sitemap generation and process each created sitemap
-            $index = SitemapIndex::create();
-            $format = preg_replace('/\.xml/', '_%d.xml', $path);
-            $this->sitemaps->each(function (Sitemap $sitemap, int $key) use ($index, $format) {
+            $sitemap = SitemapIndex::create();
+            $format = str_replace('.xml', '_%d.xml', $path);
+
+            // Parses each sub-sitemaps, writes and pushs them into the sitemap
+            // index
+            $this->sitemaps->each(function (Sitemap $item, int $key) use ($sitemap, $format) {
                 $path = sprintf($format, $key);
 
-                $sitemap->writeToFile(sprintf($format, $key));
-                $index->add(last(explode('public', $path)));
+                $item->writeToFile(sprintf($format, $key));
+                $sitemap->add(last(explode('public', $path)));
             });
-
-            $index->writeToFile($path);
         }
 
-        else {
-            $sitemap->writeToFile($path);
-        }
+        $sitemap->writeToFile($path);
 
         return $this;
     }
@@ -185,7 +177,7 @@ class SitemapGenerator
         $performAfterUrlHasBeenCrawled = function (UriInterface $crawlerUrl, ResponseInterface $response = null) {
             $sitemapUrl = ($this->hasCrawled)(Url::create((string) $crawlerUrl), $response);
 
-            if ($this->chunk and count($this->sitemaps->first()->getTags()) >= $this->chunk) {
+            if ($this->shouldAddSitemap()) {
                 $this->sitemaps->prepend(new Sitemap);
             }
 
@@ -195,5 +187,10 @@ class SitemapGenerator
         };
 
         return new Observer($performAfterUrlHasBeenCrawled);
+    }
+
+    protected function shouldAddSitemap(): bool
+    {
+        return ($this->chunk && count($this->sitemaps->first()->getTags()) >= $this->chunk);
     }
 }
