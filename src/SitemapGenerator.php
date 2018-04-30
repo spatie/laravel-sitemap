@@ -3,10 +3,10 @@
 namespace Spatie\Sitemap;
 
 use GuzzleHttp\Psr7\Uri;
-use Illuminate\Support\Collection;
 use Spatie\Crawler\Crawler;
 use Spatie\Sitemap\Tags\Url;
 use Spatie\Crawler\CrawlProfile;
+use Illuminate\Support\Collection;
 use Psr\Http\Message\UriInterface;
 use Spatie\Sitemap\Crawler\Profile;
 use Spatie\Sitemap\Crawler\Observer;
