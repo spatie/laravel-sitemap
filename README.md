@@ -376,6 +376,36 @@ the generated sitemap index will look similar to this:
 </sitemapindex>
 ```
 
+### Create a sitemap index with sub-sequent sitemaps
+
+You can call the `SitemapGenerator::maxItemsPerSitemap` method to generate a
+sitemap every `n` entries (by default `50000`)
+
+```php
+use Spatie\Sitemap\SitemapGenerator;
+
+SitemapGenerator::create('https://example.com')
+    ->maxItemsPerSitemap(20000)
+    ->writeToFile(public_path('sitemap.xml'));
+
+```
+
+will generate (assuming you have 40000 URLs in your site)
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+   <sitemap>
+      <loc>http://www.example.com/sitemap_1.xml</loc>
+      <lastmod>2016-01-01T00:00:00+00:00</lastmod>
+   </sitemap>
+   <sitemap>
+      <loc>http://www.example.com/sitemap_2.xml</loc>
+      <lastmod>2015-12-31T00:00:00+00:00</lastmod>
+   </sitemap>
+</sitemapindex>
+```
+
 ## Generating the sitemap frequently
 
 Your site will probably be updated from time to time. In order to let your sitemap reflect these changes, you can run the generator periodically. The easiest way of doing this is to make use of Laravel's default scheduling capabilities.

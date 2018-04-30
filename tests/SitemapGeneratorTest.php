@@ -30,6 +30,29 @@ class SitemapGeneratorTest extends TestCase
         $this->assertMatchesXmlSnapshot(file_get_contents($sitemapPath));
     }
 
+	/** @test */
+	public function it_can_generate_a_sitemap_with_max_per_sitemap()
+	{
+        $sitemapPath = $this->temporaryDirectory->path('test_chunk.xml');
+
+        SitemapGenerator::create('http://localhost:4020')
+            ->maxItemsPerSitemap(1)
+            ->writeToFile($sitemapPath);
+
+        $content = file_get_contents($sitemapPath);
+
+        foreach (range(0, 5) as $index) {
+            $filename = "test_chunk_{$index}.xml";
+            $subsitemap = file_get_contents($this->temporaryDirectory->path($filename));
+
+            $this->assertNotEmpty($subsitemap);
+            $this->assertContains("test_chunk_{$index}.xml", $content);
+            $this->assertContains('<loc>', $subsitemap);
+            $this->assertContains('<url>', $subsitemap);
+            $this->assertContains('<urlset', $subsitemap);
+        }
+	}
+
     /** @test */
     public function it_can_modify_the_attributes_while_generating_the_sitemap()
     {
