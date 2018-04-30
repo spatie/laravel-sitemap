@@ -30,9 +30,9 @@ class SitemapGeneratorTest extends TestCase
         $this->assertMatchesXmlSnapshot(file_get_contents($sitemapPath));
     }
 
-	/** @test */
-	public function it_will_create_new_sitemaps_if_the_maximum_amount_is_crossed()
-	{
+    /** @test */
+    public function it_will_create_new_sitemaps_if_the_maximum_amount_is_crossed()
+    {
         $sitemapPath = $this->temporaryDirectory->path('test_chunk.xml');
 
         SitemapGenerator::create('http://localhost:4020')
@@ -51,7 +51,7 @@ class SitemapGeneratorTest extends TestCase
             $this->assertContains('<url>', $subsitemap);
             $this->assertContains('<urlset', $subsitemap);
         }
-	}
+    }
 
     /** @test */
     public function it_can_modify_the_attributes_while_generating_the_sitemap()
