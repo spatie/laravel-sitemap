@@ -379,7 +379,7 @@ the generated sitemap index will look similar to this:
 ### Create a sitemap index with sub-sequent sitemaps
 
 You can call the `maximumTagsPerSitemap` method to generate a
-sitemap every `n` entries
+sitemap that only contains the given amount of tags
 
 ```php
 use Spatie\Sitemap\SitemapGenerator;
@@ -390,21 +390,7 @@ SitemapGenerator::create('https://example.com')
 
 ```
 
-will generate (assuming you have 40000 URLs in your site)
 
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-   <sitemap>
-      <loc>http://www.example.com/sitemap_1.xml</loc>
-      <lastmod>2016-01-01T00:00:00+00:00</lastmod>
-   </sitemap>
-   <sitemap>
-      <loc>http://www.example.com/sitemap_2.xml</loc>
-      <lastmod>2015-12-31T00:00:00+00:00</lastmod>
-   </sitemap>
-</sitemapindex>
-```
 
 ## Generating the sitemap frequently
 
