@@ -3,13 +3,21 @@
 var app = require('express')();
 
 app.get('/', function (req, res) {
-    var html = ['page1', 'page2', 'page3'].map(function (pageName) {
+    var html = ['page1', 'page2', 'page3', 'not-allowed'].map(function (pageName) {
         return '<a href="' + pageName + '">' + pageName + '</a><br />';
     }).join('');
 
     html = html + '<a href="https://spatie.be">Do not index this link</a>'
 
-    console.log('Visit on /');
+    res.writeHead(200, { 'Content-Type': 'text/html' });
+    res.end(html);
+});
+
+app.get('/robots.txt', function (req, res) {
+    var html = 'User-agent: *\n' +
+        'Disallow: /not-allowed';
+
+    console.log('Visited robots.txt and saw\n' + html);
 
     res.writeHead(200, { 'Content-Type': 'text/html' });
     res.end(html);

@@ -4,11 +4,20 @@ namespace Spatie\Sitemap\Crawler;
 
 use Spatie\Crawler\CrawlProfile;
 use Psr\Http\Message\UriInterface;
+use Spatie\Robots\Robots;
 
 class Profile extends CrawlProfile
 {
     /** @var callable */
     protected $profile;
+
+    /** @var \Spatie\Robots\Robots */
+    protected $robots;
+
+    public function __construct()
+    {
+        $this->robots = Robots::create();
+    }
 
     public function shouldCrawlCallback(callable $callback)
     {
@@ -20,6 +29,8 @@ class Profile extends CrawlProfile
      */
     public function shouldCrawl(UriInterface $url): bool
     {
-        return ($this->profile)($url);
+        $mayIndex = $this->robots->mayIndex($url);
+
+        return $mayIndex && ($this->profile)($url);
     }
 }
