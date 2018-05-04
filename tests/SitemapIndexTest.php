@@ -14,7 +14,7 @@ class SitemapIndexTest extends TestCase
     {
         parent::setUp();
 
-        $this->index = new SitemapIndex();
+        $this->index = new SitemapIndex('');
     }
 
     /** @test */
@@ -25,11 +25,11 @@ class SitemapIndexTest extends TestCase
         $this->assertInstanceOf(SitemapIndex::class, $index);
     }
 
-    /** @test */
-    public function it_can_render_an_empty_index()
-    {
-        $this->assertMatchesXmlSnapshot($this->index->render());
-    }
+	/** @test */
+	public function it_can_render_an_empty_index()
+	{
+		$this->assertMatchesXmlSnapshot($this->index->render());
+	}
 
     /** @test */
     public function it_can_write_an_index_to_a_file()
@@ -76,6 +76,15 @@ class SitemapIndexTest extends TestCase
             );
 
         $this->assertMatchesXmlSnapshot($this->index->render());
+    }
+
+    /** @test */
+    public function it_can_render_a_sitemap_with_custom_xsl()
+    {
+        $index = new SitemapIndex('/foo.xsl');
+        $index->add(Sitemap::create('/sitemap1.xml'));
+
+        $this->assertMatchesXmlSnapshot($index->render());
     }
 
     /** @test */

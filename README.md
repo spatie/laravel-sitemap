@@ -127,7 +127,13 @@ return [
      * which urls should be crawled for the sitemap.
      */
     'crawl_profile' => Profile::class,
-    
+
+    /*
+     * The xsl use to generate a readable sitemap for human. This is te path from your
+     * website. 
+     */
+    'sitemap_xsl' => '/vendor/laravel-sitemap/sitemap.xsl',
+
 ];
 ```
 
@@ -459,6 +465,14 @@ cd tests/server
 ./start_server.sh
 ```
 
+For your first time, you will also require to install the node dependencies:
+
+``` bash
+cd tests/server
+npm install
+./start_server.sh
+```
+
 With the server running you can execute the tests:
 
 ``` bash
@@ -496,3 +510,5 @@ All pledges will be dedicated to allocating workforce on maintenance and new awe
 ## License
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
+
+This package also include a version of [xml-sitemap-stylesheet](https://github.com/pedroborges/xml-sitemap-stylesheet) under it's own MIT license.
