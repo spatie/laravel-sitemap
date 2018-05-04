@@ -10,9 +10,18 @@ class Sitemap
     /** @var array */
     protected $tags = [];
 
+    /** @var string */
+    protected $sitemapXsl;
+
     public static function create(): self
     {
-        return new static();
+        return new static(config('sitemap.sitemap_xsl'));
+    }
+
+    public function __construct(string $sitemapXsl)
+    {
+        $this->sitemapXsl = $sitemapXsl;
+        return $this;
     }
 
     /**
@@ -55,9 +64,10 @@ class Sitemap
         sort($this->tags);
 
         $tags = $this->tags;
+        $sitemapXsl = $this->sitemapXsl;
 
         return view('laravel-sitemap::sitemap')
-            ->with(compact('tags'))
+            ->with(compact('tags', 'sitemapXsl'))
             ->render();
     }
 

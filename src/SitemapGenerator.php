@@ -52,7 +52,7 @@ class SitemapGenerator
     {
         $this->crawler = $crawler;
 
-        $this->sitemaps = new Collection([new Sitemap]);
+        $this->sitemaps = new Collection([Sitemap::create()]);
 
         $this->hasCrawled = function (Url $url, ResponseInterface $response = null) {
             return $url;
@@ -178,7 +178,7 @@ class SitemapGenerator
             $sitemapUrl = ($this->hasCrawled)(Url::create((string) $crawlerUrl), $response);
 
             if ($this->shouldStartNewSitemapFile()) {
-                $this->sitemaps->push(new Sitemap);
+                $this->sitemaps->push(Sitemap::create());
             }
 
             if ($sitemapUrl) {

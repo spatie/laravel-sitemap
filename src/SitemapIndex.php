@@ -10,12 +10,18 @@ class SitemapIndex
     /** @var array */
     protected $tags = [];
 
-    /**
-     * @return static
-     */
-    public static function create()
+    /** @var string */
+    protected $sitemapXsl;
+
+    public static function create(): self
     {
-        return new static();
+        return new static(config('sitemap.sitemap_xsl'));
+    }
+
+    public function __construct(string $sitemapXsl)
+    {
+        $this->sitemapXsl = $sitemapXsl;
+        return $this;
     }
 
     /**
@@ -67,10 +73,11 @@ class SitemapIndex
      */
     public function render(): string
     {
+        $sitemapXsl = $this->sitemapXsl;
         $tags = $this->tags;
 
         return view('laravel-sitemap::sitemapIndex/index')
-            ->with(compact('tags'))
+            ->with(compact('tags', 'sitemapXsl'))
             ->render();
     }
 

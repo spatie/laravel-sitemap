@@ -19,6 +19,10 @@ class SitemapServiceProvider extends ServiceProvider
         ], 'views');
 
         $this->publishes([
+            __DIR__.'/../resources/public' => public_path('vendor/laravel-sitemap'),
+        ], 'public');
+
+        $this->publishes([
             __DIR__.'/../config/sitemap.php' => config_path('sitemap.php'),
         ], 'config');
 

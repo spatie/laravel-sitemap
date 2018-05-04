@@ -14,7 +14,7 @@ class SitemapTest extends TestCase
     {
         parent::setUp();
 
-        $this->sitemap = new Sitemap();
+        $this->sitemap = new Sitemap('');
     }
 
     /** @test */
@@ -99,6 +99,15 @@ class SitemapTest extends TestCase
             );
 
         $this->assertMatchesXmlSnapshot($this->sitemap->render());
+    }
+
+    /** @test */
+    public function it_can_render_a_sitemap_with_custom_xsl()
+    {
+        $sitemap = new Sitemap('/foo.xsl');
+        $sitemap->add('/home');
+
+        $this->assertMatchesXmlSnapshot($sitemap->render());
     }
 
     /** @test */

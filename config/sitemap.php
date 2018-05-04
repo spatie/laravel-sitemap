@@ -54,4 +54,10 @@ return [
      */
     'crawl_profile' => Profile::class,
 
+    /*
+     * The xsl use to generate a readable sitemap for human. This is te path from your
+     * website.
+     */
+    'sitemap_xsl' => '/vendor/laravel-sitemap/sitemap.xsl',
+
 ];
