@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-sitemap` will be documented in this file
 
+## 5.2.0 - 2018-05-04
+
+- Add robots.txt support.
+
 ## 5.1.0 - 2018-04-30
 
 - add support for a maximum amount of tags in one sitemap
