@@ -33,10 +33,10 @@ class Sitemap
         return $this;
     }
 
-	public function getTags(): array
-	{
-		return $this->tags;
-	}
+    public function getTags(): array
+    {
+        return $this->tags;
+    }
 
     public function getUrl(string $url): ?Url
     {
