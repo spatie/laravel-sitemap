@@ -2,9 +2,9 @@
 
 namespace Spatie\Sitemap\Crawler;
 
+use Spatie\Robots\Robots;
 use Spatie\Crawler\CrawlProfile;
 use Psr\Http\Message\UriInterface;
-use Spatie\Robots\Robots;
 
 class Profile extends CrawlProfile
 {
