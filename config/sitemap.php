@@ -54,7 +54,7 @@ return [
      */
     'crawl_profile' => Profile::class,
 
-    /**
+    /*
      * Whether to ignore robots.txt and robots meta before indexing the page.
      */
     'ignore_robots' => false,
