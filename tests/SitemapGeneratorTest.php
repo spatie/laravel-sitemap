@@ -115,6 +115,19 @@ class SitemapGeneratorTest extends TestCase
     }
 
     /** @test */
+    public function it_will_crawl_an_url_if_robots_txt_check_is_disabled()
+    {
+        config(['sitemap.ignore_robots' => true]);
+
+        $sitemapPath = $this->temporaryDirectory->path('test.xml');
+
+        SitemapGenerator::create('http://localhost:4020')
+            ->writeToFile($sitemapPath);
+
+        $this->assertContains('/not-allowed', file_get_contents($sitemapPath));
+    }
+
+    /** @test */
     public function it_can_use_a_custom_profile()
     {
         config(['sitemap.crawl_profile' => CustomCrawlProfile::class]);

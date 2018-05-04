@@ -29,7 +29,7 @@ class Profile extends CrawlProfile
      */
     public function shouldCrawl(UriInterface $url): bool
     {
-        $mayIndex = $this->robots->mayIndex($url);
+        $mayIndex = config('sitemap.ignore_robots', false) || $this->robots->mayIndex($url);
 
         return $mayIndex && ($this->profile)($url);
     }
