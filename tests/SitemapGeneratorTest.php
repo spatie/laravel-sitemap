@@ -2,8 +2,8 @@
 
 namespace Spatie\Sitemap\Test;
 
-use Spatie\Crawler\Crawler;
 use Throwable;
+use Spatie\Crawler\Crawler;
 use Spatie\Sitemap\Tags\Url;
 use Psr\Http\Message\UriInterface;
 use Spatie\Sitemap\SitemapGenerator;
