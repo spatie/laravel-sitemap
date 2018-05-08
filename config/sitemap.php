@@ -54,4 +54,8 @@ return [
      */
     'crawl_profile' => Profile::class,
 
+    /**
+     * Ignore robots checks when crawling.
+     */
+    'ignore_robots' => false,
 ];
