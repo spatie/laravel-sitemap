@@ -30,6 +30,16 @@ app.get('/:page', function (req, res) {
     res.end(html);
 });
 
+app.get('/robots.txt', function (req, res) {
+    var html = 'User-agent: *\n' +
+        'Disallow: /not-allowed';
+
+    console.log('Visited robots.txt and saw\n' + html);
+
+    res.writeHead(200, { 'Content-Type': 'text/html' });
+    res.end(html);
+});
+
 var server = app.listen(4020, function () {
     var host = 'localhost';
     var port = server.address().port;
