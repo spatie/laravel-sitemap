@@ -53,10 +53,6 @@ class SitemapGenerator
     {
         $this->crawler = $crawler;
 
-        if (config('sitemap.ignore_robots')) {
-            $this->crawler->ignoreRobots();
-        }
-
         $this->sitemaps = new Collection([new Sitemap]);
 
         $this->hasCrawled = function (Url $url, ResponseInterface $response = null) {
