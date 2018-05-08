@@ -3,6 +3,7 @@
 namespace Spatie\Sitemap\Test;
 
 use Throwable;
+use Spatie\Crawler\Crawler;
 use Spatie\Sitemap\Tags\Url;
 use Psr\Http\Message\UriInterface;
 use Spatie\Sitemap\SitemapGenerator;
@@ -101,6 +102,31 @@ class SitemapGeneratorTest extends TestCase
             ->writeToFile($sitemapPath);
 
         $this->assertMatchesXmlSnapshot(file_get_contents($sitemapPath));
+    }
+
+    /** @test */
+    public function it_will_not_crawl_an_url_if_listed_in_robots_txt()
+    {
+        $sitemapPath = $this->temporaryDirectory->path('test.xml');
+
+        SitemapGenerator::create('http://localhost:4020')
+            ->writeToFile($sitemapPath);
+
+        $this->assertNotContains('/not-allowed', file_get_contents($sitemapPath));
+    }
+
+    /** @test */
+    public function it_will_crawl_an_url_if_robots_txt_check_is_disabled()
+    {
+        $sitemapPath = $this->temporaryDirectory->path('test.xml');
+
+        SitemapGenerator::create('http://localhost:4020')
+            ->configureCrawler(function (Crawler $crawler) {
+                $crawler->ignoreRobots();
+            })
+            ->writeToFile($sitemapPath);
+
+        $this->assertContains('/not-allowed', file_get_contents($sitemapPath));
     }
 
     /** @test */

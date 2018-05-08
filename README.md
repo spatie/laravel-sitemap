@@ -267,6 +267,20 @@ SitemapGenerator::create('https://example.com')
    ->writeToFile($sitemapPath);
 ```
 
+#### Configuring the crawler
+
+The crawler itself can be [configured](https://github.com/spatie/crawler#usage) to do a few different things.
+
+You can configure the crawler used by the sitemap generator, for example: to ignore robot checks; like so.
+
+```php
+SitemapGenerator::create('http://localhost:4020')
+    ->configureCrawler(function (Crawler $crawler) {
+        $crawler->ignoreRobots();
+    })
+    ->writeToFile($file);
+```
+
 #### Limiting the amount of pages crawled
 
 You can limit the amount of pages crawled by calling `setMaximumCrawlCount`
