@@ -2,6 +2,7 @@
 
 namespace Spatie\Sitemap;
 
+use Closure;
 use GuzzleHttp\Psr7\Uri;
 use Spatie\Crawler\Crawler;
 use Spatie\Sitemap\Tags\Url;
@@ -61,6 +62,13 @@ class SitemapGenerator
         $this->hasCrawled = function (Url $url, ResponseInterface $response = null) {
             return $url;
         };
+    }
+
+    public function configureCrawler(Closure $closure): self
+    {
+        call_user_func_array($closure, [$this->crawler]);
+
+        return $this;
     }
 
     public function setConcurrency(int $concurrency)
