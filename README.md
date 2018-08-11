@@ -188,11 +188,11 @@ class CustomCrawlProfile extends CrawlProfile
     /**
      * Determine if the given url should be crawled.
      *
-     * @param \GuzzleHttp\Psr7\Uri $url
+     * @param Spatie\Crawler\Url $url
      *
      * @return bool
      */
-    public function shouldCrawl(Uri $url): bool
+    public function shouldCrawl(Url $url): bool
     {
         if ($url->getHost() !== 'localhost') {
             return false;
