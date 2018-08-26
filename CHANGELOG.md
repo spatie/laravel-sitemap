@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-sitemap` will be documented in this file
 
+## 5.2.2 - 2018-08-26
+
+- Make methods on `SitemapGenerator` fluent
+
 ## 5.2.1 - 2018-07-23
 
 - Improve indentation of rendered output
