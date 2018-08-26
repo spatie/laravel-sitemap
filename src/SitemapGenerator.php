@@ -70,14 +70,14 @@ class SitemapGenerator
     public function setConcurrency(int $concurrency)
     {
         $this->concurrency = $concurrency;
-        
+
         return $this;
     }
 
     public function setMaximumCrawlCount(int $maximumCrawlCount)
     {
         $this->maximumCrawlCount = $maximumCrawlCount;
-        
+
         return $this;
     }
 
