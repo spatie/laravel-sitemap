@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-sitemap` will be documented in this file
 
+## 5.2.3 - 2018-08-28
+
+- Add support for Laravel 5.7
+
 ## 5.2.2 - 2018-08-26
 
 - Make methods on `SitemapGenerator` fluent
