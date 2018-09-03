@@ -180,25 +180,18 @@ The generated sitemap will look similar to this:
 You can create a custom crawl profile by implementing the `Spatie\Crawler\CrawlProfile` interface and by customizing the `shouldCrawl()` method for full control over what url/domain/sub-domain should be crawled:
 
 ```php
-use Spatie\Crawler\Url;
 use Spatie\Crawler\CrawlProfile;
+use Psr\Http\Message\UriInterface;
 
 class CustomCrawlProfile extends CrawlProfile
 {
-    /**
-     * Determine if the given url should be crawled.
-     *
-     * @param Spatie\Crawler\Url $url
-     *
-     * @return bool
-     */
-    public function shouldCrawl(Url $url): bool
+    public function shouldCrawl(UriInterface $url): bool
     {
         if ($url->getHost() !== 'localhost') {
             return false;
         }
         
-        return is_null($url->segment(1));
+        return $url->getPath() === '/';
     }
 }
 ```
@@ -264,14 +257,15 @@ You can also instruct the underlying crawler to not crawl some pages by passing 
  
 ```php
 use Spatie\Sitemap\SitemapGenerator;
-use Spatie\Crawler\Url;
+use Psr\Http\Message\UriInterface;
 
 SitemapGenerator::create('https://example.com')
-   ->shouldCrawl(function (Url $url) {
+   ->shouldCrawl(function (UriInterface $url) {
        // All pages will be crawled, except the contact page.
        // Links present on the contact page won't be added to the
        // sitemap unless they are present on a crawlable page.
-       return $url->segment(1) !== 'contact';
+       
+       return strpos($url->getPath(), '/contact') !== false;
    })
    ->writeToFile($sitemapPath);
 ```
@@ -296,7 +290,6 @@ You can limit the amount of pages crawled by calling `setMaximumCrawlCount`
 
 ```php
 use Spatie\Sitemap\SitemapGenerator;
-use Spatie\Crawler\Url;
 
 SitemapGenerator::create('https://example.com')
     ->setMaximumCrawlCount(500) // only the 500 first pages will be crawled
