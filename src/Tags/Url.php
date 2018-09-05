@@ -32,7 +32,7 @@ class Url extends Tag
 
     public static function create(string $url): self
     {
-        return new static($url);
+        return new static(url($url));
     }
 
     public function __construct(string $url)
@@ -101,7 +101,7 @@ class Url extends Tag
      */
     public function addAlternate(string $url, string $locale = '')
     {
-        $this->alternates[] = new Alternate($url, $locale);
+        $this->alternates[] = new Alternate(url($url), $locale);
 
         return $this;
     }
