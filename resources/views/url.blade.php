@@ -1,10 +1,11 @@
 <url>
     @if (! empty($tag->url))
-    <loc>{{ $tag->url }}</loc>
+
+    <loc>{{ url($tag->url) }}</loc>
     @endif
 @if (count($tag->alternates))
 @foreach ($tag->alternates as $alternate)
-    <xhtml:link rel="alternate" hreflang="{{ $alternate->locale }}" href="{{ $alternate->url }}" />
+    <xhtml:link rel="alternate" hreflang="{{ $alternate->locale }}" href="{{ url($alternate->url) }}" />
     @endforeach
 @endif
 @if (! empty($tag->lastModificationDate))

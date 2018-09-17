@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-sitemap` will be documented in this file
 
+## 5.2.4 - 2018-09-17
+
+- Make all generated links absolute
+
 ## 5.2.3 - 2018-08-28
 
 - Add support for Laravel 5.7
