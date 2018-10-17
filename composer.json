@@ -42,12 +42,12 @@
     },
     "config": {
         "sort-packages": true
-  },
-   "extra": {
-       "laravel": {
-           "providers": [
-               "Spatie\\Sitemap\\SitemapServiceProvider"
-           ]
-       }
-   }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Spatie\\Sitemap\\SitemapServiceProvider"
+            ]
+        }
+    }
 }
