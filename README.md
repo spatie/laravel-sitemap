@@ -265,7 +265,7 @@ SitemapGenerator::create('https://example.com')
        // Links present on the contact page won't be added to the
        // sitemap unless they are present on a crawlable page.
        
-       return strpos($url->getPath(), '/contact') !== false;
+       return strpos($url->getPath(), '/contact') === false;
    })
    ->writeToFile($sitemapPath);
 ```
