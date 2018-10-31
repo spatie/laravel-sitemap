@@ -24,8 +24,8 @@ class Url extends Tag
     /** @var string */
     public $changeFrequency;
 
-    /** @var float */
-    public $priority = 0.8;
+    /** @var float|null */
+    public $priority;
 
     /** @var array */
     public $alternates = [];
@@ -42,6 +42,8 @@ class Url extends Tag
         $this->lastModificationDate = Carbon::now();
 
         $this->changeFrequency = static::CHANGE_FREQUENCY_DAILY;
+
+        $this->priority = config('sitemap.default_priority');
     }
 
     /**

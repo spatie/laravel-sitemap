@@ -2,6 +2,7 @@
 
 namespace Spatie\Sitemap\Test;
 
+use Illuminate\Support\Facades\Config;
 use Spatie\Sitemap\Sitemap;
 use Spatie\Sitemap\Tags\Url;
 
@@ -96,6 +97,20 @@ class SitemapTest extends TestCase
                 ->setLastModificationDate($this->now->subDay())
                 ->setChangeFrequency(Url::CHANGE_FREQUENCY_YEARLY)
                 ->setPriority(0.1)
+            );
+
+        $this->assertMatchesXmlSnapshot($this->sitemap->render());
+    }
+
+    /** @test */
+    public function it_can_render_an_url_without_a_default_priority()
+    {
+        Config::set('sitemap.default_priority', null);
+
+        $this->sitemap
+            ->add(Url::create('/home')
+                ->setLastModificationDate($this->now->subDay())
+                ->setChangeFrequency(Url::CHANGE_FREQUENCY_YEARLY)
             );
 
         $this->assertMatchesXmlSnapshot($this->sitemap->render());

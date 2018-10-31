@@ -56,6 +56,7 @@ class UrlTest extends TestCase
         $this->assertEquals($carbon->toAtomString(), $this->url->lastModificationDate->toAtomString());
     }
 
+    /** @test */
     public function priority_can_be_set()
     {
         $this->url->setPriority(0.1);

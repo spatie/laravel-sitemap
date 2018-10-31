@@ -54,4 +54,12 @@ return [
      */
     'crawl_profile' => Profile::class,
 
+    /*
+     * The package assigns every url's priority to the given value. Valid values
+     * range from 0.0 to 1.0.
+     * Use null if no default priority should be assigned. Search engines will
+     * apply a priority of 0.5 in the case of an absent priority in the XML.
+     */
+    'default_priority' => 0.8,
+
 ];

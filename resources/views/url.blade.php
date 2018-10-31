@@ -14,7 +14,7 @@
     @if (! empty($tag->changeFrequency))
     <changefreq>{{ $tag->changeFrequency }}</changefreq>
     @endif
-@if (! empty($tag->priority))
+@if (is_numeric($tag->priority))
     <priority>{{ $tag->priority }}</priority>
     @endif
 </url>
