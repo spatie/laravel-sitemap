@@ -2,9 +2,9 @@
 
 namespace Spatie\Sitemap\Test;
 
-use Illuminate\Support\Facades\Config;
 use Spatie\Sitemap\Sitemap;
 use Spatie\Sitemap\Tags\Url;
+use Illuminate\Support\Facades\Config;
 
 class SitemapTest extends TestCase
 {
