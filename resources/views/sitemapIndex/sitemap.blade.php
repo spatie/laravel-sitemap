@@ -1,6 +1,6 @@
 <sitemap>
     @if (! empty($tag->url))
-    <loc>{{ $tag->url }}</loc>
+    <loc>{{ url($tag->url) }}</loc>
     @endif
 
     @if (! empty($tag->lastModificationDate))
