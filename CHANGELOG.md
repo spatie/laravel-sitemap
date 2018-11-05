@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-sitemap` will be documented in this file
 
+## 5.2.6 - 2018-11-03
+
+- use absolute urls
+
 ## 5.2.5 - 2018-10-17
 
 - Remove unused dependency
