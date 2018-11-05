@@ -87,7 +87,7 @@ class Url extends Tag
      */
     public function setPriority(float $priority)
     {
-        $this->priority = $priority;
+        $this->priority = max(0, min(1, $priority));
 
         return $this;
     }
