@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-sitemap` will be documented in this file
 
+## 5.2.7 - 2018-11-03
+
+- enforce priority value to be in between 0 and 1.
+
 ## 5.2.6 - 2018-11-03
 
 - use absolute urls
