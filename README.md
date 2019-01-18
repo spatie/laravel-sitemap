@@ -394,14 +394,14 @@ the generated sitemap index will look similar to this:
 
 ### Create a sitemap index with sub-sequent sitemaps
 
-You can call the `maximumTagsPerSitemap` method to generate a
+You can call the `maxTagsPerSitemap` method to generate a
 sitemap that only contains the given amount of tags
 
 ```php
 use Spatie\Sitemap\SitemapGenerator;
 
 SitemapGenerator::create('https://example.com')
-    ->maximumTagsPerSitemap(20000)
+    ->maxTagsPerSitemap(20000)
     ->writeToFile(public_path('sitemap.xml'));
 
 ```
