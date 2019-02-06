@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-sitemap` will be documented in this file
 
+## 5.2.8 - 2019-01-07
+
+- adhere to sitemap standards
+
 ## 5.2.7 - 2018-11-03
 
 - enforce priority value to be in between 0 and 1.

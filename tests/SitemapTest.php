@@ -67,7 +67,7 @@ class SitemapTest extends TestCase
 
         $this->sitemap->add($url);
 
-        $this->assertMatchesXmlSnapshot($this->sitemap->render());
+        $this->assertMatchesSnapshot($this->sitemap->render());
     }
 
     /** @test */
