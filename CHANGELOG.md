@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-sitemap` will be documented in this file
 
+## 5.2.0 - 2019-02-10
+
+- fix headers
+
 ## 5.2.8 - 2019-01-07
 
 - adhere to sitemap standards
