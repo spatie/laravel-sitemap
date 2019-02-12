@@ -26,7 +26,7 @@ class Sitemap
             $tag = Url::create($tag);
         }
 
-        if (! in_array($tag, $this->tags)) {
+        if (!in_array($tag, $this->tags)) {
             $this->tags[] = $tag;
         }
 
@@ -47,7 +47,18 @@ class Sitemap
 
     public function hasUrl(string $url): bool
     {
-        return (bool) $this->getUrl($url);
+        return (bool)$this->getUrl($url);
+    }
+
+    /**
+     * @param array $namespaces
+     * @return Sitemap
+     */
+    public function setNamespaces(array $namespaces): self
+    {
+        SitemapNamespace::overrideNamespaces($namespaces);
+
+        return $this;
     }
 
     public function render(): string
@@ -56,14 +67,18 @@ class Sitemap
 
         $tags = $this->tags;
 
+        $namespaces = SitemapNamespace::generateNamespaces();
+
         return view('laravel-sitemap::sitemap')
-            ->with(compact('tags'))
+            ->with(compact('tags', "namespaces"))
             ->render();
     }
 
     public function writeToFile(string $path): self
     {
         file_put_contents($path, $this->render());
+
+        SitemapNamespace::setDefault();
 
         return $this;
     }
