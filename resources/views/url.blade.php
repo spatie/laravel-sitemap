@@ -1,6 +1,5 @@
 <url>
     @if (! empty($tag->url))
-
     <loc>{{ url($tag->url) }}</loc>
     @endif
 @if (count($tag->alternates))
