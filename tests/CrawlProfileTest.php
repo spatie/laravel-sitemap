@@ -16,7 +16,7 @@ class CrawlProfileTest extends TestCase
      */
     private $crawler;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

@@ -18,7 +18,7 @@ abstract class TestCase extends OrchestraTestCase
     /** @var \Spatie\TemporaryDirectory\TemporaryDirectory */
     protected $temporaryDirectory;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

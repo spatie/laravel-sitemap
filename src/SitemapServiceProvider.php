@@ -7,9 +7,6 @@ use Illuminate\Support\ServiceProvider;
 
 class SitemapServiceProvider extends ServiceProvider
 {
-    /**
-     * Bootstrap the application services.
-     */
     public function boot()
     {
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'laravel-sitemap');
@@ -29,9 +26,6 @@ class SitemapServiceProvider extends ServiceProvider
             });
     }
 
-    /**
-     * Register the application services.
-     */
     public function register()
     {
         $this->mergeConfigFrom(__DIR__.'/../config/sitemap.php', 'sitemap');

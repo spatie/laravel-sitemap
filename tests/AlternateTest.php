@@ -9,7 +9,7 @@ class AlternateTest extends TestCase
     /** @var \Spatie\Sitemap\Tags\Alternate */
     protected $alternate;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

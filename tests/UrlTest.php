@@ -11,7 +11,7 @@ class UrlTest extends TestCase
     /** @var \Spatie\Sitemap\Tags\Url */
     protected $url;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

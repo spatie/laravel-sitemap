@@ -10,7 +10,7 @@ class SitemapTest extends TestCase
     /** @var \Spatie\Sitemap\Sitemap */
     protected $sitemap;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

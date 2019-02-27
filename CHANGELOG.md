@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-sitemap` will be documented in this file
 
+## 5.2.11 - 2019-02-27
+
+- add support for Laravel 5.8
+
 ## 5.2.10 - 2019-02-15
 
 - fix some formatting issues
