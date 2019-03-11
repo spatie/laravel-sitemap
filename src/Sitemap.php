@@ -7,9 +7,19 @@ use Spatie\Sitemap\Tags\Url;
 
 class Sitemap
 {
-    /** @var array */
+    /**
+     * @var array
+     */
     protected $tags = [];
 
+    /**
+     * @var bool
+     */
+    protected $formatDocument = false;
+
+    /**
+     * @return self
+     */
     public static function create(): self
     {
         return new static();
@@ -18,7 +28,7 @@ class Sitemap
     /**
      * @param string|\Spatie\Sitemap\Tags\Tag $tag
      *
-     * @return $this
+     * @return self
      */
     public function add($tag): self
     {
@@ -33,11 +43,19 @@ class Sitemap
         return $this;
     }
 
+    /**
+     * @return array
+     */
     public function getTags(): array
     {
         return $this->tags;
     }
 
+    /**
+     * @param string $url
+     *
+     * @return self
+     */
     public function getUrl(string $url): ?Url
     {
         return collect($this->tags)->first(function (Tag $tag) use ($url) {
@@ -45,26 +63,80 @@ class Sitemap
         });
     }
 
+    /**
+     * @param string $url
+     *
+     * @return bool
+     */
     public function hasUrl(string $url): bool
     {
         return (bool) $this->getUrl($url);
     }
 
+    /**
+     * @return string
+     * @throws \Throwable
+     */
     public function render(): string
     {
         sort($this->tags);
 
         $tags = $this->tags;
 
-        return view('laravel-sitemap::sitemap')
-            ->with(compact('tags'))
-            ->render();
+        $header = view('laravel-sitemap::header')->render();
+        $document = view('laravel-sitemap::sitemap')
+                ->with(compact('tags'))
+                ->render();
+
+        if ($this->formatDocument) {
+            $document = self::formatDocument($document);
+        }
+
+        return $header.$document;
     }
 
+    /**
+     * @param string $path
+     *
+     * @return self
+     * @throws \Throwable
+     */
     public function writeToFile(string $path): self
     {
         file_put_contents($path, $this->render());
 
         return $this;
+    }
+
+    /**
+     * @param bool $formatDocument
+     *
+     * @return self
+     */
+    public function setFormatDocument(bool $formatDocument = true)
+    {
+        $this->formatDocument = $formatDocument;
+
+        return $this;
+    }
+
+    /**
+     * @param string $xml
+     *
+     * @return string
+     */
+    protected static function formatDocument(string $xml): string
+    {
+        if (! extension_loaded('dom')) {
+            return $xml;
+        }
+
+        $dom = new \DOMDocument();
+        $dom->preserveWhiteSpace = false;
+        $dom->formatOutput = true;
+
+        $dom->loadXML($xml);
+
+        return $dom->saveXML($dom->documentElement).PHP_EOL;
     }
 }

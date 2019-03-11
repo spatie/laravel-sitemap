@@ -39,6 +39,9 @@ class SitemapGenerator
     /** @var int|null */
     protected $maximumCrawlCount = null;
 
+    /** @var bool */
+    protected $formatDocument = false;
+
     /**
      * @param string $urlToBeCrawled
      *
@@ -99,6 +102,13 @@ class SitemapGenerator
         return $this;
     }
 
+    public function setFormatDocument(bool $formatDocument = true)
+    {
+        $this->formatDocument = $formatDocument;
+
+        return $this;
+    }
+
     public function shouldCrawl(callable $shouldCrawl)
     {
         $this->shouldCrawl = $shouldCrawl;
@@ -139,7 +149,7 @@ class SitemapGenerator
      */
     public function writeToFile(string $path)
     {
-        $sitemap = $this->getSitemap();
+        $sitemap = $this->getSitemap()->setFormatDocument($this->formatDocument);
 
         if ($this->maximumTagsPerSitemap) {
             $sitemap = SitemapIndex::create();
