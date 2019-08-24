@@ -135,4 +135,13 @@ class SitemapTest extends TestCase
 
         $this->assertNull($this->sitemap->getUrl('/page2'));
     }
+
+    /** @test */
+    public function a_url_object_can_not_be_added_twice_to_the_sitemap()
+    {
+        $this->sitemap->add(Url::create('/home'));
+        $this->sitemap->add(Url::create('/home'));
+
+        $this->assertMatchesXmlSnapshot($this->sitemap->render());
+    }
 }
