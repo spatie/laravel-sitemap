@@ -54,7 +54,7 @@ class Sitemap
     {
         sort($this->tags);
 
-        $tags = $this->tags;
+        $tags = collect($this->tags)->unique('url');
 
         return view('laravel-sitemap::sitemap')
             ->with(compact('tags'))
