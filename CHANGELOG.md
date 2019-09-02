@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-sitemap` will be documented in this file
 
+## 5.3.1 - 2019-09-02
+
+- make sure the sitemap cannot contain duplicate URLs
+
 ## 5.3.0 - 2019-02-27
 
 - drop support for Laravel 5.7 and below
