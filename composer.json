@@ -17,12 +17,12 @@
     ],
     "require": {
         "php": "^7.2",
-        "illuminate/support": "~5.8.0",
+        "illuminate/support": "~5.8.0|^6.0",
         "nesbot/carbon": "^1.21|^2.0",
         "spatie/crawler": "^4.1.0"
     },
     "require-dev": {
-        "orchestra/testbench": "~3.8.0",
+        "orchestra/testbench": "~3.8.0|^4.0",
         "phpunit/phpunit": "^8.0",
         "spatie/phpunit-snapshot-assertions": "^2.0.0",
         "spatie/temporary-directory": "^1.1"
