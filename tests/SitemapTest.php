@@ -4,6 +4,8 @@ namespace Spatie\Sitemap\Test;
 
 use Spatie\Sitemap\Sitemap;
 use Spatie\Sitemap\Tags\Url;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class SitemapTest extends TestCase
 {
@@ -143,5 +145,13 @@ class SitemapTest extends TestCase
         $this->sitemap->add(Url::create('/home'));
 
         $this->assertMatchesXmlSnapshot($this->sitemap->render());
+    }
+
+    /** @test */
+    public function an_instance_can_return_a_response()
+    {
+        $this->sitemap->add(Url::create('/home'));
+
+        $this->assertInstanceOf(Response::class, $this->sitemap->toResponse(new Request));
     }
 }
