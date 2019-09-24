@@ -4,6 +4,8 @@ namespace Spatie\Sitemap\Test;
 
 use Spatie\Sitemap\SitemapIndex;
 use Spatie\Sitemap\Tags\Sitemap;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class SitemapIndexTest extends TestCase
 {
@@ -111,5 +113,13 @@ class SitemapIndexTest extends TestCase
         $this->assertNotNull($this->index->getSitemap('/sitemap1.xml'));
 
         $this->assertNull($this->index->getSitemap('/sitemap2.xml'));
+    }
+
+    /** @test */
+    public function an_instance_can_return_a_response()
+    {
+        $this->sitemap->add(Url::create('/home'));
+
+        $this->assertInstanceOf(Response::class, $this->sitemap->toResponse(new Request));
     }
 }

@@ -2,10 +2,12 @@
 
 namespace Spatie\Sitemap;
 
+use Illuminate\Contracts\Support\Responsable;
+use Illuminate\Support\Facades\Response;
 use Spatie\Sitemap\Tags\Tag;
 use Spatie\Sitemap\Tags\Sitemap;
 
-class SitemapIndex
+class SitemapIndex implements Responsable
 {
     /** @var array */
     protected $tags = [];
@@ -84,5 +86,18 @@ class SitemapIndex
         file_put_contents($path, $this->render());
 
         return $this;
+    }
+
+    /**
+     * Create an HTTP response that represents the object.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function toResponse($request)
+    {
+        return Response::make($this->render(), 200, [
+            'Content-Type' => 'text/xml',
+        ]);
     }
 }
