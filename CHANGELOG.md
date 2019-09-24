@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-sitemap` will be documented in this file
 
+## 5.5.0 - 2019-09-24
+
+- implement `Responsable` contract
+
 ## 5.4.0 - 2019-09-04
 
 - make compatible with Laravel 6
