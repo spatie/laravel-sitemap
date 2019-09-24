@@ -118,8 +118,8 @@ class SitemapIndexTest extends TestCase
     /** @test */
     public function an_instance_can_return_a_response()
     {
-        $this->sitemap->add(Url::create('/home'));
+        $this->index->add('/sitemap1.xml');
 
-        $this->assertInstanceOf(Response::class, $this->sitemap->toResponse(new Request));
+        $this->assertInstanceOf(Response::class, $this->index->toResponse(new Request));
     }
 }
