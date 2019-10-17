@@ -2,6 +2,8 @@
 
 namespace Spatie\Sitemap;
 
+use function foo\func;
+
 class SitemapNamespace
 {
     public static $namespaces = [
@@ -16,12 +18,11 @@ class SitemapNamespace
 
     public static function generateNamespaces()
     {
-        $result = '';
-        foreach (self::$namespaces as $key => $value) {
-            $result .= ' '.$key.'="'.$value.'"';
-        }
+        $namespaces = array_map(function ($value,$key){
+            return $key.'="'.$value.'"';
+        }, self::$namespaces, array_keys(self::$namespaces));
 
-        return $result;
+        return implode(" ", $namespaces);
     }
 
     public static function setDefault()
