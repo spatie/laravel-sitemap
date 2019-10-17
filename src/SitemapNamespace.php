@@ -6,8 +6,8 @@ namespace Spatie\Sitemap;
 class SitemapNamespace
 {
     public static $namespaces = [
-        "xmlns" => "http://www.sitemaps.org/schemas/sitemap/0.9",
-        "xmlns:xhtml" => "http://www.w3.org/1999/xhtml"
+        'xmlns' => 'http://www.sitemaps.org/schemas/sitemap/0.9',
+        'xmlns:xhtml' => 'http://www.w3.org/1999/xhtml',
     ];
 
     public static function overrideNamespaces($namespaces = [])
@@ -17,9 +17,9 @@ class SitemapNamespace
 
     public static function generateNamespaces()
     {
-        $result = "";
+        $result = '';
         foreach (self::$namespaces as $key => $value) {
-            $result .= " " . $key . '="' . $value . '"';
+            $result .= ' '.$key.'="'.$value.'"';
         }
         return $result;
     }
@@ -27,8 +27,8 @@ class SitemapNamespace
     public static function setDefault()
     {
         self::$namespaces = [
-            "xmlns" => "http://www.sitemaps.org/schemas/sitemap/0.9",
-            "xmlns:xhtml" => "http://www.w3.org/1999/xhtml"
+            'xmlns' => 'http://www.sitemaps.org/schemas/sitemap/0.9',
+            'xmlns:xhtml' => 'http://www.w3.org/1999/xhtml',
         ];
     }
 }

@@ -26,7 +26,7 @@ class Sitemap
             $tag = Url::create($tag);
         }
 
-        if (!in_array($tag, $this->tags)) {
+        if (! in_array($tag, $this->tags)) {
             $this->tags[] = $tag;
         }
 
@@ -47,7 +47,7 @@ class Sitemap
 
     public function hasUrl(string $url): bool
     {
-        return (bool)$this->getUrl($url);
+        return (bool) $this->getUrl($url);
     }
 
     /**
@@ -70,7 +70,7 @@ class Sitemap
         $namespaces = SitemapNamespace::generateNamespaces();
 
         return view('laravel-sitemap::sitemap')
-            ->with(compact('tags', "namespaces"))
+            ->with(compact('tags', 'namespaces'))
             ->render();
     }
 
