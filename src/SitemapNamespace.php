@@ -2,7 +2,6 @@
 
 namespace Spatie\Sitemap;
 
-
 class SitemapNamespace
 {
     public static $namespaces = [
@@ -21,6 +20,7 @@ class SitemapNamespace
         foreach (self::$namespaces as $key => $value) {
             $result .= ' '.$key.'="'.$value.'"';
         }
+
         return $result;
     }
 
