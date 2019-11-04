@@ -85,6 +85,7 @@ This will copy the default config to `config/sitemap.php` where you can edit it.
 
 ```php
 use GuzzleHttp\RequestOptions;
+use Spatie\Sitemap\Crawler\Profile;
 
 return [
 
