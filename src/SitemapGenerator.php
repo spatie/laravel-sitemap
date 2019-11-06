@@ -4,14 +4,14 @@ namespace Spatie\Sitemap;
 
 use Closure;
 use GuzzleHttp\Psr7\Uri;
-use Spatie\Crawler\Crawler;
-use Spatie\Sitemap\Tags\Url;
-use Spatie\Crawler\CrawlProfile;
 use Illuminate\Support\Collection;
-use Psr\Http\Message\UriInterface;
-use Spatie\Sitemap\Crawler\Profile;
-use Spatie\Sitemap\Crawler\Observer;
 use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\UriInterface;
+use Spatie\Crawler\Crawler;
+use Spatie\Crawler\CrawlProfile;
+use Spatie\Sitemap\Crawler\Observer;
+use Spatie\Sitemap\Crawler\Profile;
+use Spatie\Sitemap\Tags\Url;
 
 class SitemapGenerator
 {

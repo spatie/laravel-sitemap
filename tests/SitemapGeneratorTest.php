@@ -2,11 +2,11 @@
 
 namespace Spatie\Sitemap\Test;
 
-use Throwable;
-use Spatie\Crawler\Crawler;
-use Spatie\Sitemap\Tags\Url;
 use Psr\Http\Message\UriInterface;
+use Spatie\Crawler\Crawler;
 use Spatie\Sitemap\SitemapGenerator;
+use Spatie\Sitemap\Tags\Url;
+use Throwable;
 
 class SitemapGeneratorTest extends TestCase
 {
