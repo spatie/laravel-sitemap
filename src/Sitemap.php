@@ -2,11 +2,11 @@
 
 namespace Spatie\Sitemap;
 
+use Illuminate\Contracts\Support\Responsable;
+use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Storage;
 use Spatie\Sitemap\Tags\Tag;
 use Spatie\Sitemap\Tags\Url;
-use Illuminate\Support\Facades\Response;
-use Illuminate\Contracts\Support\Responsable;
 
 class Sitemap implements Responsable
 {
