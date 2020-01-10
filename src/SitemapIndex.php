@@ -2,6 +2,7 @@
 
 namespace Spatie\Sitemap;
 
+use Illuminate\Support\Facades\Storage;
 use Spatie\Sitemap\Tags\Tag;
 use Spatie\Sitemap\Tags\Sitemap;
 use Illuminate\Support\Facades\Response;
@@ -84,6 +85,13 @@ class SitemapIndex implements Responsable
     public function writeToFile(string $path)
     {
         file_put_contents($path, $this->render());
+
+        return $this;
+    }
+
+    public function writeToDisk(string $disk, string $path): self
+    {
+        Storage::disk($disk)->put($path, $this->render());
 
         return $this;
     }

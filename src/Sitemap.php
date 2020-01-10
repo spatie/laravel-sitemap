@@ -2,6 +2,7 @@
 
 namespace Spatie\Sitemap;
 
+use Illuminate\Support\Facades\Storage;
 use Spatie\Sitemap\Tags\Tag;
 use Spatie\Sitemap\Tags\Url;
 use Illuminate\Support\Facades\Response;
@@ -66,6 +67,13 @@ class Sitemap implements Responsable
     public function writeToFile(string $path): self
     {
         file_put_contents($path, $this->render());
+
+        return $this;
+    }
+
+    public function writeToDisk(string $disk, string $path): self
+    {
+        Storage::disk($disk)->put($path, $this->render());
 
         return $this;
     }
