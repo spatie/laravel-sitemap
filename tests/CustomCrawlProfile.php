@@ -2,8 +2,8 @@
 
 namespace Spatie\Sitemap\Test;
 
-use Spatie\Crawler\CrawlProfile;
 use Psr\Http\Message\UriInterface;
+use Spatie\Crawler\CrawlProfile;
 
 class CustomCrawlProfile extends CrawlProfile
 {

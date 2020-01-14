@@ -3,10 +3,10 @@
 namespace Spatie\Sitemap\Test;
 
 use Carbon\Carbon;
-use Spatie\Snapshots\MatchesSnapshots;
-use Spatie\Sitemap\SitemapServiceProvider;
-use Spatie\TemporaryDirectory\TemporaryDirectory;
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
+use Spatie\Sitemap\SitemapServiceProvider;
+use Spatie\Snapshots\MatchesSnapshots;
+use Spatie\TemporaryDirectory\TemporaryDirectory;
 
 abstract class TestCase extends OrchestraTestCase
 {

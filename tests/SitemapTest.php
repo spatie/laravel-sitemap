@@ -3,9 +3,6 @@
 namespace Spatie\Sitemap\Test;
 
 use Spatie\Sitemap\Sitemap;
-use Spatie\Sitemap\Tags\Url;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 class SitemapTest extends TestCase
 {
@@ -24,7 +21,7 @@ class SitemapTest extends TestCase
     {
         $this->sitemap->add('/home');
 
-        $expectedOutput = file_get_contents(__DIR__ . '/expectedOutput/sitemapWithAnUrl.xml');
+        $expectedOutput = file_get_contents(__DIR__.'/expectedOutput/sitemapWithAnUrl.xml');
 
         $this->assertEquals($expectedOutput, $this->sitemap->render());
     }
