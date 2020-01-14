@@ -2,10 +2,10 @@
 
 namespace Spatie\Sitemap;
 
-use Spatie\Sitemap\Tags\Tag;
-use Spatie\Sitemap\Tags\Sitemap;
-use Illuminate\Support\Facades\Response;
 use Illuminate\Contracts\Support\Responsable;
+use Illuminate\Support\Facades\Response;
+use Spatie\Sitemap\Tags\Sitemap;
+use Spatie\Sitemap\Tags\Tag;
 
 class SitemapIndex implements Responsable
 {

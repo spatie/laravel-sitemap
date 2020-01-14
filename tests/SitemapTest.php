@@ -3,9 +3,6 @@
 namespace Spatie\Sitemap\Test;
 
 use Spatie\Sitemap\Sitemap;
-use Spatie\Sitemap\Tags\Url;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 class SitemapTest extends TestCase
 {
@@ -23,7 +20,5 @@ class SitemapTest extends TestCase
     public function an_url_string_can_be_added_to_the_sitemap()
     {
         $this->sitemap->add('/home');
-
-
     }
 }

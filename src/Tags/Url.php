@@ -2,8 +2,8 @@
 
 namespace Spatie\Sitemap\Tags;
 
-use DateTime;
 use Carbon\Carbon;
+use DateTime;
 
 class Url extends Tag
 {
