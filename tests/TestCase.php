@@ -10,8 +10,6 @@ use Orchestra\Testbench\TestCase as OrchestraTestCase;
 
 abstract class TestCase extends OrchestraTestCase
 {
-    use MatchesSnapshots;
-
     /** @var \Carbon\Carbon */
     protected $now;
 

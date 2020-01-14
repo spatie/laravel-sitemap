@@ -24,8 +24,6 @@ class SitemapTest extends TestCase
     {
         $this->sitemap->add('/home');
 
-        $expectedOutput = file_get_contents(__DIR__ . '/expectedOutput/sitemapWithAnUrl.xml');
 
-        $this->assertEquals($expectedOutput, $this->sitemap->render());
     }
 }
