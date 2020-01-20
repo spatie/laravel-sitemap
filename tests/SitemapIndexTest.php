@@ -2,6 +2,7 @@
 
 namespace Spatie\Sitemap\Test;
 
+use Illuminate\Support\Facades\Storage;
 use Spatie\Sitemap\SitemapIndex;
 use Spatie\Sitemap\Tags\Sitemap;
 use Symfony\Component\HttpFoundation\Request;
@@ -41,6 +42,15 @@ class SitemapIndexTest extends TestCase
         $this->index->writeToFile($path);
 
         $this->assertMatchesXmlSnapshot(file_get_contents($path));
+    }
+
+    /** @test */
+    public function it_can_write_a_sitemap_to_a_storage_disk()
+    {
+        Storage::fake('sitemap');
+        $this->index->writeToDisk('sitemap', 'sitemap.xml');
+
+        $this->assertMatchesXmlSnapshot(Storage::disk('sitemap')->get('sitemap.xml'));
     }
 
     /** @test */
