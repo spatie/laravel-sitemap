@@ -60,6 +60,11 @@ SitemapGenerator::create('https://example.com')
 
 The generator has [the ability to execute JavaScript](https://github.com/spatie/laravel-sitemap#executing-javascript) on each page so links injected into the dom by JavaScript will be crawled as well.
 
+You can also use one of your available filesystem disks to write the sitemap to.
+```php
+SitemapGenerator::create('https://example.com')->writeToDisk('public', 'sitemap.xml');
+```
+
 ## Installation
 
 First, install the package via composer:
