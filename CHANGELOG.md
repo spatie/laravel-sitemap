@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-sitemap` will be documented in this file
 
+## 5.6.0 - 2019-01-20
+
+- add `writeToDisk` (#283)
+
 ## 5.5.0 - 2019-09-24
 
 - implement `Responsable` contract
