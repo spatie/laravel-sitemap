@@ -2,9 +2,10 @@
 
 namespace Spatie\Sitemap\Test;
 
-use Illuminate\Support\Facades\Storage;
 use Spatie\Sitemap\Sitemap;
 use Spatie\Sitemap\Tags\Url;
+use Spatie\Sitemap\Tags\Image;
+use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -76,6 +77,18 @@ class SitemapTest extends TestCase
         $url = Url::create('/home')
             ->addAlternate('/thuis', 'nl')
             ->addAlternate('/maison', 'fr');
+
+        $this->sitemap->add($url);
+
+        $this->assertMatchesSnapshot($this->sitemap->render());
+    }
+    
+    /** @test */
+    public function an_url_with_an_image_can_be_added_to_the_sitemap()
+    {
+        $url = Url::create('/home')
+            ->addImage('defaultImageUrl')
+            ->addImage(Image::create('defaultImageUrl'));
 
         $this->sitemap->add($url);
 

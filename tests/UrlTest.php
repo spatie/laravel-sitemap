@@ -4,6 +4,7 @@ namespace Spatie\Sitemap\Test;
 
 use Carbon\Carbon;
 use Spatie\Sitemap\Tags\Alternate;
+use Spatie\Sitemap\Tags\Image;
 use Spatie\Sitemap\Tags\Url;
 
 class UrlTest extends TestCase
@@ -93,6 +94,16 @@ class UrlTest extends TestCase
         $this->assertEquals(new Alternate($url, $locale), $this->url->alternates[0]);
     }
 
+    /** @test */
+    public function image_can_be_added()
+    {
+        $url = 'defaultImageUrl';
+
+        $this->url->addImage($url);
+
+        $this->assertEquals(new Image($url), $this->url->tags[0]);
+    }
+    
     /** @test */
     public function it_can_determine_its_type()
     {

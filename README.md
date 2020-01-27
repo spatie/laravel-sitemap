@@ -344,6 +344,55 @@ SitemapGenerator::create('https://example.com')
 
 Note the ```addAlternate``` function which takes an alternate URL and the locale it belongs to.
 
+#### Adding images to links
+
+You can add images to the different pages.
+
+```php
+use Spatie\Sitemap\SitemapGenerator;
+use Spatie\Sitemap\Tags\Url;
+
+SitemapGenerator::create('https://example.com')
+    ->getSitemap()
+    // here we add one extra link, but you can add as many as you'd like
+    ->add(Url::create('/extra-page')->setPriority(0.5)->addImage('https://picsum.photos/200/300'))
+    ->writeToFile($sitemapPath);
+```
+
+Alternatively, you can pass a `Spatie\Sitemap\Tags\Image` object:
+
+```php
+use Spatie\Sitemap\SitemapGenerator;
+use Spatie\Sitemap\Tags\Url;
+use Spatie\Sitemap\Tags\Image;
+
+SitemapGenerator::create('https://example.com')
+    ->getSitemap()
+    // here we add one extra link, but you can add as many as you'd like
+    ->add(Url::create('/extra-page')->setPriority(0.5)->addImage(
+        Image::create('https://picsum.photos/200/300')
+            ->setTitle('Title')
+            ->setLicense('License')
+            ->setCaption('Caption')
+            ->setGeoLocation('Glasgow, UK');
+    ))
+    ->writeToFile($sitemapPath);
+```
+
+Note the ```addImage``` function which takes an image URL or an `Spatie\Sitemap\Tags\Image` object as a first parameter and an optional callback as a second parameter.
+
+```
+Url::create('/extra-page')->addImage(
+    'https://picsum.photos/200/300',
+    function(Spatie\Sitemap\Tags\Image $image) {
+        $image->setTitle('Title')
+            ->setLicense('License')
+            ->setCaption('Caption')
+            ->setGeoLocation('Glasgow, UK');
+    }
+);
+```
+
 ### Manually creating a sitemap
 
 You can also create a sitemap fully manual:

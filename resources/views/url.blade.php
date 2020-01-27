@@ -7,6 +7,11 @@
     <xhtml:link rel="alternate" hreflang="{{ $alternate->locale }}" href="{{ url($alternate->url) }}" />
     @endforeach
 @endif
+@if (count($tag->tags))
+@foreach ($tag->tags as $tag)
+    @include('laravel-sitemap::' . $tag->getType())
+    @endforeach
+@endif
 @if (! empty($tag->lastModificationDate))
     <lastmod>{{ $tag->lastModificationDate->format(DateTime::ATOM) }}</lastmod>
 @endif
