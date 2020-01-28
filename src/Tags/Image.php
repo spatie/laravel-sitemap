@@ -23,7 +23,7 @@ class Image extends Tag
      * @param string $url
      * @return self
      */
-    public static function create(string $url) : self
+    public static function create(string $url): self
     {
         return new static($url);
     }
@@ -40,7 +40,7 @@ class Image extends Tag
      * @param string $url
      * @return self
      */
-    public function setUrl(string $url) : self
+    public function setUrl(string $url): self
     {
         $this->url = $url;
 
@@ -51,7 +51,7 @@ class Image extends Tag
      * @param string $caption
      * @return self
      */
-    public function setCaption(string $caption) : self
+    public function setCaption(string $caption): self
     {
         $this->caption = $caption;
 
@@ -62,7 +62,7 @@ class Image extends Tag
      * @param string $title
      * @return self
      */
-    public function setTitle(string $title) : self
+    public function setTitle(string $title): self
     {
         $this->title = $title;
 
@@ -73,7 +73,7 @@ class Image extends Tag
      * @param string $geoLocation
      * @return self
      */
-    public function setGeoLocation(string $geoLocation) : self
+    public function setGeoLocation(string $geoLocation): self
     {
         $this->geoLocation = $geoLocation;
 
@@ -84,7 +84,7 @@ class Image extends Tag
      * @param string $license
      * @return self
      */
-    public function setLicense(string $license) : self
+    public function setLicense(string $license): self
     {
         $this->license = $license;
 

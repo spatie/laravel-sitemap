@@ -34,7 +34,7 @@ class Url extends Tag
     /** @var array */
     public $tags = [];
 
-    public static function create(string $url) : self
+    public static function create(string $url): self
     {
         return new static($url);
     }
@@ -111,11 +111,11 @@ class Url extends Tag
     }
 
     /**
-     * @param Image $alternate
-     *
-     * @return $this
+     * @param $tag
+     * @param callable $callback
+     * @return self
      */
-    public function addImage($tag, callable $callback = null) : self
+    public function addImage($tag, callable $callback = null): self
     {
         if (is_string($tag)) {
             $tag = Image::create($tag);
