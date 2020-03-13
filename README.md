@@ -61,7 +61,7 @@ The generator has [the ability to execute JavaScript](https://github.com/spatie/
 
 You can also use one of your available filesystem disks to write the sitemap to.
 ```php
-SitemapGenerator::create('https://example.com')->writeToDisk('public', 'sitemap.xml');
+SitemapGenerator::create('https://example.com')->getSitemap()->writeToDisk('public', 'sitemap.xml');
 ```
 
 ## Support us
