@@ -33,7 +33,7 @@ class SitemapGenerator
     /** @var int */
     protected $concurrency = 10;
 
-    /** @var bool|int $maximumTagsPerSitemap */
+    /** @var bool|int */
     protected $maximumTagsPerSitemap = false;
 
     /** @var int|null */
