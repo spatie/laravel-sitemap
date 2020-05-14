@@ -23,10 +23,7 @@ use Spatie\Sitemap\Tags\Url;
 
 Sitemap::create()
 
-    ->add(Url::create('/home')
-        ->setLastModificationDate(Carbon::yesterday())
-        ->setChangeFrequency(Url::CHANGE_FREQUENCY_YEARLY)
-        ->setPriority(0.1))
+    ->add(Url::create('/home')->setLastModificationDate(Carbon::yesterday())
 
    ->add(...)
 
@@ -38,10 +35,7 @@ Or you can have the best of both worlds by generating a sitemap and then adding 
 ```php
 SitemapGenerator::create('https://example.com')
    ->getSitemap()
-   ->add(Url::create('/extra-page')
-        ->setLastModificationDate(Carbon::yesterday())
-        ->setChangeFrequency(Url::CHANGE_FREQUENCY_YEARLY)
-        ->setPriority(0.1))
+   ->add(Url::create('/extra-page')->setLastModificationDate(Carbon::yesterday())
 
     ->add(...)
 
@@ -171,14 +165,10 @@ The generated sitemap will look similar to this:
     <url>
         <loc>https://example.com</loc>
         <lastmod>2016-01-01T00:00:00+00:00</lastmod>
-        <changefreq>daily</changefreq>
-        <priority>0.8</priority>
     </url>
     <url>
         <loc>https://example.com/page</loc>
         <lastmod>2016-01-01T00:00:00+00:00</lastmod>
-        <changefreq>daily</changefreq>
-        <priority>0.8</priority>
     </url>
 
     ...
@@ -224,7 +214,7 @@ return [
 
 #### Changing properties
 
-To change the `lastmod`, `changefreq` and `priority` of the contact page:
+To change the `lastmod` of the contact page:
 
 ```php
 use Carbon\Carbon;
@@ -234,8 +224,8 @@ use Spatie\Sitemap\Tags\Url;
 SitemapGenerator::create('https://example.com')
    ->hasCrawled(function (Url $url) {
        if ($url->segment(1) === 'contact') {
-           $url->setPriority(0.9)
-               ->setLastModificationDate(Carbon::create('2016', '1', '1'));
+           $url->setLastModificationDate(Carbon::create('2016', '1', '1'));
+               
        }
 
        return $url;
@@ -329,7 +319,7 @@ use Spatie\Sitemap\Tags\Url;
 SitemapGenerator::create('https://example.com')
     ->getSitemap()
     // here we add one extra link, but you can add as many as you'd like
-    ->add(Url::create('/extra-page')->setPriority(0.5))
+    ->add(Url::create('/extra-page'))
     ->writeToFile($sitemapPath);
 ```
 
@@ -344,7 +334,7 @@ use Spatie\Sitemap\Tags\Url;
 SitemapGenerator::create('https://example.com')
     ->getSitemap()
     // here we add one extra link, but you can add as many as you'd like
-    ->add(Url::create('/extra-page')->setPriority(0.5)->addAlternate('/extra-pagina', 'nl'))
+    ->add(Url::create('/extra-page')->addAlternate('/extra-pagina', 'nl'))
     ->writeToFile($sitemapPath);
 ```
 

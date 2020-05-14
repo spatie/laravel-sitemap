@@ -106,8 +106,6 @@ class SitemapTest extends TestCase
         $this->sitemap
             ->add(Url::create('/home')
                 ->setLastModificationDate($this->now->subDay())
-                ->setChangeFrequency(Url::CHANGE_FREQUENCY_YEARLY)
-                ->setPriority(0.1)
             );
 
         $this->assertMatchesXmlSnapshot($this->sitemap->render());
