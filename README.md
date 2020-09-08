@@ -2,8 +2,8 @@
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/spatie/laravel-sitemap.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-sitemap)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/spatie/laravel-sitemap/run-tests?label=tests)
-[![StyleCI](https://styleci.io/repos/65549848/shield)](https://styleci.io/repos/65549848)
+![Test Status](https://img.shields.io/github/workflow/status/spatie/laravel-sitemap/run-tests?label=tests)
+![Code Style Status](https://img.shields.io/github/workflow/status/spatie/laravel-sitemap/php-cs-fixer?label=code%20style)
 [![Total Downloads](https://img.shields.io/packagist/dt/spatie/laravel-sitemap.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-sitemap)
 
 This package can generate a sitemap without you having to add urls to it manually. This works by crawling your entire site.
