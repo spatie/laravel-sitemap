@@ -83,7 +83,8 @@ class SitemapIndexTest extends TestCase
     public function it_can_render_a_sitemaps_with_all_its_set_properties()
     {
         $this->index
-            ->add(Sitemap::create('/sitemap1.xml')
+            ->add(
+                Sitemap::create('/sitemap1.xml')
                 ->setLastModificationDate($this->now->subDay())
             );
 
