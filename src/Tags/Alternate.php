@@ -6,22 +6,18 @@ class Alternate
 {
     /** @var string */
     public $locale;
-
     /** @var string */
     public $url;
-
     public static function create(string $url, string $locale = ''): self
     {
         return new static($url, $locale);
     }
-
     public function __construct(string $url, $locale = '')
     {
         $this->setUrl($url);
 
         $this->setLocale($locale);
     }
-
     /**
      * @param string $locale
      *
@@ -30,10 +26,8 @@ class Alternate
     public function setLocale(string $locale = '')
     {
         $this->locale = $locale;
-
-        return $this;
+            return $this;
     }
-
     /**
      * @param string $url
      *
@@ -42,7 +36,6 @@ class Alternate
     public function setUrl(string $url = '')
     {
         $this->url = $url;
-
         return $this;
     }
 }
