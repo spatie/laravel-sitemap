@@ -8,7 +8,7 @@ use Illuminate\Support\Collection;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\UriInterface;
 use Spatie\Crawler\Crawler;
-use Spatie\Crawler\CrawlProfile;
+use Spatie\Crawler\CrawlProfiles\CrawlProfile;
 use Spatie\Sitemap\Crawler\Observer;
 use Spatie\Sitemap\Crawler\Profile;
 use Spatie\Sitemap\Tags\Url;
