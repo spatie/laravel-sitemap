@@ -8,7 +8,6 @@ use Spatie\Crawler\CrawlProfiles\CrawlSubdomains;
 use Spatie\Sitemap\Crawler\Profile;
 use Spatie\Sitemap\Sitemap;
 use Spatie\Sitemap\SitemapGenerator;
-use Spatie\Sitemap\Test\CustomCrawlProfile;
 
 class CrawlProfileTest extends TestCase
 {
