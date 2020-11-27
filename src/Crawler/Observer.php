@@ -5,7 +5,7 @@ namespace Spatie\Sitemap\Crawler;
 use GuzzleHttp\Exception\RequestException;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\UriInterface;
-use Spatie\Crawler\CrawlObserver;
+use Spatie\Crawler\CrawlObservers\CrawlObserver;
 
 class Observer extends CrawlObserver
 {

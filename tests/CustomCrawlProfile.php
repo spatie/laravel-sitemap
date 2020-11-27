@@ -3,7 +3,7 @@
 namespace Spatie\Sitemap\Test;
 
 use Psr\Http\Message\UriInterface;
-use Spatie\Crawler\CrawlProfile;
+use Spatie\Crawler\CrawlProfiles\CrawlProfile;
 
 class CustomCrawlProfile extends CrawlProfile
 {
