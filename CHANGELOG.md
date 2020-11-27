@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-sitemap` will be documented in this file
 
+## 5.9.0 - 2020-12-27
+
+- add support for PHP 8
+
 ## 5.8.0 - 2020-09-08
 
 - add support for Laravel 8
