@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-sitemap` will be documented in this file
 
+## 5.9.1 - 2020-12-30
+
+- add `filter()` method to tags before rendering (#347)
+
 ## 5.9.0 - 2020-12-27
 
 - add support for PHP 8
