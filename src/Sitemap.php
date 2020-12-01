@@ -57,7 +57,7 @@ class Sitemap implements Responsable
     {
         sort($this->tags);
 
-        $tags = collect($this->tags)->unique('url');
+        $tags = collect($this->tags)->unique('url')->filter();
 
         return view('laravel-sitemap::sitemap')
             ->with(compact('tags'))
