@@ -20,7 +20,7 @@
         "illuminate/support": "^8.0",
         "guzzlehttp/guzzle": "^7.2",
         "nesbot/carbon": "^2.0",
-        "spatie/crawler": "^6.0",
+        "spatie/crawler": "^5.0|^6.0",
         "symfony/dom-crawler": "^5.1.14"
     },
     "require-dev": {
