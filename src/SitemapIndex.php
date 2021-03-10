@@ -19,7 +19,7 @@ class SitemapIndex implements Responsable, Renderable
         return new static();
     }
 
-    public function add(string|Sitemap $tag): static
+    public function add(string | Sitemap $tag): static
     {
         if (is_string($tag)) {
             $tag = Sitemap::create($tag);

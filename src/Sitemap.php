@@ -20,7 +20,7 @@ class Sitemap implements Responsable, Renderable
         return new static();
     }
 
-    public function add(string|Url|Sitemapable|iterable $tag): static
+    public function add(string | Url | Sitemapable | iterable $tag): static
     {
         if (is_object($tag) && array_key_exists(Sitemapable::class, class_implements($tag))) {
             $tag = $tag->toSitemapTag();

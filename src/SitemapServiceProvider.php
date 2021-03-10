@@ -11,7 +11,7 @@ class SitemapServiceProvider extends ServiceProvider
     {
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'laravel-sitemap');
 
-        if($this->app->runningInConsole()) {
+        if ($this->app->runningInConsole()) {
             $this->publishes([
                 __DIR__ . '/../resources/views' => base_path('resources/views/vendor/laravel-sitemap'),
             ], 'views');

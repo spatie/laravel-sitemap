@@ -3,7 +3,6 @@
 namespace Spatie\Sitemap\Tags;
 
 use Carbon\Carbon;
-use DateTime;
 use DateTimeInterface;
 
 class Sitemap extends Tag

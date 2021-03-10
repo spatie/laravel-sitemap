@@ -3,7 +3,6 @@
 namespace Spatie\Sitemap\Tags;
 
 use Carbon\Carbon;
-use DateTime;
 use DateTimeInterface;
 
 class Url extends Tag
@@ -81,7 +80,7 @@ class Url extends Tag
         return parse_url($this->url, PHP_URL_PATH) ?? '';
     }
 
-    public function segments(?int $index = null): array|string|null
+    public function segments(?int $index = null): array | string | null
     {
         $segments = collect(explode('/', $this->path()))
             ->filter(function ($value) {

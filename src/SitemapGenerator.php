@@ -30,7 +30,7 @@ class SitemapGenerator
 
     protected int $concurrency = 10;
 
-    protected bool|int $maximumTagsPerSitemap = false;
+    protected bool | int $maximumTagsPerSitemap = false;
 
     protected ?int $maximumCrawlCount = null;
 
