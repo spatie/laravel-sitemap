@@ -213,19 +213,19 @@ class SitemapTest extends TestCase
     {
         $this->sitemap->add(collect([
             new class implements Sitemapable {
-                public function toSitemapTag(): Url|string|array
+                public function toSitemapTag(): Url | string | array
                 {
                     return 'blog/post-1';
                 }
             },
             new class implements Sitemapable {
-                public function toSitemapTag(): Url|string|array
+                public function toSitemapTag(): Url | string | array
                 {
                     return 'blog/post-2';
                 }
             },
             new class implements Sitemapable {
-                public function toSitemapTag(): Url|string|array
+                public function toSitemapTag(): Url | string | array
                 {
                     return 'blog/post-3';
                 }
