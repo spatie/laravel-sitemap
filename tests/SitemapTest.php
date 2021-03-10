@@ -184,19 +184,19 @@ class SitemapTest extends TestCase
     {
         $this->sitemap
             ->add(new class implements Sitemapable {
-                public function toSitemapTag(): Url|string|array
+                public function toSitemapTag(): Url | string | array
                 {
                     return '/';
                 }
             })
             ->add(new class implements Sitemapable {
-                public function toSitemapTag(): Url|string|array
+                public function toSitemapTag(): Url | string | array
                 {
                     return Url::create('/home');
                 }
             })
             ->add(new class implements Sitemapable {
-                public function toSitemapTag(): Url|string|array
+                public function toSitemapTag(): Url | string | array
                 {
                     return [
                         'blog/post-1',
