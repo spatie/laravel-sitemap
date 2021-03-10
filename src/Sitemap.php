@@ -2,6 +2,7 @@
 
 namespace Spatie\Sitemap;
 
+use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Storage;
@@ -9,12 +10,12 @@ use Spatie\Sitemap\Contracts\Sitemapable;
 use Spatie\Sitemap\Tags\Tag;
 use Spatie\Sitemap\Tags\Url;
 
-class Sitemap implements Responsable
+class Sitemap implements Responsable, Renderable
 {
-    /** @var array */
-    protected $tags = [];
+    /** @var \Spatie\Sitemap\Tags\Url[] */
+    protected array $tags = [];
 
-    public static function create(): self
+    public static function create(): static
     {
         return new static();
     }
@@ -72,14 +73,14 @@ class Sitemap implements Responsable
             ->render();
     }
 
-    public function writeToFile(string $path): self
+    public function writeToFile(string $path): static
     {
         file_put_contents($path, $this->render());
 
         return $this;
     }
 
-    public function writeToDisk(string $disk, string $path): self
+    public function writeToDisk(string $disk, string $path): static
     {
         Storage::disk($disk)->put($path, $this->render());
 

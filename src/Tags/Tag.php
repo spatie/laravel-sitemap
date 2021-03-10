@@ -2,10 +2,12 @@
 
 namespace Spatie\Sitemap\Tags;
 
+use Illuminate\Support\Str;
+
 abstract class Tag
 {
     public function getType(): string
     {
-        return strtolower(class_basename(static::class));
+        return Str::of(static::class)->classBasename()->lower();
     }
 }

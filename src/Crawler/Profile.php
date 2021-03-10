@@ -8,11 +8,11 @@ use Spatie\Crawler\CrawlProfiles\CrawlProfile;
 class Profile extends CrawlProfile
 {
     /** @var callable */
-    protected $profile;
+    protected $callback;
 
-    public function shouldCrawlCallback(callable $callback)
+    public function shouldCrawlCallback(callable $callback): void
     {
-        $this->profile = $callback;
+        $this->callback = $callback;
     }
 
     /*
@@ -20,6 +20,6 @@ class Profile extends CrawlProfile
      */
     public function shouldCrawl(UriInterface $url): bool
     {
-        return ($this->profile)($url);
+        return ($this->callback)($url);
     }
 }
