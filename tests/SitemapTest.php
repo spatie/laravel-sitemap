@@ -180,7 +180,7 @@ class SitemapTest extends TestCase
     }
 
     /** @test */
-    public function sitemapable_objects_can_be_added()
+    public function sitemapable_object_can_be_added()
     {
         $this->sitemap
             ->add(new class implements Sitemapable {
@@ -204,6 +204,33 @@ class SitemapTest extends TestCase
                     ];
                 }
             });
+
+        $this->assertMatchesXmlSnapshot($this->sitemap->render());
+    }
+
+    /** @test */
+    public function sitemapable_objects_can_be_added()
+    {
+        $this->sitemap->add(collect([
+            new class implements Sitemapable {
+                public function toSitemapTag(): Url|string|array
+                {
+                    return 'blog/post-1';
+                }
+            },
+            new class implements Sitemapable {
+                public function toSitemapTag(): Url|string|array
+                {
+                    return 'blog/post-2';
+                }
+            },
+            new class implements Sitemapable {
+                public function toSitemapTag(): Url|string|array
+                {
+                    return 'blog/post-3';
+                }
+            },
+        ]));
 
         $this->assertMatchesXmlSnapshot($this->sitemap->render());
     }

@@ -64,7 +64,29 @@ You can also use one of your available filesystem disks to write the sitemap to.
 SitemapGenerator::create('https://example.com')->getSitemap()->writeToDisk('public', 'sitemap.xml');
 ```
 
-You can also add your models directly
+You can also add your models directly by implementing the `\Spatie\Sitemap\Contracts\Sitemapable` interface.
+
+```php
+use Spatie\Sitemap\Contracts\Sitemapable;use Spatie\Sitemap\Tags\Url;
+
+class Post extends Model implements Sitemapable
+{
+    public function toSitemapTag() : Url | string | array{
+        return route('blog.post.show', $this);
+    }
+}
+```
+
+Now you can add a single post model to the sitemap or even a whole collection.
+```php
+use Spatie\Sitemap\Sitemap;
+
+Sitemap::create()
+    ->add($post)
+    ->add(Post::all());
+```
+
+This way you can add all your pages super fast without the need to crawl them all.
 
 ## Support us
 
