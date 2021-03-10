@@ -67,7 +67,8 @@ SitemapGenerator::create('https://example.com')->getSitemap()->writeToDisk('publ
 You can also add your models directly by implementing the `\Spatie\Sitemap\Contracts\Sitemapable` interface.
 
 ```php
-use Spatie\Sitemap\Contracts\Sitemapable;use Spatie\Sitemap\Tags\Url;
+use Spatie\Sitemap\Contracts\Sitemapable;
+use Spatie\Sitemap\Tags\Url;
 
 class Post extends Model implements Sitemapable
 {
