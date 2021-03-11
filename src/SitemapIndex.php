@@ -46,7 +46,7 @@ class SitemapIndex implements Responsable, Renderable
     {
         $tags = $this->tags;
 
-        return view('laravel-sitemap::sitemapIndex/index')
+        return view('sitemap::sitemapIndex/index')
             ->with(compact('tags'))
             ->render();
     }

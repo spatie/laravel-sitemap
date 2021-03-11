@@ -4,28 +4,21 @@ namespace Spatie\Sitemap;
 
 use Illuminate\Support\ServiceProvider;
 use Spatie\Crawler\Crawler;
+use Spatie\LaravelPackageTools\Package;
+use Spatie\LaravelPackageTools\PackageServiceProvider;
 
-class SitemapServiceProvider extends ServiceProvider
+class SitemapServiceProvider extends PackageServiceProvider
 {
-    public function boot(): void
+    public function configurePackage(Package $package): void
     {
-        $this->loadViewsFrom(__DIR__.'/../resources/views', 'laravel-sitemap');
-
-        if ($this->app->runningInConsole()) {
-            $this->publishes([
-                __DIR__ . '/../resources/views' => base_path('resources/views/vendor/laravel-sitemap'),
-            ], 'views');
-
-            $this->publishes([
-                __DIR__ . '/../config/sitemap.php' => config_path('sitemap.php'),
-            ], 'config');
-        }
+        $package
+            ->name('laravel-sitemap')
+            ->hasConfigFile()
+            ->hasViews();
     }
 
-    public function register(): void
+    public function packageRegistered(): void
     {
-        $this->mergeConfigFrom(__DIR__.'/../config/sitemap.php', 'sitemap');
-
         $this->app->when(SitemapGenerator::class)
             ->needs(Crawler::class)
             ->give(static function (): Crawler {

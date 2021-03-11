@@ -17,10 +17,11 @@
     ],
     "require": {
         "php": "^8.0",
-        "illuminate/support": "^8.0",
         "guzzlehttp/guzzle": "^7.2",
+        "illuminate/support": "^8.0",
         "nesbot/carbon": "^2.0",
-        "spatie/crawler": "^5.0|^6.0",
+        "spatie/crawler": "^5.0 || ^6.0",
+        "spatie/laravel-package-tools": "^1.5",
         "symfony/dom-crawler": "^5.1.14"
     },
     "require-dev": {
@@ -29,19 +30,6 @@
         "phpunit/phpunit": "^9.3",
         "spatie/phpunit-snapshot-assertions": "^4.0",
         "spatie/temporary-directory": "^1.1"
-    },
-    "autoload": {
-        "psr-4": {
-            "Spatie\\Sitemap\\": "src"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Spatie\\Sitemap\\Test\\": "tests"
-        }
-    },
-    "scripts": {
-        "test": "vendor/bin/phpunit"
     },
     "config": {
         "sort-packages": true
@@ -53,6 +41,19 @@
             ]
         }
     },
+    "autoload": {
+        "psr-4": {
+            "Spatie\\Sitemap\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Spatie\\Sitemap\\Test\\": "tests"
+        }
+    },
     "minimum-stability": "dev",
-    "prefer-stable": true
+    "prefer-stable": true,
+    "scripts": {
+        "test": "vendor/bin/phpunit"
+    }
 }

@@ -68,7 +68,7 @@ class Sitemap implements Responsable, Renderable
 
         $tags = collect($this->tags)->unique('url')->filter();
 
-        return view('laravel-sitemap::sitemap')
+        return view('sitemap::sitemap')
             ->with(compact('tags'))
             ->render();
     }
