@@ -2,7 +2,6 @@
 
 namespace Spatie\Sitemap;
 
-use Illuminate\Support\ServiceProvider;
 use Spatie\Crawler\Crawler;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
