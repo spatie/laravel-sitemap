@@ -14,7 +14,7 @@ class CrawlProfileTest extends TestCase
     /**
      * @var Crawler
      */
-    private $crawler;
+    protected $crawler;
 
     public function setUp(): void
     {
