@@ -11,8 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class SitemapTest extends TestCase
 {
-    /** @var \Spatie\Sitemap\Sitemap */
-    protected $sitemap;
+    protected Sitemap $sitemap;
 
     public function setUp(): void
     {

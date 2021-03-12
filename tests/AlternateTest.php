@@ -6,8 +6,7 @@ use Spatie\Sitemap\Tags\Alternate;
 
 class AlternateTest extends TestCase
 {
-    /** @var \Spatie\Sitemap\Tags\Alternate */
-    protected $alternate;
+    protected Alternate $alternate;
 
     public function setUp(): void
     {

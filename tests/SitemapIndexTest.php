@@ -10,8 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class SitemapIndexTest extends TestCase
 {
-    /** @var \Spatie\Sitemap\SitemapIndex */
-    protected $index;
+    protected SitemapIndex $index;
 
     public function setUp(): void
     {
