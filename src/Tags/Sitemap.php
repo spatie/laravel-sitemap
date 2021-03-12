@@ -3,17 +3,15 @@
 namespace Spatie\Sitemap\Tags;
 
 use Carbon\Carbon;
-use DateTime;
+use DateTimeInterface;
 
 class Sitemap extends Tag
 {
-    /** @var string */
-    public $url = '';
+    public string $url;
 
-    /** @var \Carbon\Carbon */
-    public $lastModificationDate;
+    public Carbon $lastModificationDate;
 
-    public static function create(string $url): self
+    public static function create(string $url): static
     {
         return new static($url);
     }
@@ -30,30 +28,22 @@ class Sitemap extends Tag
      *
      * @return $this
      */
-    public function setUrl(string $url = '')
+    public function setUrl(string $url = ''): static
     {
         $this->url = $url;
 
         return $this;
     }
 
-    /**
-     * @param \DateTime $lastModificationDate
-     *
-     * @return $this
-     */
-    public function setLastModificationDate(DateTime $lastModificationDate)
+    public function setLastModificationDate(DateTimeInterface $lastModificationDate): static
     {
-        $this->lastModificationDate = $lastModificationDate;
+        $this->lastModificationDate = Carbon::instance($lastModificationDate);
 
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function path(): string
     {
-        return parse_url($this->url)['path'] ?? '';
+        return parse_url($this->url, PHP_URL_PATH) ?? '';
     }
 }

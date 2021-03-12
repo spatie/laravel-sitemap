@@ -2,32 +2,26 @@
 
 namespace Spatie\Sitemap;
 
-use Illuminate\Support\ServiceProvider;
 use Spatie\Crawler\Crawler;
+use Spatie\LaravelPackageTools\Package;
+use Spatie\LaravelPackageTools\PackageServiceProvider;
 
-class SitemapServiceProvider extends ServiceProvider
+class SitemapServiceProvider extends PackageServiceProvider
 {
-    public function boot()
+    public function configurePackage(Package $package): void
     {
-        $this->loadViewsFrom(__DIR__.'/../resources/views', 'laravel-sitemap');
-
-        $this->publishes([
-            __DIR__.'/../resources/views' => base_path('resources/views/vendor/laravel-sitemap'),
-        ], 'views');
-
-        $this->publishes([
-            __DIR__.'/../config/sitemap.php' => config_path('sitemap.php'),
-        ], 'config');
-
-        $this->app->when(SitemapGenerator::class)
-            ->needs(Crawler::class)
-            ->give(function () {
-                return Crawler::create(config('sitemap.guzzle_options'));
-            });
+        $package
+            ->name('laravel-sitemap')
+            ->hasConfigFile()
+            ->hasViews();
     }
 
-    public function register()
+    public function packageRegistered(): void
     {
-        $this->mergeConfigFrom(__DIR__.'/../config/sitemap.php', 'sitemap');
+        $this->app->when(SitemapGenerator::class)
+            ->needs(Crawler::class)
+            ->give(static function (): Crawler {
+                return Crawler::create(config('sitemap.guzzle_options'));
+            });
     }
 }

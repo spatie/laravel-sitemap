@@ -36,7 +36,7 @@ class CrawlProfileTest extends TestCase
 
         $sitemapGenerator = new SitemapGenerator($this->crawler);
 
-        $sitemap = $sitemapGenerator->getSitemap();
+        $sitemap = $sitemapGenerator->setUrl('')->getSitemap();
 
         $this->assertInstanceOf(Sitemap::class, $sitemap);
     }
@@ -53,7 +53,7 @@ class CrawlProfileTest extends TestCase
 
         $sitemapGenerator = new SitemapGenerator($this->crawler);
 
-        $sitemap = $sitemapGenerator->getSitemap();
+        $sitemap = $sitemapGenerator->setUrl('')->getSitemap();
 
         $this->assertInstanceOf(Sitemap::class, $sitemap);
     }
@@ -70,7 +70,7 @@ class CrawlProfileTest extends TestCase
 
         $sitemapGenerator = new SitemapGenerator($this->crawler);
 
-        $sitemap = $sitemapGenerator->getSitemap();
+        $sitemap = $sitemapGenerator->setUrl('')->getSitemap();
 
         $this->assertInstanceOf(Sitemap::class, $sitemap);
     }
@@ -87,7 +87,7 @@ class CrawlProfileTest extends TestCase
 
         $sitemapGenerator = new SitemapGenerator($this->crawler);
 
-        $sitemap = $sitemapGenerator->getSitemap();
+        $sitemap = $sitemapGenerator->setUrl('')->getSitemap();
 
         $this->assertInstanceOf(Sitemap::class, $sitemap);
     }

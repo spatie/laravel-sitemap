@@ -2,31 +2,24 @@
 
 namespace Spatie\Sitemap;
 
+use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Storage;
 use Spatie\Sitemap\Tags\Sitemap;
 use Spatie\Sitemap\Tags\Tag;
 
-class SitemapIndex implements Responsable
+class SitemapIndex implements Responsable, Renderable
 {
-    /** @var array */
-    protected $tags = [];
+    /** @var \Spatie\Sitemap\Tags\Sitemap[] */
+    protected array $tags = [];
 
-    /**
-     * @return static
-     */
-    public static function create()
+    public static function create(): static
     {
         return new static();
     }
 
-    /**
-     * @param string|\Spatie\Sitemap\Tags\Tag $tag
-     *
-     * @return $this
-     */
-    public function add($tag)
+    public function add(string | Sitemap $tag): static
     {
         if (is_string($tag)) {
             $tag = Sitemap::create($tag);
@@ -37,59 +30,35 @@ class SitemapIndex implements Responsable
         return $this;
     }
 
-    /**
-     * Get sitemap tag.
-     *
-     * @param string $url
-     *
-     * @return \Spatie\Sitemap\Tags\Sitemap|null
-     */
-    public function getSitemap(string $url)
+    public function getSitemap(string $url): ?Sitemap
     {
         return collect($this->tags)->first(function (Tag $tag) use ($url) {
             return $tag->getType() === 'sitemap' && $tag->url === $url;
         });
     }
 
-    /**
-     * Check if there is the provided sitemap in the index.
-     *
-     * @param string $url
-     *
-     * @return bool
-     */
     public function hasSitemap(string $url): bool
     {
         return (bool) $this->getSitemap($url);
     }
 
-    /**
-     * Get the inflated template content.
-     *
-     * @return string
-     */
     public function render(): string
     {
         $tags = $this->tags;
 
-        return view('laravel-sitemap::sitemapIndex/index')
+        return view('sitemap::sitemapIndex/index')
             ->with(compact('tags'))
             ->render();
     }
 
-    /**
-     * @param string $path
-     *
-     * @return $this
-     */
-    public function writeToFile(string $path)
+    public function writeToFile(string $path): static
     {
         file_put_contents($path, $this->render());
 
         return $this;
     }
 
-    public function writeToDisk(string $disk, string $path): self
+    public function writeToDisk(string $disk, string $path): static
     {
         Storage::disk($disk)->put($path, $this->render());
 

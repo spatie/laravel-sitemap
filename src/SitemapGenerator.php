@@ -7,6 +7,7 @@ use GuzzleHttp\Psr7\Uri;
 use Illuminate\Support\Collection;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\UriInterface;
+use Spatie\Browsershot\Browsershot;
 use Spatie\Crawler\Crawler;
 use Spatie\Crawler\CrawlProfiles\CrawlProfile;
 use Spatie\Sitemap\Crawler\Observer;
@@ -15,14 +16,11 @@ use Spatie\Sitemap\Tags\Url;
 
 class SitemapGenerator
 {
-    /** @var \Illuminate\Support\Collection */
-    protected $sitemaps;
+    protected Collection $sitemaps;
 
-    /** @var \GuzzleHttp\Psr7\Uri */
-    protected $urlToBeCrawled = '';
+    protected Uri $urlToBeCrawled;
 
-    /** @var \Spatie\Crawler\Crawler */
-    protected $crawler;
+    protected Crawler $crawler;
 
     /** @var callable */
     protected $shouldCrawl;
@@ -30,21 +28,13 @@ class SitemapGenerator
     /** @var callable */
     protected $hasCrawled;
 
-    /** @var int */
-    protected $concurrency = 10;
+    protected int $concurrency = 10;
 
-    /** @var bool|int */
-    protected $maximumTagsPerSitemap = false;
+    protected bool | int $maximumTagsPerSitemap = false;
 
-    /** @var int|null */
-    protected $maximumCrawlCount = null;
+    protected ?int $maximumCrawlCount = null;
 
-    /**
-     * @param string $urlToBeCrawled
-     *
-     * @return static
-     */
-    public static function create(string $urlToBeCrawled)
+    public static function create(string $urlToBeCrawled): static
     {
         return app(static::class)->setUrl($urlToBeCrawled);
     }
@@ -60,35 +50,35 @@ class SitemapGenerator
         };
     }
 
-    public function configureCrawler(Closure $closure): self
+    public function configureCrawler(Closure $closure): static
     {
         call_user_func_array($closure, [$this->crawler]);
 
         return $this;
     }
 
-    public function setConcurrency(int $concurrency)
+    public function setConcurrency(int $concurrency): static
     {
         $this->concurrency = $concurrency;
 
         return $this;
     }
 
-    public function setMaximumCrawlCount(int $maximumCrawlCount)
+    public function setMaximumCrawlCount(int $maximumCrawlCount): static
     {
         $this->maximumCrawlCount = $maximumCrawlCount;
 
         return $this;
     }
 
-    public function maxTagsPerSitemap(int $maximumTagsPerSitemap = 50000): self
+    public function maxTagsPerSitemap(int $maximumTagsPerSitemap = 50000): static
     {
         $this->maximumTagsPerSitemap = $maximumTagsPerSitemap;
 
         return $this;
     }
 
-    public function setUrl(string $urlToBeCrawled)
+    public function setUrl(string $urlToBeCrawled): static
     {
         $this->urlToBeCrawled = new Uri($urlToBeCrawled);
 
@@ -99,14 +89,14 @@ class SitemapGenerator
         return $this;
     }
 
-    public function shouldCrawl(callable $shouldCrawl)
+    public function shouldCrawl(callable $shouldCrawl): static
     {
         $this->shouldCrawl = $shouldCrawl;
 
         return $this;
     }
 
-    public function hasCrawled(callable $hasCrawled)
+    public function hasCrawled(callable $hasCrawled): static
     {
         $this->hasCrawled = $hasCrawled;
 
@@ -116,7 +106,13 @@ class SitemapGenerator
     public function getSitemap(): Sitemap
     {
         if (config('sitemap.execute_javascript')) {
-            $this->crawler->executeJavaScript(config('sitemap.chrome_binary_path'));
+            $this->crawler->executeJavaScript();
+        }
+
+        if (config('sitemap.chrome_binary_path')) {
+            $this->crawler
+                ->setBrowsershot((new Browsershot)->setChromePath(config('sitemap.chrome_binary_path')))
+                ->acceptNofollowLinks();
         }
 
         if (! is_null($this->maximumCrawlCount)) {
@@ -132,12 +128,7 @@ class SitemapGenerator
         return $this->sitemaps->first();
     }
 
-    /**
-     * @param string $path
-     *
-     * @return $this
-     */
-    public function writeToFile(string $path)
+    public function writeToFile(string $path): static
     {
         $sitemap = $this->getSitemap();
 
@@ -145,8 +136,7 @@ class SitemapGenerator
             $sitemap = SitemapIndex::create();
             $format = str_replace('.xml', '_%d.xml', $path);
 
-            // Parses each sub-sitemaps, writes and pushs them into the sitemap
-            // index
+            // Parses each sub-sitemaps, writes and pushs them into the sitemap index
             $this->sitemaps->each(function (Sitemap $item, int $key) use ($sitemap, $format) {
                 $path = sprintf($format, $key);
 

@@ -3,7 +3,7 @@
 namespace Spatie\Sitemap\Tags;
 
 use Carbon\Carbon;
-use DateTime;
+use DateTimeInterface;
 
 class Url extends Tag
 {
@@ -15,22 +15,18 @@ class Url extends Tag
     const CHANGE_FREQUENCY_YEARLY = 'yearly';
     const CHANGE_FREQUENCY_NEVER = 'never';
 
-    /** @var string */
-    public $url = '';
+    public string $url;
 
-    /** @var \Carbon\Carbon */
-    public $lastModificationDate;
+    public Carbon $lastModificationDate;
 
-    /** @var string */
-    public $changeFrequency;
+    public string $changeFrequency;
 
-    /** @var float */
-    public $priority = 0.8;
+    public float $priority = 0.8;
 
-    /** @var array */
-    public $alternates = [];
+    /** @var \Spatie\Sitemap\Tags\Alternate[] */
+    public array $alternates = [];
 
-    public static function create(string $url): self
+    public static function create(string $url): static
     {
         return new static($url);
     }
@@ -44,82 +40,47 @@ class Url extends Tag
         $this->changeFrequency = static::CHANGE_FREQUENCY_DAILY;
     }
 
-    /**
-     * @param string $url
-     *
-     * @return $this
-     */
-    public function setUrl(string $url = '')
+    public function setUrl(string $url = ''): static
     {
         $this->url = $url;
 
         return $this;
     }
 
-    /**
-     * @param \DateTime $lastModificationDate
-     *
-     * @return $this
-     */
-    public function setLastModificationDate(DateTime $lastModificationDate)
+    public function setLastModificationDate(DateTimeInterface $lastModificationDate): static
     {
-        $this->lastModificationDate = $lastModificationDate;
+        $this->lastModificationDate = Carbon::instance($lastModificationDate);
 
         return $this;
     }
 
-    /**
-     * @param string $changeFrequency
-     *
-     * @return $this
-     */
-    public function setChangeFrequency(string $changeFrequency)
+    public function setChangeFrequency(string $changeFrequency): static
     {
         $this->changeFrequency = $changeFrequency;
 
         return $this;
     }
 
-    /**
-     * @param float $priority
-     *
-     * @return $this
-     */
-    public function setPriority(float $priority)
+    public function setPriority(float $priority): static
     {
-        $this->priority = max(0, min(1, $priority));
+        $this->priority = max(0, min($priority, 1));
 
         return $this;
     }
 
-    /**
-     * @param Alternate $alternate
-     *
-     * @param string $url
-     * @param string $locale
-     * @return $this
-     */
-    public function addAlternate(string $url, string $locale = '')
+    public function addAlternate(string $url, string $locale = ''): static
     {
         $this->alternates[] = new Alternate($url, $locale);
 
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function path(): string
     {
-        return parse_url($this->url)['path'] ?? '';
+        return parse_url($this->url, PHP_URL_PATH) ?? '';
     }
 
-    /**
-     * @param int|null $index
-     *
-     * @return array|null|string
-     */
-    public function segments(int $index = null)
+    public function segments(?int $index = null): array | string | null
     {
         $segments = collect(explode('/', $this->path()))
             ->filter(function ($value) {
@@ -135,12 +96,7 @@ class Url extends Tag
         return $segments;
     }
 
-    /**
-     * @param int $index
-     *
-     * @return string|null
-     */
-    public function segment(int $index)
+    public function segment(int $index): ?string
     {
         return $this->segments()[$index - 1] ?? null;
     }
