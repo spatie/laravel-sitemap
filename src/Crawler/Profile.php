@@ -15,9 +15,6 @@ class Profile extends CrawlProfile
         $this->callback = $callback;
     }
 
-    /*
-     * Determine if the given url should be crawled.
-     */
     public function shouldCrawl(UriInterface $url): bool
     {
         return ($this->callback)($url);
