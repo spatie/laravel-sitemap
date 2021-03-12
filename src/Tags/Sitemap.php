@@ -23,11 +23,6 @@ class Sitemap extends Tag
         $this->lastModificationDate = Carbon::now();
     }
 
-    /**
-     * @param string $url
-     *
-     * @return $this
-     */
     public function setUrl(string $url = ''): static
     {
         $this->url = $url;
