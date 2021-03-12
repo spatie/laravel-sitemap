@@ -20,8 +20,6 @@ class SitemapServiceProvider extends PackageServiceProvider
     {
         $this->app->when(SitemapGenerator::class)
             ->needs(Crawler::class)
-            ->give(static function (): Crawler {
-                return Crawler::create(config('sitemap.guzzle_options'));
-            });
+            ->give(static fn(): Crawler => Crawler::create(config('sitemap.guzzle_options')));
     }
 }
