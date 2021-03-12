@@ -1,6 +1,8 @@
 # Upgrading
 
-Because there are many breaking changes an upgrade is not that easy. There are many edge cases this guide does not cover. We accept PRs to improve this guide.
+## From 5.0 to 6.0
+
+No API changes were made. If you're on PHP 8, you should be able to upgrade from v5 to v6 without having to make any changes.
 
 ## From 4.0 to 5.0
 
