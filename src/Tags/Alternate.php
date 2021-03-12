@@ -4,13 +4,11 @@ namespace Spatie\Sitemap\Tags;
 
 class Alternate
 {
-    /** @var string */
-    public $locale;
+    public string $locale;
 
-    /** @var string */
-    public $url;
+    public string $url;
 
-    public static function create(string $url, string $locale = ''): self
+    public static function create(string $url, string $locale = ''): static
     {
         return new static($url, $locale);
     }
@@ -22,24 +20,14 @@ class Alternate
         $this->setLocale($locale);
     }
 
-    /**
-     * @param string $locale
-     *
-     * @return $this
-     */
-    public function setLocale(string $locale = '')
+    public function setLocale(string $locale = ''): static
     {
         $this->locale = $locale;
 
         return $this;
     }
 
-    /**
-     * @param string $url
-     *
-     * @return $this
-     */
-    public function setUrl(string $url = '')
+    public function setUrl(string $url = ''): static
     {
         $this->url = $url;
 

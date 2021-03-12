@@ -10,8 +10,7 @@ use Throwable;
 
 class SitemapGeneratorTest extends TestCase
 {
-    /** @var \Spatie\Sitemap\SitemapGenerator */
-    protected $sitemapGenerator;
+    protected SitemapGenerator $sitemapGenerator;
 
     public function setUp(): void
     {

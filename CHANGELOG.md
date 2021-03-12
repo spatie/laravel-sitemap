@@ -2,6 +2,11 @@
 
 All notable changes to `laravel-sitemap` will be documented in this file
 
+## 6.0.0 - 2021-03-12
+
+- add `Sitemapable`
+- drop support for PHP 7
+
 ## 5.9.2 - 2021-03-04
 
 - allow crawler v6 (#365)

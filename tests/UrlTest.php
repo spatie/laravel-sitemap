@@ -8,8 +8,7 @@ use Spatie\Sitemap\Tags\Url;
 
 class UrlTest extends TestCase
 {
-    /** @var \Spatie\Sitemap\Tags\Url */
-    protected $url;
+    protected Url $url;
 
     public function setUp(): void
     {

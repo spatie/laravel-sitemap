@@ -3,6 +3,7 @@
 namespace Spatie\Sitemap\Test;
 
 use Illuminate\Support\Facades\Storage;
+use Spatie\Sitemap\Contracts\Sitemapable;
 use Spatie\Sitemap\Sitemap;
 use Spatie\Sitemap\Tags\Url;
 use Symfony\Component\HttpFoundation\Request;
@@ -10,8 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class SitemapTest extends TestCase
 {
-    /** @var \Spatie\Sitemap\Sitemap */
-    protected $sitemap;
+    protected Sitemap $sitemap;
 
     public function setUp(): void
     {
@@ -79,7 +79,7 @@ class SitemapTest extends TestCase
 
         $this->sitemap->add($url);
 
-        $this->assertMatchesSnapshot($this->sitemap->render());
+        $this->assertMatchesXmlSnapshot($this->sitemap->render());
     }
 
     /** @test */
@@ -164,5 +164,73 @@ class SitemapTest extends TestCase
         $this->sitemap->add(Url::create('/home'));
 
         $this->assertInstanceOf(Response::class, $this->sitemap->toResponse(new Request));
+    }
+
+    /** @test */
+    public function multiple_urls_can_be_added_in_one_call()
+    {
+        $this->sitemap->add([
+            Url::create('/'),
+            '/home',
+            Url::create('/home'), // filtered
+        ]);
+
+        $this->assertMatchesXmlSnapshot($this->sitemap->render());
+    }
+
+    /** @test */
+    public function sitemapable_object_can_be_added()
+    {
+        $this->sitemap
+            ->add(new class implements Sitemapable {
+                public function toSitemapTag(): Url | string | array
+                {
+                    return '/';
+                }
+            })
+            ->add(new class implements Sitemapable {
+                public function toSitemapTag(): Url | string | array
+                {
+                    return Url::create('/home');
+                }
+            })
+            ->add(new class implements Sitemapable {
+                public function toSitemapTag(): Url | string | array
+                {
+                    return [
+                        'blog/post-1',
+                        Url::create('/blog/post-2'),
+                    ];
+                }
+            });
+
+        $this->assertMatchesXmlSnapshot($this->sitemap->render());
+    }
+
+    /** @test */
+    public function sitemapable_objects_can_be_added()
+    {
+        $this->sitemap->add(collect([
+            new class implements Sitemapable {
+                public function toSitemapTag(): Url | string | array
+                {
+                    return 'blog/post-1';
+                }
+            },
+            new class implements Sitemapable {
+                public function toSitemapTag(): Url | string | array
+                {
+                    return 'blog/post-2';
+                }
+            },
+            new class implements Sitemapable {
+                public function toSitemapTag(): Url | string | array
+                {
+                    return 'blog/post-3';
+                }
+            },
+        ]));
+
+        $this->assertMatchesXmlSnapshot($this->sitemap->render());
     }
 }
