@@ -45,7 +45,7 @@ class SitemapGenerator
 
         $this->sitemaps = new Collection([new Sitemap]);
 
-        $this->hasCrawled = fn(Url $url, ResponseInterface $response = null) => $url;
+        $this->hasCrawled = fn (Url $url, ResponseInterface $response = null) => $url;
     }
 
     public function configureCrawler(Closure $closure): static
