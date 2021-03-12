@@ -12,11 +12,9 @@ abstract class TestCase extends OrchestraTestCase
 {
     use MatchesSnapshots;
 
-    /** @var \Carbon\Carbon */
-    protected $now;
+    protected Carbon $now;
 
-    /** @var \Spatie\TemporaryDirectory\TemporaryDirectory */
-    protected $temporaryDirectory;
+    protected TemporaryDirectory $temporaryDirectory;
 
     public function setUp(): void
     {
@@ -29,11 +27,6 @@ abstract class TestCase extends OrchestraTestCase
         $this->temporaryDirectory = (new TemporaryDirectory())->force()->create();
     }
 
-    /**
-     * @param \Illuminate\Foundation\Application $app
-     *
-     * @return array
-     */
     protected function getPackageProviders($app)
     {
         return [
