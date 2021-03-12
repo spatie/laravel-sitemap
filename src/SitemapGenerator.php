@@ -134,7 +134,7 @@ class SitemapGenerator
             $sitemap = SitemapIndex::create();
             $format = str_replace('.xml', '_%d.xml', $path);
 
-            // Parses each sub-sitemaps, writes and pushs them into the sitemap index
+            // Parses each sub-sitemaps, writes and push them into the sitemap index
             $this->sitemaps->each(function (Sitemap $item, int $key) use ($sitemap, $format) {
                 $path = sprintf($format, $key);
 
