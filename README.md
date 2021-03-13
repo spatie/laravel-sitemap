@@ -72,7 +72,8 @@ use Spatie\Sitemap\Tags\Url;
 
 class Post extends Model implements Sitemapable
 {
-    public function toSitemapTag() : Url | string | array{
+    public function toSitemapTag(): Url | string | array
+    {
         return route('blog.post.show', $this);
     }
 }
