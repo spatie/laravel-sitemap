@@ -62,9 +62,11 @@ class Sitemap implements Responsable, Renderable
         return (bool) $this->getUrl($url);
     }
 
-    public function render(): string
+    public function render($sortAlphabetically = true): string
     {
-        sort($this->tags);
+        if($sortAlphabetically) {
+            sort($this->tags);
+        }
 
         $tags = collect($this->tags)->unique('url')->filter();
 
@@ -73,9 +75,9 @@ class Sitemap implements Responsable, Renderable
             ->render();
     }
 
-    public function writeToFile(string $path): static
+    public function writeToFile(string $path, $sortAlphabetically = true): static
     {
-        file_put_contents($path, $this->render());
+        file_put_contents($path, $this->render($sortAlphabetically));
 
         return $this;
     }
