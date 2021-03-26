@@ -64,8 +64,6 @@ class Sitemap implements Responsable, Renderable
 
     public function render(): string
     {
-        sort($this->tags);
-
         $tags = collect($this->tags)->unique('url')->filter();
 
         return view('sitemap::sitemap')

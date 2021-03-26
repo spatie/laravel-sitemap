@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-sitemap` will be documented in this file
 
+## 6.0.1 - 2021-03-26
+
+- do not sort links by default
+
 ## 6.0.0 - 2021-03-12
 
 - add `Sitemapable`
