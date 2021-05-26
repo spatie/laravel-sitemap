@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-sitemap` will be documented in this file
 
+## 6.0.3 - 2021-05-26
+
+- allow spatie/crawler v7
+
 ## 6.0.2 - 2021-04-09
 
 - bump temporary-directory to version 2.0 (#379)
