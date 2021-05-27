@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-sitemap` will be documented in this file
 
+## 6.0.4 - 2021-05-27
+
+- compatible with the spatie/crawler v7 contracts
+
 ## 6.0.3 - 2021-05-26
 
 - allow spatie/crawler v7
