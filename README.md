@@ -218,7 +218,7 @@ The generated sitemap will look similar to this:
 You can create a custom crawl profile by implementing the `Spatie\Crawler\CrawlProfile` interface and by customizing the `shouldCrawl()` method for full control over what url/domain/sub-domain should be crawled:
 
 ```php
-use Spatie\Crawler\CrawlProfile;
+use Spatie\Crawler\CrawlProfiles\CrawlProfile;
 use Psr\Http\Message\UriInterface;
 
 class CustomCrawlProfile extends CrawlProfile
