@@ -59,9 +59,52 @@ class Sitemap implements Responsable
 
         $tags = collect($this->tags)->unique('url')->filter();
 
-        return view('laravel-sitemap::sitemap')
-            ->with(compact('tags'))
-            ->render();
+        return $this->render_view($tags);
+    }
+
+    /**
+     * Replacement for resources/views/sitemap.blade.php
+     * @param $tags
+     * @return string
+     */
+    public function render_view($tags): string
+    {
+        $render =  '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL;
+        $render .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">' . PHP_EOL;
+        foreach ($tags as $tag)
+            $render .= $this->render_tag($tag->getType(),$tag);
+        $render .= "</urlset>";
+        return $render;
+    }
+
+    /**
+     * Replacement for resources/views/url.blade.php
+     * @param $type
+     * @param $tag
+     * @return string
+     */
+    public function render_tag($type, $tag): string
+    {
+        switch ($type)
+        {
+            case 'url':
+                $render = "  <url>";
+                if (!empty($tag->url))
+                    $render .= "    <loc>" . url($tag->url) . "</loc>" . PHP_EOL;
+                if (count($tag->alternates))
+                    foreach ($tag->alternates as $alternate)
+                        $render .= "<xhtml:link rel='alternate' hreflang='{$alternate->locale}' href='" . url($alternate->url) . "' />" . PHP_EOL;
+                if (!empty($tag->lastModificationDate))
+                    $render .= "    <lastmod>" . $tag->lastModificationDate->format(\DateTimeInterface::ATOM) . "</lastmod>" . PHP_EOL;
+                if (!empty($tag->changeFrequency))
+                    $render .= "    <changefreq>{$tag->changeFrequency}</changefreq>" . PHP_EOL;
+                if (!empty($tag->priority))
+                    $render .= "    <priority>" . number_format($tag->priority, 1) . "</priority>" . PHP_EOL;
+                $render .= "  </url>";
+                return $render;
+            default:
+                return view("laravel-sitemap::$type", $tag);
+        }
     }
 
     public function writeToFile(string $path): self
