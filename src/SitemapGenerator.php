@@ -114,7 +114,7 @@ class SitemapGenerator
         }
 
         if (! is_null($this->maximumCrawlCount)) {
-            $this->crawler->setMaximumCrawlCount($this->maximumCrawlCount);
+            $this->crawler->setTotalCrawlLimit($this->maximumCrawlCount);
         }
 
         $this->crawler
