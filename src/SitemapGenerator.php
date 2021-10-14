@@ -126,6 +126,30 @@ class SitemapGenerator
         return $this->sitemaps->first();
     }
 
+    public function writeToDisk(string $disk, string $path): self
+    {
+        $sitemap = $this->getSitemap();
+
+        if ($this->maximumTagsPerSitemap) {
+            $sitemap = SitemapIndex::create();
+            $format = str_replace('.xml', '_%d.xml', $path);
+
+            // Parses each sub-sitemaps, writes and push them into the sitemap
+            // index
+            $this->sitemaps->each(function (Sitemap $item, int $key) use ($sitemap, $format, $disk) {
+                $path = sprintf($format, $key);
+
+                $item->writeToDisk($disk, $path);
+                $sitemap->add(last(explode('public', $path)));
+            });
+        }
+
+        $sitemap->writeToDisk($disk, $path);
+
+        return $this;
+    }
+
+
     public function writeToFile(string $path): static
     {
         $sitemap = $this->getSitemap();
