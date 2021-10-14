@@ -2,6 +2,7 @@
 
 namespace Spatie\Sitemap\Test;
 
+use Illuminate\Support\Facades\Storage;
 use Psr\Http\Message\UriInterface;
 use Spatie\Crawler\Crawler;
 use Spatie\Sitemap\SitemapGenerator;
@@ -28,6 +29,17 @@ class SitemapGeneratorTest extends TestCase
             ->writeToFile($sitemapPath);
 
         $this->assertMatchesXmlSnapshot(file_get_contents($sitemapPath));
+    }
+
+    /** @test */
+    public function it_can_generate_a_sitemap_in_a_storage_disk()
+    {
+        Storage::fake('sitemap');
+
+        SitemapGenerator::create('http://localhost:4020')
+            ->writeToDisk('sitemap', 'sitemap.xml');
+
+        $this->assertMatchesXmlSnapshot(Storage::disk('sitemap')->get('sitemap.xml'));
     }
 
     /** @test */
