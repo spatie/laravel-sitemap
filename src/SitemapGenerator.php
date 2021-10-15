@@ -202,21 +202,13 @@ class SitemapGenerator
             $this->sitemaps->each(function (Sitemap $item, int $key) use ($sitemap, $format, $disk) {
                 $path = sprintf($format, $key);
 
-                if ($disk) {
-                    $item->writeToDisk($disk, $path);
-                } else {
-                    $item->writeToFile(sprintf($format, $key));
-                }
+                $disk ? $item->writeToDisk($disk, $path) : $item->writeToFile($path);
 
                 $sitemap->add(last(explode('public', $path)));
             });
         }
 
-        if ($disk) {
-            $sitemap->writeToDisk($disk, $path);
-        } else {
-            $sitemap->writeToFile($path);
-        }
+        $disk ? $sitemap->writeToDisk($disk, $path) : $sitemap->writeToFile($path);
 
         return $this;
     }
