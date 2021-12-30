@@ -115,7 +115,7 @@ If you want to update your sitemap automatically and frequently you need to perf
 You can override the default options for the crawler. First publish the configuration:
 
 ```bash
-php artisan vendor:publish --provider="Spatie\Sitemap\SitemapServiceProvider" --tag=config
+php artisan vendor:publish --provider="Spatie\Sitemap\SitemapServiceProvider" --tag=sitemap-config
 ```
 
 This will copy the default config to `config/sitemap.php` where you can edit it.
