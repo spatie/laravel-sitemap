@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-sitemap` will be documented in this file
 
+## 6.1.0 - 2022-01-14
+
+- allow Laravel 9
+
 ## 6.0.5 - 2021-08-11
 
 - fix crawler integration (#407)
@@ -135,18 +139,23 @@ All notable changes to `laravel-sitemap` will be documented in this file
 - Update to Crawler 3.0
 
 ## 3.3.1 - 2018-01-11
+
 - avoid having duplicates in the sitemap
 
 ## 3.3.0 - 2017-11-03
+
 - add `setMaximumCrawlCount`
 
 ## 3.2.2 - 2017-10-19
+
 - fix custom profiles
 
 ## 3.2.1 - 2017-10-07
+
 - fix bug introduced in 3.2.0
 
 ## 3.2.0 - 2017-10-03
+
 - add `crawl_profile` config key
 
 ## 3.1.0 - 2017-09-22
