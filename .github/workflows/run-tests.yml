@@ -1,10 +1,6 @@
 name: run-tests
 
-on:
-    push:
-    pull_request:
-    schedule:
-        - cron: '0 0 * * *'
+on: [push, pull_request]
 
 jobs:
     test:
@@ -14,7 +10,7 @@ jobs:
             matrix:
                 php: [8.1, 8.0]
                 laravel: [9.*, 8.*]
-                dependency-version: [prefer-lowest, prefer-stable]
+                dependency-version: [prefer-stable]
                 os: [ubuntu-latest]
                 include:
                     - laravel: 9.*
