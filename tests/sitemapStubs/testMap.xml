@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+    <url>
+        <loc>http://localhost/page0</loc>
+        <lastmod>2016-01-01T00:00:00+00:00</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    <url>
+        <loc>http://localhost/page1</loc>
+        <xhtml:link rel="alternate" hreflang="uk" href="http://localhost/uk/page1" />
+        <lastmod>2016-01-01T00:00:00+00:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>http://localhost/page2</loc>
+        <xhtml:link rel="alternate" hreflang="uk" href="http://localhost/uk/page1" />
+        <xhtml:link rel="alternate" hreflang="it" href="http://localhost/it/page1" />
+        <lastmod>2016-01-01T00:00:00+00:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>http://localhost/page3</loc>
+        <lastmod>2016-01-01T00:00:00+00:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+    </url>
+</urlset>

@@ -2,10 +2,12 @@
 
 namespace Spatie\Sitemap;
 
+use Carbon\Carbon;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Storage;
+use SimpleXMLElement;
 use Spatie\Sitemap\Contracts\Sitemapable;
 use Spatie\Sitemap\Tags\Tag;
 use Spatie\Sitemap\Tags\Url;
@@ -18,6 +20,29 @@ class Sitemap implements Responsable, Renderable
     public static function create(): static
     {
         return new static();
+    }
+
+    public static function load(string $path) : static
+    {
+        $map = new static();
+
+        $data = simplexml_load_string(str_replace('xhtml:link', 'xhtml_link', file_get_contents($path)));
+
+        foreach ($data as $item)
+        {
+            $url = Url::create($item->loc)
+                ->setLastModificationDate(new Carbon($item->lastmod))
+                ->setChangeFrequency($item->changefreq)
+                ->setPriority(floatval($item->priority));
+
+            foreach ($item->xhtml_link as $link)
+                $url->addAlternate($link->attributes()->href, $link->attributes()->hreflang);
+
+            /** @var SimpleXMLElement $item */
+            $map->add($url);
+        }
+
+        return $map;
     }
 
     public function add(string | Url | Sitemapable | iterable $tag): static

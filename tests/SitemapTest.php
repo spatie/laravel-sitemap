@@ -233,4 +233,44 @@ class SitemapTest extends TestCase
 
         $this->assertMatchesXmlSnapshot($this->sitemap->render());
     }
+
+    /** @test */
+    public function test_sitemap_load()
+    {
+        $map = Sitemap::load(__DIR__ . '/sitemapStubs/testMap.xml');
+
+        self::assertTrue($map->hasUrl('http://localhost/page0'));
+        self::assertTrue($map->hasUrl('http://localhost/page1'));
+        self::assertTrue($map->hasUrl('http://localhost/page2'));
+        self::assertTrue($map->hasUrl('http://localhost/page3'));
+
+        self::assertCount(0, $map->getUrl('http://localhost/page0')->alternates);
+        self::assertCount(1, $map->getUrl('http://localhost/page1')->alternates);
+        self::assertCount(2, $map->getUrl('http://localhost/page2')->alternates);
+        self::assertCount(0, $map->getUrl('http://localhost/page3')->alternates);
+
+        self::assertEquals(0.9, $map->getUrl('http://localhost/page0')->priority);
+        self::assertEquals(0.8, $map->getUrl('http://localhost/page1')->priority);
+
+        self::assertEquals('yearly', $map->getUrl('http://localhost/page0')->changeFrequency);
+        self::assertEquals('daily', $map->getUrl('http://localhost/page1')->changeFrequency);
+    }
+
+    /** @test */
+    public function test_sitemap_update()
+    {
+        $map = Sitemap::load(__DIR__ . '/sitemapStubs/testMap.xml');
+
+        $map->add('/test_added');
+
+        $this->assertMatchesXmlSnapshot($map->render());
+    }
+
+    /** @test */
+    public function test_sitemap_load_empty()
+    {
+        $map = Sitemap::load(__DIR__ . '/sitemapStubs/empty.xml');
+
+        self::assertCount(0, $map->getTags());
+    }
 }
