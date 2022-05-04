@@ -132,4 +132,31 @@ class SitemapIndexTest extends TestCase
 
         $this->assertInstanceOf(Response::class, $this->index->toResponse(new Request));
     }
+
+    /** @test */
+    public function test_sitemap_index_load()
+    {
+        $map = SitemapIndex::load(__DIR__ . '/sitemapStubs/testIndexMap.xml');
+
+        self::assertTrue($map->hasSitemap('http://localhost/sitemap1.xml'));
+        self::assertTrue($map->hasSitemap('http://localhost/sitemap2.xml'));
+    }
+
+    /** @test */
+    public function test_sitemap_index_update()
+    {
+        $map = SitemapIndex::load(__DIR__ . '/sitemapStubs/testIndexMap.xml');
+
+        $map->add('http://localhost/sitemap3.xml');
+
+        $this->assertMatchesXmlSnapshot($map->render());
+    }
+
+    /** @test */
+    public function test_sitemap_index_load_empty()
+    {
+        $map = SitemapIndex::load(__DIR__ . '/sitemapStubs/emptyIndex.xml');
+
+        $this->assertMatchesXmlSnapshot($map->render());
+    }
 }

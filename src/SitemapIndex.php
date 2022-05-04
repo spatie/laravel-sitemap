@@ -2,6 +2,7 @@
 
 namespace Spatie\Sitemap;
 
+use Carbon\Carbon;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Support\Facades\Response;
@@ -17,6 +18,23 @@ class SitemapIndex implements Responsable, Renderable
     public static function create(): static
     {
         return new static();
+    }
+
+    public static function load(string $path) : static
+    {
+        $index = new static();
+
+        $data = simplexml_load_file($path);
+
+        foreach ($data as $item)
+        {
+            $map = Sitemap::create($item->loc)
+                ->setLastModificationDate(new Carbon($item->lastmod));
+
+            $index->add($map);
+        }
+
+        return $index;
     }
 
     public function add(string | Sitemap $tag): static
