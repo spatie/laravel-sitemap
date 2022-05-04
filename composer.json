@@ -22,7 +22,8 @@
         "nesbot/carbon": "^2.0",
         "spatie/crawler": "^7.0",
         "spatie/laravel-package-tools": "^1.5",
-        "symfony/dom-crawler": "^5.1.14|^6.0"
+        "symfony/dom-crawler": "^5.1.14|^6.0",
+        "ext-simplexml": "*"
     },
     "require-dev": {
         "mockery/mockery": "^1.4",
