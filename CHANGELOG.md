@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-sitemap` will be documented in this file
 
+## 6.1.1 - 2022-06-06
+
+### What's Changed
+
+- remove gap in sitemapIndex output by @Flowdawan in https://github.com/spatie/laravel-sitemap/pull/449
+
+### New Contributors
+
+- @Flowdawan made their first contribution in https://github.com/spatie/laravel-sitemap/pull/449
+
+**Full Changelog**: https://github.com/spatie/laravel-sitemap/compare/6.1.0...6.1.1
+
 ## 6.1.0 - 2022-01-14
 
 - allow Laravel 9
