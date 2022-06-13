@@ -378,6 +378,20 @@ SitemapGenerator::create('https://example.com')
 
 Note the ```addAlternate``` function which takes an alternate URL and the locale it belongs to.
 
+#### Adding images to links
+
+Urls can also have images. See also https://developers.google.com/search/docs/advanced/sitemaps/image-sitemaps
+
+```php
+use Spatie\Sitemap\Sitemap;
+use Spatie\Sitemap\Tags\Url;
+
+Sitemap::create()
+    // here we add an image to a URL
+    ->add(Url::create('https://example.com')->addImage('https://example.com/images/home.jpg', 'Home page image'))
+    ->writeToFile($sitemapPath);
+```
+
 ### Manually creating a sitemap
 
 You can also create a sitemap fully manual:
