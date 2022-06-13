@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-sitemap` will be documented in this file
 
+## 6.2.0 - 2022-06-13
+
+### What's Changed
+
+- Add the possibility to add images to sitemaps by @madman-81 in https://github.com/spatie/laravel-sitemap/pull/451
+
+### New Contributors
+
+- @madman-81 made their first contribution in https://github.com/spatie/laravel-sitemap/pull/451
+
+**Full Changelog**: https://github.com/spatie/laravel-sitemap/compare/6.1.1...6.2.0
+
 ## 6.1.1 - 2022-06-06
 
 ### What's Changed
