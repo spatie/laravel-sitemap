@@ -2,6 +2,20 @@
 
 All notable changes to `laravel-sitemap` will be documented in this file
 
+## 6.2.1 - 2022-08-23
+
+### What's Changed
+
+- Update .gitattributes by @angeljqv in https://github.com/spatie/laravel-sitemap/pull/452
+- Update sitemap.php by @jbrooksuk in https://github.com/spatie/laravel-sitemap/pull/464
+
+### New Contributors
+
+- @angeljqv made their first contribution in https://github.com/spatie/laravel-sitemap/pull/452
+- @jbrooksuk made their first contribution in https://github.com/spatie/laravel-sitemap/pull/464
+
+**Full Changelog**: https://github.com/spatie/laravel-sitemap/compare/6.2.0...6.2.1
+
 ## 6.2.0 - 2022-06-13
 
 ### What's Changed
