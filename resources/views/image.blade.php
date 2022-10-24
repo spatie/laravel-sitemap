@@ -9,9 +9,9 @@
     <image:geo_location>{{ $image->geo_location }}</image:geo_location>
 @endif
 @if (! empty($image->title))
-    <image:title>{{ url($image->title) }}</image:title>
+    <image:title>{{ $image->title }}</image:title>
 @endif
 @if (! empty($image->license))
-    <image:license>{{ url($image->license) }}</image:license>
+    <image:license>{{ $image->license }}</image:license>
 @endif
 </image:image>
