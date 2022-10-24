@@ -2,6 +2,14 @@
 
 All notable changes to `laravel-sitemap` will be documented in this file
 
+## 6.2.3 - 2022-10-24
+
+### What's Changed
+
+- Image title and license shouldn't be URLs by @madman-81 in https://github.com/spatie/laravel-sitemap/pull/475
+
+**Full Changelog**: https://github.com/spatie/laravel-sitemap/compare/6.2.2...6.2.3
+
 ## 6.2.2 - 2022-09-22
 
 ### What's Changed
