@@ -10,8 +10,6 @@ use Spatie\TemporaryDirectory\TemporaryDirectory;
 
 abstract class TestCase extends OrchestraTestCase
 {
-    use MatchesSnapshots;
-
     protected Carbon $now;
 
     protected TemporaryDirectory $temporaryDirectory;
