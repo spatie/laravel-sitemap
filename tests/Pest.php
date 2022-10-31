@@ -33,6 +33,24 @@ expect()->extend('toEqualXmlString', function (string $expected_xml) {
 |--------------------------------------------------------------------------
 */
 
+function checkIfTestServerIsRunning(): void
+{
+    try {
+        file_get_contents('http://localhost:4020');
+    } catch (Throwable $e) {
+        handleTestServerNotRunning();
+    }
+}
+
+function handleTestServerNotRunning(): void
+{
+    if (getenv('TRAVIS')) {
+        test()->fail('The test server is not running on Travis.');
+    }
+
+    test()->markTestSkipped('The test server is not running.');
+}
+
 function temporaryDirectory()
 {
     return (new TemporaryDirectory())->force()->create();

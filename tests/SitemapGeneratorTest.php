@@ -8,24 +8,6 @@ use Spatie\Sitemap\Test\CustomCrawlProfile;
 
 use function Spatie\Snapshots\assertMatchesXmlSnapshot;
 
-function checkIfTestServerIsRunning()
-{
-    try {
-        file_get_contents('http://localhost:4020');
-    } catch (Throwable $e) {
-        handleTestServerNotRunning();
-    }
-}
-
-function handleTestServerNotRunning()
-{
-    if (getenv('TRAVIS')) {
-        test()->fail('The test server is not running on Travis.');
-    }
-
-    test()->markTestSkipped('The test server is not running.');
-}
-
 beforeEach(function () {
     checkIfTestServerIsRunning();
 
