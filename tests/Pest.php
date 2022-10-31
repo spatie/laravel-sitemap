@@ -1,12 +1,14 @@
 <?php
 
+use Spatie\TemporaryDirectory\TemporaryDirectory;
+use function PHPUnit\Framework\assertXmlStringEqualsXmlString;
+
 /*
 |--------------------------------------------------------------------------
 | Test Case
 |--------------------------------------------------------------------------
 */
 
-use function PHPUnit\Framework\assertXmlStringEqualsXmlString;
 
 uses(\Spatie\Sitemap\Test\TestCase::class)->in('.');
 
@@ -30,3 +32,8 @@ expect()->extend('toEqualXmlString', function (string $expected_xml) {
 | Functions
 |--------------------------------------------------------------------------
 */
+
+function temporaryDirectory()
+{
+    return (new TemporaryDirectory())->force()->create();
+}

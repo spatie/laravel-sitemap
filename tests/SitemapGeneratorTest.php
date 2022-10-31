@@ -28,6 +28,8 @@ function handleTestServerNotRunning()
 
 beforeEach(function () {
     checkIfTestServerIsRunning();
+
+    $this->temporaryDirectory = temporaryDirectory();
 });
 
 it('can generate a sitemap', function () {
