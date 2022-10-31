@@ -1,15 +1,10 @@
 <?php
 
-namespace Spatie\Sitemap\Test;
-
 use Spatie\Sitemap\Sitemap;
 use Spatie\Sitemap\Tags\Url;
 
-class ImageTest extends TestCase
-{
-    public function testXmlHasImage()
-    {
-        $expected_xml = '<?xml version="1.0" encoding="UTF-8"?>
+test('XML has image', function () {
+    $expected_xml = '<?xml version="1.0" encoding="UTF-8"?>
                         <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
                             <url>
                                 <loc>https://localhost</loc>
@@ -23,12 +18,11 @@ class ImageTest extends TestCase
                             </url>
                         </urlset>';
 
-        $sitemap = Sitemap::create();
-        $url = Url::create('https://localhost')->addImage('https://localhost/favicon.ico', 'Favicon');
-        $sitemap->add($url);
+    $sitemap = Sitemap::create();
+    $url = Url::create('https://localhost')->addImage('https://localhost/favicon.ico', 'Favicon');
+    $sitemap->add($url);
 
-        $render_output = $sitemap->render();
+    $render_output = $sitemap->render();
 
-        $this->assertXmlStringEqualsXmlString($expected_xml, $render_output);
-    }
-}
+    expect($render_output)->toEqualXmlString($expected_xml);
+});
