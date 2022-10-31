@@ -23,7 +23,7 @@ it('can render an empty index', function () {
 });
 
 it('can write an index to a file', function () {
-    $path = $this->temporaryDirectory->path('test.xml');
+    $path = temporaryDirectory()->path('test.xml');
 
     $this->index->writeToFile($path);
 

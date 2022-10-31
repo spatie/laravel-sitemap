@@ -1,5 +1,6 @@
 <?php
 
+use Carbon\Carbon;
 use Spatie\TemporaryDirectory\TemporaryDirectory;
 use function PHPUnit\Framework\assertXmlStringEqualsXmlString;
 
@@ -9,8 +10,13 @@ use function PHPUnit\Framework\assertXmlStringEqualsXmlString;
 |--------------------------------------------------------------------------
 */
 
+uses(\Spatie\Sitemap\Test\TestCase::class)
+    ->beforeEach(function () {
+        $this->now = Carbon::create('2016', '1', '1', '0', '0', '0');
 
-uses(\Spatie\Sitemap\Test\TestCase::class)->in('.');
+        Carbon::setTestNow($this->now);
+    })
+    ->in('.');
 
 /*
 |--------------------------------------------------------------------------
@@ -51,7 +57,7 @@ function handleTestServerNotRunning(): void
     test()->markTestSkipped('The test server is not running.');
 }
 
-function temporaryDirectory()
+function temporaryDirectory(): TemporaryDirectory
 {
     return (new TemporaryDirectory())->force()->create();
 }

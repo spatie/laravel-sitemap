@@ -24,7 +24,7 @@ it('can render an empty sitemap', function () {
 });
 
 it('can write a sitemap to a file', function () {
-    $path = $this->temporaryDirectory->path('test.xml');
+    $path = temporaryDirectory()->path('test.xml');
 
     $this->sitemap->writeToFile($path);
 
