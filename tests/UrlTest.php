@@ -6,141 +6,111 @@ use Carbon\Carbon;
 use Spatie\Sitemap\Tags\Alternate;
 use Spatie\Sitemap\Tags\Url;
 
-class UrlTest extends TestCase
-{
-    protected Url $url;
+beforeEach(function () {
+    $this->now = Carbon::now();
 
-    public function setUp(): void
-    {
-        parent::setUp();
+    Carbon::setTestNow($this->now);
 
-        $this->now = Carbon::now();
+    $this->url = new Url('testUrl');
+});
 
-        Carbon::setTestNow($this->now);
+it('provides a `create` method', function () {
+    $url = Url::create('testUrl');
 
-        $this->url = new Url('testUrl');
+    expect($url->url)->toEqual('testUrl');
+});
+
+it(
+    'will use the current date time as the default for last modification date',
+    function () {
+        expect($this->url->lastModificationDate->toAtomString())
+            ->toEqual($this->now->toAtomString());
     }
+);
 
-    /** @test */
-    public function it_provides_a_create_method()
-    {
-        $url = Url::create('testUrl');
+test('url can be set', function () {
+    $url = Url::create('defaultUrl');
 
-        $this->assertEquals('testUrl', $url->url);
-    }
+    $url->setUrl('testUrl');
 
-    /** @test */
-    public function it_will_use_the_current_date_time_as_the_default_for_last_modification_date()
-    {
-        $this->assertEquals($this->now->toAtomString(), $this->url->lastModificationDate->toAtomString());
-    }
+    expect($url->url)->toEqual('testUrl');
+});
 
-    /** @test */
-    public function url_can_be_set()
-    {
-        $url = Url::create('defaultUrl');
+test('last modification date can be set', function () {
+    $carbon = Carbon::now()->subDay();
 
-        $url->setUrl('testUrl');
+    $this->url->setLastModificationDate($carbon);
 
-        $this->assertEquals('testUrl', $url->url);
-    }
+    expect($this->url->lastModificationDate->toAtomString())
+        ->toEqual($carbon->toAtomString());
+});
 
-    /** @test */
-    public function last_modification_date_can_be_set()
-    {
-        $carbon = Carbon::now()->subDay();
+test('priority can be set')
+    ->tap(fn () => $this->url->setPriority(0.1))
+    ->expect(fn () => $this->url->priority)
+    ->toEqual(0.1);
 
-        $this->url->setLastModificationDate($carbon);
+test('priority is clamped')
+    ->tap(fn () => $this->url->setPriority(-0.1))
+    ->expect(fn () => $this->url->priority)
+    ->toEqual(0)
+    ->tap(fn () => $this->url->setPriority(1.1))
+    ->expect(fn () => $this->url->priority)
+    ->toEqual(1);
 
-        $this->assertEquals($carbon->toAtomString(), $this->url->lastModificationDate->toAtomString());
-    }
+test('change frequency can be set')
+    ->tap(fn () => $this->url->setChangeFrequency(Url::CHANGE_FREQUENCY_YEARLY))
+    ->expect(fn () => $this->url->changeFrequency)
+    ->toEqual(Url::CHANGE_FREQUENCY_YEARLY);
 
-    public function priority_can_be_set()
-    {
-        $this->url->setPriority(0.1);
+test('alternate can be added', function () {
+    $url = 'defaultUrl';
+    $locale = 'en';
 
-        $this->assertEquals(0.1, $this->url->priority);
-    }
+    $this->url->addAlternate($url, $locale);
 
-    /** @test */
-    public function priority_is_clamped()
-    {
-        $this->url->setPriority(-0.1);
+    expect($this->url->alternates[0])->toEqual(new Alternate($url, $locale));
+});
 
-        $this->assertEquals(0, $this->url->priority);
+it('can determine its type')
+    ->expect(fn () => $this->url->getType())
+    ->toEqual('url');
 
-        $this->url->setPriority(1.1);
+it('can determine the path', function () {
+    $path = '/part1/part2/part3';
 
-        $this->assertEquals(1, $this->url->priority);
-    }
+    expect($path)
+        ->toEqual(Url::create('http://example.com/part1/part2/part3')->path())
+        ->toEqual(Url::create('/part1/part2/part3')->path());
+});
 
-    public function change_frequency_can_be_set()
-    {
-        $this->url->setChangeFrequency(Url::CHANGE_FREQUENCY_YEARLY);
+it('can get all segments from a relative url', function () {
+    $segments = [
+        'part1',
+        'part2',
+        'part3',
+    ];
 
-        $this->assertEquals(Url::CHANGE_FREQUENCY_YEARLY, $this->url->changeFrequency);
-    }
+    expect(Url::create('/part1/part2/part3')->segments())
+        ->toMatchArray($segments);
+});
 
-    /** @test */
-    public function alternate_can_be_added()
-    {
-        $url = 'defaultUrl';
-        $locale = 'en';
+it('can get all segments from an absolute url', function () {
+    $segments = [
+        'part1',
+        'part2',
+        'part3',
+    ];
 
-        $this->url->addAlternate($url, $locale);
+    expect(Url::create('http://example.com/part1/part2/part3')->segments())
+        ->toMatchArray($segments);
+});
 
-        $this->assertEquals(new Alternate($url, $locale), $this->url->alternates[0]);
-    }
+it('can get a specific segment')
+    ->expect('part2')
+    ->toEqual(Url::create('http://example.com/part1/part2/part3')->segment(2))
+    ->toEqual(Url::create('http://example.com/part1/part2/part3')->segments(2));
 
-    /** @test */
-    public function it_can_determine_its_type()
-    {
-        $this->assertEquals('url', $this->url->getType());
-    }
-
-    /** @test */
-    public function it_can_determine_the_path()
-    {
-        $path = '/part1/part2/part3';
-
-        $this->assertEquals($path, Url::create('http://example.com/part1/part2/part3')->path());
-        $this->assertEquals($path, Url::create('/part1/part2/part3')->path());
-    }
-
-    /** @test */
-    public function it_can_get_all_segments_from_a_relative_url()
-    {
-        $segments = [
-            'part1',
-            'part2',
-            'part3',
-        ];
-
-        $this->assertEquals($segments, Url::create('/part1/part2/part3')->segments());
-    }
-
-    /** @test */
-    public function it_can_get_all_segments_from_an_absolute_url()
-    {
-        $segments = [
-            'part1',
-            'part2',
-            'part3',
-        ];
-
-        $this->assertEquals($segments, Url::create('http://example.com/part1/part2/part3')->segments());
-    }
-
-    /** @test */
-    public function it_can_get_a_specific_segment()
-    {
-        $this->assertEquals('part2', Url::create('http://example.com/part1/part2/part3')->segment(2));
-        $this->assertEquals('part2', Url::create('http://example.com/part1/part2/part3')->segments(2));
-    }
-
-    /** @test */
-    public function it_will_return_null_for_a_non_existing_segment()
-    {
-        $this->assertNull(Url::create('http://example.com/part1/part2/part3')->segment(5));
-    }
-}
+it('will return null for non-existing segment')
+    ->expect(Url::create('http://example.com/part1/part2/part3')->segment(5))
+    ->toBeNull();
