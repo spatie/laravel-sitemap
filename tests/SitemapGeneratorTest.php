@@ -1,79 +1,85 @@
 <?php
 
-namespace Spatie\Sitemap\Test;
-
 use Psr\Http\Message\UriInterface;
 use Spatie\Crawler\Crawler;
 use Spatie\Sitemap\SitemapGenerator;
 use Spatie\Sitemap\Tags\Url;
-use Throwable;
+use Spatie\Sitemap\Test\CustomCrawlProfile;
 
-class SitemapGeneratorTest extends TestCase
+use function Spatie\Snapshots\assertMatchesXmlSnapshot;
+
+function checkIfTestServerIsRunning()
 {
-    protected SitemapGenerator $sitemapGenerator;
+    try {
+        file_get_contents('http://localhost:4020');
+    } catch (Throwable $e) {
+        handleTestServerNotRunning();
+    }
+}
 
-    public function setUp(): void
-    {
-        $this->checkIfTestServerIsRunning();
-
-        parent::setUp();
+function handleTestServerNotRunning()
+{
+    if (getenv('TRAVIS')) {
+        test()->fail('The test server is not running on Travis.');
     }
 
-    /** @test */
-    public function it_can_generate_a_sitemap()
-    {
-        $sitemapPath = $this->temporaryDirectory->path('test.xml');
+    test()->markTestSkipped('The test server is not running.');
+}
 
-        SitemapGenerator::create('http://localhost:4020')
-            ->writeToFile($sitemapPath);
+beforeEach(function () {
+    checkIfTestServerIsRunning();
+});
 
-        $this->assertMatchesXmlSnapshot(file_get_contents($sitemapPath));
+it('can generate a sitemap', function () {
+    $sitemapPath = $this->temporaryDirectory->path('test.xml');
+
+    SitemapGenerator::create('http://localhost:4020')
+        ->writeToFile($sitemapPath);
+
+    assertMatchesXmlSnapshot(file_get_contents($sitemapPath));
+});
+
+it('will create new sitemaps if the maximum amount is crossed', function () {
+    $sitemapPath = $this->temporaryDirectory->path('test_chunk.xml');
+
+    SitemapGenerator::create('http://localhost:4020')
+        ->maxTagsPerSitemap(1)
+        ->writeToFile($sitemapPath);
+
+    $content = file_get_contents($sitemapPath);
+
+    foreach (range(0, 5) as $index) {
+        $filename = "test_chunk_{$index}.xml";
+        $subsitemap = file_get_contents($this->temporaryDirectory->path($filename));
+
+        expect($subsitemap)->not->toBeEmpty()
+            ->and($content)->toContain("test_chunk_{$index}.xml")
+            ->and($subsitemap)
+            ->toContain('<loc>')
+            ->toContain('<url>')
+            ->toContain('<urlset');
     }
+});
 
-    /** @test */
-    public function it_will_create_new_sitemaps_if_the_maximum_amount_is_crossed()
-    {
-        $sitemapPath = $this->temporaryDirectory->path('test_chunk.xml');
+it('can modify the attributes while generating the sitemap', function () {
+    $sitemapPath = $this->temporaryDirectory->path('test.xml');
 
-        SitemapGenerator::create('http://localhost:4020')
-            ->maxTagsPerSitemap(1)
-            ->writeToFile($sitemapPath);
+    SitemapGenerator::create('http://localhost:4020')
+        ->hasCrawled(function (Url $url) {
+            if ($url->segment(1) === 'page3') {
+                $url->setPriority(0.6);
+            }
 
-        $content = file_get_contents($sitemapPath);
+            return $url;
+        })
+        ->writeToFile($sitemapPath);
 
-        foreach (range(0, 5) as $index) {
-            $filename = "test_chunk_{$index}.xml";
-            $subsitemap = file_get_contents($this->temporaryDirectory->path($filename));
+    assertMatchesXmlSnapshot(file_get_contents($sitemapPath));
+});
 
-            $this->assertNotEmpty($subsitemap);
-            $this->assertStringContainsString("test_chunk_{$index}.xml", $content);
-            $this->assertStringContainsString('<loc>', $subsitemap);
-            $this->assertStringContainsString('<url>', $subsitemap);
-            $this->assertStringContainsString('<urlset', $subsitemap);
-        }
-    }
-
-    /** @test */
-    public function it_can_modify_the_attributes_while_generating_the_sitemap()
-    {
-        $sitemapPath = $this->temporaryDirectory->path('test.xml');
-
-        SitemapGenerator::create('http://localhost:4020')
-            ->hasCrawled(function (Url $url) {
-                if ($url->segment(1) === 'page3') {
-                    $url->setPriority(0.6);
-                }
-
-                return $url;
-            })
-            ->writeToFile($sitemapPath);
-
-        $this->assertMatchesXmlSnapshot(file_get_contents($sitemapPath));
-    }
-
-    /** @test */
-    public function it_will_not_add_the_url_to_the_site_map_if_has_crawled_does_not_return_it()
-    {
+it(
+    'will not add the url to the sitemap if hasCrawled() does not return it',
+    function () {
         $sitemapPath = $this->temporaryDirectory->path('test.xml');
 
         SitemapGenerator::create('http://localhost:4020')
@@ -86,76 +92,50 @@ class SitemapGeneratorTest extends TestCase
             })
             ->writeToFile($sitemapPath);
 
-        $this->assertMatchesXmlSnapshot(file_get_contents($sitemapPath));
+        assertMatchesXmlSnapshot(file_get_contents($sitemapPath));
     }
+);
 
-    /** @test */
-    public function it_will_not_crawl_an_url_if_should_crawl_returns_false()
-    {
-        $sitemapPath = $this->temporaryDirectory->path('test.xml');
+it('will not crawl an url of shouldCrawl() returns false', function () {
+    $sitemapPath = $this->temporaryDirectory->path('test.xml');
 
-        SitemapGenerator::create('http://localhost:4020')
-            ->shouldCrawl(function (UriInterface $url) {
-                return ! strpos($url->getPath(), 'page3');
-            })
-            ->writeToFile($sitemapPath);
+    SitemapGenerator::create('http://localhost:4020')
+        ->shouldCrawl(function (UriInterface $url) {
+            return !strpos($url->getPath(), 'page3');
+        })
+        ->writeToFile($sitemapPath);
 
-        $this->assertMatchesXmlSnapshot(file_get_contents($sitemapPath));
-    }
+    assertMatchesXmlSnapshot(file_get_contents($sitemapPath));
+});
 
-    /** @test */
-    public function it_will_not_crawl_an_url_if_listed_in_robots_txt()
-    {
-        $sitemapPath = $this->temporaryDirectory->path('test.xml');
+it('will not crawl an url if listed in robots.txt', function () {
+    $sitemapPath = $this->temporaryDirectory->path('test.xml');
 
-        SitemapGenerator::create('http://localhost:4020')
-            ->writeToFile($sitemapPath);
+    SitemapGenerator::create('http://localhost:4020')
+        ->writeToFile($sitemapPath);
 
-        $this->assertStringNotContainsString('/not-allowed', file_get_contents($sitemapPath));
-    }
+    expect(file_get_contents($sitemapPath))->not->toContain('/not-allowed');
+});
 
-    /** @test */
-    public function it_will_crawl_an_url_if_robots_txt_check_is_disabled()
-    {
-        $sitemapPath = $this->temporaryDirectory->path('test.xml');
+it('will crawl an url if robots.txt check is disabled', function () {
+    $sitemapPath = $this->temporaryDirectory->path('test.xml');
 
-        SitemapGenerator::create('http://localhost:4020')
-            ->configureCrawler(function (Crawler $crawler) {
-                $crawler->ignoreRobots();
-            })
-            ->writeToFile($sitemapPath);
+    SitemapGenerator::create('http://localhost:4020')
+        ->configureCrawler(function (Crawler $crawler) {
+            $crawler->ignoreRobots();
+        })
+        ->writeToFile($sitemapPath);
 
-        $this->assertStringContainsString('/not-allowed', file_get_contents($sitemapPath));
-    }
+    expect(file_get_contents($sitemapPath))->toContain('/not-allowed');
+});
 
-    /** @test */
-    public function it_can_use_a_custom_profile()
-    {
-        config(['sitemap.crawl_profile' => CustomCrawlProfile::class]);
+it('can use a custom profile', function () {
+    config(['sitemap.crawl_profile' => CustomCrawlProfile::class]);
 
-        $sitemapPath = $this->temporaryDirectory->path('test.xml');
+    $sitemapPath = $this->temporaryDirectory->path('test.xml');
 
-        SitemapGenerator::create('http://localhost:4020')
-            ->writeToFile($sitemapPath);
+    SitemapGenerator::create('http://localhost:4020')
+        ->writeToFile($sitemapPath);
 
-        $this->assertMatchesXmlSnapshot(file_get_contents($sitemapPath));
-    }
-
-    protected function checkIfTestServerIsRunning()
-    {
-        try {
-            file_get_contents('http://localhost:4020');
-        } catch (Throwable $e) {
-            $this->handleTestServerNotRunning();
-        }
-    }
-
-    protected function handleTestServerNotRunning()
-    {
-        if (getenv('TRAVIS')) {
-            $this->fail('The test server is not running on Travis.');
-        }
-
-        $this->markTestSkipped('The test server is not running.');
-    }
-}
+    assertMatchesXmlSnapshot(file_get_contents($sitemapPath));
+});
