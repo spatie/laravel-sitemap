@@ -16,7 +16,7 @@ abstract class TestCase extends OrchestraTestCase
 
     protected TemporaryDirectory $temporaryDirectory;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 
