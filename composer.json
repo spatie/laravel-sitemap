@@ -27,12 +27,16 @@
     "require-dev": {
         "mockery/mockery": "^1.4",
         "orchestra/testbench": "^6.23|^7.0",
+        "pestphp/pest": "^1.22",
         "phpunit/phpunit": "^9.5",
         "spatie/phpunit-snapshot-assertions": "^4.0",
         "spatie/temporary-directory": "^2.0"
     },
     "config": {
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
     },
     "extra": {
         "laravel": {
