@@ -85,7 +85,7 @@ it('will not crawl an url of shouldCrawl() returns false', function () {
 
     SitemapGenerator::create('http://localhost:4020')
         ->shouldCrawl(function (UriInterface $url) {
-            return !strpos($url->getPath(), 'page3');
+            return ! strpos($url->getPath(), 'page3');
         })
         ->writeToFile($sitemapPath);
 

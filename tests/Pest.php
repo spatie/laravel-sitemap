@@ -1,8 +1,8 @@
 <?php
 
 use Carbon\Carbon;
-use Spatie\TemporaryDirectory\TemporaryDirectory;
 use function PHPUnit\Framework\assertXmlStringEqualsXmlString;
+use Spatie\TemporaryDirectory\TemporaryDirectory;
 
 /*
 |--------------------------------------------------------------------------

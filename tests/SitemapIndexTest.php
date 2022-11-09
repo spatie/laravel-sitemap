@@ -3,10 +3,10 @@
 use Illuminate\Support\Facades\Storage;
 use Spatie\Sitemap\SitemapIndex;
 use Spatie\Sitemap\Tags\Sitemap;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-
 use function Spatie\Snapshots\assertMatchesXmlSnapshot;
+use Symfony\Component\HttpFoundation\Request;
+
+use Symfony\Component\HttpFoundation\Response;
 
 beforeEach(function () {
     $this->index = new SitemapIndex();
