@@ -1,33 +1,19 @@
 <?php
 
-namespace Spatie\Sitemap\Test;
-
 use Spatie\Sitemap\Tags\Alternate;
 
-class AlternateTest extends TestCase
-{
-    protected Alternate $alternate;
+beforeEach(function () {
+    $this->alternate = new Alternate('defaultUrl', 'en');
+});
 
-    public function setUp(): void
-    {
-        parent::setUp();
+test('url can be set', function () {
+    $this->alternate->setUrl('testUrl');
 
-        $this->alternate = new Alternate('defaultUrl', 'en');
-    }
+    expect($this->alternate->url)->toEqual('testUrl');
+});
 
-    /** @test */
-    public function url_can_be_set()
-    {
-        $this->alternate->setUrl('testUrl');
+test('locale can be set', function () {
+    $this->alternate->setLocale('en');
 
-        $this->assertEquals('testUrl', $this->alternate->url);
-    }
-
-    /** @test */
-    public function locale_can_be_set()
-    {
-        $this->alternate->setLocale('en');
-
-        $this->assertEquals('en', $this->alternate->locale);
-    }
-}
+    expect($this->alternate->locale)->toEqual('en');
+});

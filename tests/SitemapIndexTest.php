@@ -1,135 +1,102 @@
 <?php
 
-namespace Spatie\Sitemap\Test;
-
 use Illuminate\Support\Facades\Storage;
 use Spatie\Sitemap\SitemapIndex;
 use Spatie\Sitemap\Tags\Sitemap;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class SitemapIndexTest extends TestCase
-{
-    protected SitemapIndex $index;
+use function Spatie\Snapshots\assertMatchesXmlSnapshot;
 
-    public function setUp(): void
-    {
-        parent::setUp();
+beforeEach(function () {
+    $this->index = new SitemapIndex();
+});
 
-        $this->index = new SitemapIndex();
-    }
+it('provides a `create` method', function () {
+    $index = SitemapIndex::create();
 
-    /** @test */
-    public function it_provides_a_create_method()
-    {
-        $index = SitemapIndex::create();
+    expect($index)->toBeInstanceOf(SitemapIndex::class);
+});
 
-        $this->assertInstanceOf(SitemapIndex::class, $index);
-    }
+it('can render an empty index', function () {
+    assertMatchesXmlSnapshot($this->index->render());
+});
 
-    /** @test */
-    public function it_can_render_an_empty_index()
-    {
-        $this->assertMatchesXmlSnapshot($this->index->render());
-    }
+it('can write an index to a file', function () {
+    $path = temporaryDirectory()->path('test.xml');
 
-    /** @test */
-    public function it_can_write_an_index_to_a_file()
-    {
-        $path = $this->temporaryDirectory->path('test.xml');
+    $this->index->writeToFile($path);
 
-        $this->index->writeToFile($path);
+    assertMatchesXmlSnapshot(file_get_contents($path));
+});
 
-        $this->assertMatchesXmlSnapshot(file_get_contents($path));
-    }
+it('can write a sitemap to a storage disk', function () {
+    Storage::fake('sitemap');
+    $this->index->writeToDisk('sitemap', 'sitemap.xml');
 
-    /** @test */
-    public function it_can_write_a_sitemap_to_a_storage_disk()
-    {
-        Storage::fake('sitemap');
-        $this->index->writeToDisk('sitemap', 'sitemap.xml');
+    assertMatchesXmlSnapshot(Storage::disk('sitemap')->get('sitemap.xml'));
+});
 
-        $this->assertMatchesXmlSnapshot(Storage::disk('sitemap')->get('sitemap.xml'));
-    }
+test('an url string can be added to the index', function () {
+    $this->index->add('/sitemap1.xml');
 
-    /** @test */
-    public function an_url_string_can_be_added_to_the_index()
-    {
-        $this->index->add('/sitemap1.xml');
+    assertMatchesXmlSnapshot($this->index->render());
+});
 
-        $this->assertMatchesXmlSnapshot($this->index->render());
-    }
+test('a sitemap object can be added to the index', function () {
+    $this->index->add(Sitemap::create('/sitemap1.xml'));
 
-    /** @test */
-    public function a_sitemap_object_can_be_added_to_the_index()
-    {
-        $this->index->add(Sitemap::create('/sitemap1.xml'));
+    assertMatchesXmlSnapshot($this->index->render());
+});
 
-        $this->assertMatchesXmlSnapshot($this->index->render());
-    }
+test('multiple sitemaps can be added to the index', function () {
+    $this->index
+        ->add(Sitemap::create('/sitemap1.xml'))
+        ->add(Sitemap::create('/sitemap2.xml'));
 
-    /** @test */
-    public function multiple_sitemaps_can_be_added_to_the_index()
-    {
-        $this->index
-            ->add(Sitemap::create('/sitemap1.xml'))
-            ->add(Sitemap::create('/sitemap2.xml'));
+    assertMatchesXmlSnapshot($this->index->render());
+});
 
-        $this->assertMatchesXmlSnapshot($this->index->render());
-    }
-
-    /** @test */
-    public function it_can_render_a_sitemaps_with_all_its_set_properties()
-    {
-        $this->index
-            ->add(
-                Sitemap::create('/sitemap1.xml')
+it('can render a sitemap with all its set properties', function () {
+    $this->index
+        ->add(
+            Sitemap::create('/sitemap1.xml')
                 ->setLastModificationDate($this->now->subDay())
-            );
+        );
 
-        $this->assertMatchesXmlSnapshot($this->index->render());
-    }
+    assertMatchesXmlSnapshot($this->index->render());
+});
 
-    /** @test */
-    public function it_can_determine_if_it_contains_a_given_sitemap()
-    {
-        $this->index
-            ->add('/sitemap1.xml')
-            ->add('/sitemap2.xml')
-            ->add('/sitemap3.xml');
+it('can determine if it contains a given sitemap', function () {
+    $this->index
+        ->add('/sitemap1.xml')
+        ->add('/sitemap2.xml')
+        ->add('/sitemap3.xml');
 
-        $this->assertTrue($this->index->hasSitemap('/sitemap2.xml'));
-    }
+    expect($this->index->hasSitemap('/sitemap2.xml'))->toBeTrue();
+});
 
-    /** @test */
-    public function it_can_get_a_specific_sitemap()
-    {
-        $this->index->add('/sitemap1.xml');
-        $this->index->add('/sitemap2.xml');
+it('can get a specific sitemap', function () {
+    $this->index->add('/sitemap1.xml');
+    $this->index->add('/sitemap2.xml');
 
-        $sitemap = $this->index->getSitemap('/sitemap2.xml');
+    $sitemap = $this->index->getSitemap('/sitemap2.xml');
 
-        $this->assertInstanceOf(Sitemap::class, $sitemap);
-        $this->assertSame('/sitemap2.xml', $sitemap->url);
-    }
+    expect($sitemap)->toBeInstanceOf(Sitemap::class)
+        ->url->toBe('/sitemap2.xml');
+});
 
-    /** @test */
-    public function it_returns_null_when_getting_a_non_existing_sitemap()
-    {
-        $this->assertNull($this->index->getSitemap('/sitemap1.xml'));
+it('returns null when getting a non-existing sitemap', function () {
+    expect($this->index->getSitemap('/sitemap1.xml'))->toBeNull();
 
-        $this->index->add('/sitemap1.xml');
+    $this->index->add('/sitemap1.xml');
 
-        $this->assertNotNull($this->index->getSitemap('/sitemap1.xml'));
+    expect($this->index->getSitemap('/sitemap1.xml'))->not->toBeNull()
+        ->and($this->index->getSitemap('/sitemap2.xml'))->toBeNull();
+});
 
-        $this->assertNull($this->index->getSitemap('/sitemap2.xml'));
-    }
+test('an instance can return a response', function () {
+    $this->index->add('/sitemap1.xml');
 
-    /** @test */
-    public function an_instance_can_return_a_response()
-    {
-        $this->index->add('/sitemap1.xml');
-
-        $this->assertInstanceOf(Response::class, $this->index->toResponse(new Request));
-    }
-}
+    expect($this->index->toResponse(new Request))->toBeInstanceOf(Response::class);
+});

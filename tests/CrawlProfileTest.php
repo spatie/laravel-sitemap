@@ -1,94 +1,74 @@
 <?php
 
-namespace Spatie\Sitemap\Test;
-
 use Spatie\Crawler\Crawler;
 use Spatie\Crawler\CrawlProfiles\CrawlInternalUrls;
 use Spatie\Crawler\CrawlProfiles\CrawlSubdomains;
 use Spatie\Sitemap\Crawler\Profile;
 use Spatie\Sitemap\Sitemap;
 use Spatie\Sitemap\SitemapGenerator;
+use Spatie\Sitemap\Test\CustomCrawlProfile;
 
-class CrawlProfileTest extends TestCase
-{
-    /**
-     * @var Crawler
-     */
-    protected $crawler;
+beforeEach(function () {
+    $this->crawler = $this->createMock(Crawler::class);
 
-    public function setUp(): void
-    {
-        parent::setUp();
+    $this->crawler->method('setCrawlObserver')->willReturn($this->crawler);
+    $this->crawler->method('setConcurrency')->willReturn($this->crawler);
+});
 
-        $this->crawler = $this->createMock(Crawler::class);
+it('can use default profile', function () {
+    $this->crawler
+        ->method('setCrawlProfile')
+        ->with($this->isInstanceOf(Profile::class))
+        ->willReturn($this->crawler);
 
-        $this->crawler->method('setCrawlObserver')->willReturn($this->crawler);
-        $this->crawler->method('setConcurrency')->willReturn($this->crawler);
-    }
+    $sitemapGenerator = new SitemapGenerator($this->crawler);
 
-    /** @test */
-    public function it_can_use_the_default_profile()
-    {
-        $this->crawler
-            ->method('setCrawlProfile')
-            ->with($this->isInstanceOf(Profile::class))
-            ->willReturn($this->crawler);
+    $sitemap = $sitemapGenerator->setUrl('')->getSitemap();
 
-        $sitemapGenerator = new SitemapGenerator($this->crawler);
+    expect($sitemap)->toBeInstanceOf(Sitemap::class);
+});
 
-        $sitemap = $sitemapGenerator->setUrl('')->getSitemap();
+it('can use the custom profile', function () {
+    config(['sitemap.crawl_profile' => CustomCrawlProfile::class]);
 
-        $this->assertInstanceOf(Sitemap::class, $sitemap);
-    }
+    $this->crawler
+        ->method('setCrawlProfile')
+        ->with($this->isInstanceOf(CustomCrawlProfile::class))
+        ->willReturn($this->crawler);
 
-    /** @test */
-    public function it_can_use_the_custom_profile()
-    {
-        config(['sitemap.crawl_profile' => CustomCrawlProfile::class]);
+    $sitemapGenerator = new SitemapGenerator($this->crawler);
 
-        $this->crawler
-            ->method('setCrawlProfile')
-            ->with($this->isInstanceOf(CustomCrawlProfile::class))
-            ->willReturn($this->crawler);
+    $sitemap = $sitemapGenerator->setUrl('')->getSitemap();
 
-        $sitemapGenerator = new SitemapGenerator($this->crawler);
+    expect($sitemap)->toBeInstanceOf(Sitemap::class);
+});
 
-        $sitemap = $sitemapGenerator->setUrl('')->getSitemap();
+it('can use the subdomain profile', function () {
+    config(['sitemap.crawl_profile' => CrawlSubdomains::class]);
 
-        $this->assertInstanceOf(Sitemap::class, $sitemap);
-    }
+    $this->crawler
+        ->method('setCrawlProfile')
+        ->with($this->isInstanceOf(CrawlSubdomains::class))
+        ->willReturn($this->crawler);
 
-    /** @test */
-    public function it_can_use_the_subdomain_profile()
-    {
-        config(['sitemap.crawl_profile' => CrawlSubdomains::class]);
+    $sitemapGenerator = new SitemapGenerator($this->crawler);
 
-        $this->crawler
-            ->method('setCrawlProfile')
-            ->with($this->isInstanceOf(CrawlSubdomains::class))
-            ->willReturn($this->crawler);
+    $sitemap = $sitemapGenerator->setUrl('')->getSitemap();
 
-        $sitemapGenerator = new SitemapGenerator($this->crawler);
+    expect($sitemap)->toBeInstanceOf(Sitemap::class);
+});
 
-        $sitemap = $sitemapGenerator->setUrl('')->getSitemap();
+it('can use the internal profile', function () {
+    config(['sitemap.crawl_profile' => CrawlInternalUrls::class]);
 
-        $this->assertInstanceOf(Sitemap::class, $sitemap);
-    }
+    $this->crawler
+        ->method('setCrawlProfile')
+        ->with($this->isInstanceOf(CrawlInternalUrls::class))
+        ->willReturn($this->crawler);
 
-    /** @test */
-    public function it_can_use_the_internal_profile()
-    {
-        config(['sitemap.crawl_profile' => CrawlInternalUrls::class]);
+    $sitemapGenerator = new SitemapGenerator($this->crawler);
 
-        $this->crawler
-            ->method('setCrawlProfile')
-            ->with($this->isInstanceOf(CrawlInternalUrls::class))
-            ->willReturn($this->crawler);
+    $sitemap = $sitemapGenerator->setUrl('')->getSitemap();
 
-        $sitemapGenerator = new SitemapGenerator($this->crawler);
-
-        $sitemap = $sitemapGenerator->setUrl('')->getSitemap();
-
-        $this->assertInstanceOf(Sitemap::class, $sitemap);
-    }
-}
+    expect($sitemap)->toBeInstanceOf(Sitemap::class);
+});
