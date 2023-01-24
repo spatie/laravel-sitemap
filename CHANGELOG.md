@@ -2,6 +2,27 @@
 
 All notable changes to `laravel-sitemap` will be documented in this file
 
+## 6.2.4 - 2023-01-24
+
+### What's Changed
+
+- Refactor tests to Pest by @alexmanase in https://github.com/spatie/laravel-sitemap/pull/476
+- Add Dependabot Automation by @patinthehat in https://github.com/spatie/laravel-sitemap/pull/480
+- Add PHP 8.2 Support by @patinthehat in https://github.com/spatie/laravel-sitemap/pull/479
+- Bump actions/checkout from 2 to 3 by @dependabot in https://github.com/spatie/laravel-sitemap/pull/483
+- Fix github badges by @Tofandel in https://github.com/spatie/laravel-sitemap/pull/488
+- Add laravel 10.x Compactibility by @njoguamos in https://github.com/spatie/laravel-sitemap/pull/489
+
+### New Contributors
+
+- @alexmanase made their first contribution in https://github.com/spatie/laravel-sitemap/pull/476
+- @patinthehat made their first contribution in https://github.com/spatie/laravel-sitemap/pull/480
+- @dependabot made their first contribution in https://github.com/spatie/laravel-sitemap/pull/483
+- @Tofandel made their first contribution in https://github.com/spatie/laravel-sitemap/pull/488
+- @njoguamos made their first contribution in https://github.com/spatie/laravel-sitemap/pull/489
+
+**Full Changelog**: https://github.com/spatie/laravel-sitemap/compare/6.2.3...6.2.4
+
 ## 6.2.3 - 2022-10-24
 
 ### What's Changed
