@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-sitemap` will be documented in this file
 
+## 6.2.5 - 2023-01-26
+
+### What's Changed
+
+- Revert "fix for maximum crawl limit (#470)" by @BoGnY in https://github.com/spatie/laravel-sitemap/pull/490
+
+### New Contributors
+
+- @BoGnY made their first contribution in https://github.com/spatie/laravel-sitemap/pull/490
+
+**Full Changelog**: https://github.com/spatie/laravel-sitemap/compare/6.2.4...6.2.5
+
 ## 6.2.4 - 2023-01-24
 
 ### What's Changed
