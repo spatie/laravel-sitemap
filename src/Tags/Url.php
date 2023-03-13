@@ -23,6 +23,8 @@ class Url extends Tag
 
     public float $priority = 0.8;
 
+    public array $news = [];
+
     /** @var \Spatie\Sitemap\Tags\Alternate[] */
     public array $alternates = [];
 
@@ -71,6 +73,13 @@ class Url extends Tag
         return $this;
     }
 
+    public function setNews(array $news): static
+    {
+        $this->news = $news;
+
+        return $this;
+    }
+
     public function addAlternate(string $url, string $locale = ''): static
     {
         $this->alternates[] = new Alternate($url, $locale);
@@ -84,6 +93,7 @@ class Url extends Tag
 
         return $this;
     }
+
 
     public function path(): string
     {
