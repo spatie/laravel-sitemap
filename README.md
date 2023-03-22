@@ -78,6 +78,10 @@ class Post extends Model implements Sitemapable
     public function toSitemapTag(): Url | string | array
     {
         return route('blog.post.show', $this);
+        return Url::create(route('blog.post.show', $this))
+            ->setLastModificationDate(Carbon::create($this->updated_at))
+            ->setChangeFrequency(Url::CHANGE_FREQUENCY_YEARLY)
+            ->setPriority(0.1);
     }
 }
 ```
