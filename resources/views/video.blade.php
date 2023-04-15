@@ -17,7 +17,4 @@
 @foreach($video->deny as $tag => $value)
     <video:{{$tag}} relationship="deny">{{$value}}</video:{{$tag}}>
 @endforeach
-{{--@if ($video->platforms && count($video->platforms) > 0)--}}
-{{--    <video:platform relationship="allow">{{ implode(" ", $video->platforms) }}</video:platform>--}}
-{{--@endif--}}
 </video:video>
