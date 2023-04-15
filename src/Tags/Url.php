@@ -29,6 +29,9 @@ class Url extends Tag
     /** @var \Spatie\Sitemap\Tags\Image[] */
     public array $images = [];
 
+    /** @var \Spatie\Sitemap\Tags\Video[] */
+    public array $videos = [];
+
     public static function create(string $url): static
     {
         return new static($url);
@@ -81,6 +84,13 @@ class Url extends Tag
     public function addImage(string $url, string $caption = '', string $geo_location = '', string $title = '', string $license = ''): static
     {
         $this->images[] = new Image($url, $caption, $geo_location, $title, $license);
+
+        return $this;
+    }
+
+    public function addVideo(string $thumbnailLoc, string $title, string $description, $contentLoc = null, $playerLoc = null, array $platforms = []): static
+    {
+        $this->videos[] = new Video($thumbnailLoc, $title, $description, $contentLoc, $playerLoc, $platforms);
 
         return $this;
     }
