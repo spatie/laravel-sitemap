@@ -88,9 +88,9 @@ class Url extends Tag
         return $this;
     }
 
-    public function addVideo(string $thumbnailLoc, string $title, string $description, $contentLoc = null, $playerLoc = null, array $platforms = []): static
+    public function addVideo(string $thumbnailLoc, string $title, string $description, $contentLoc = null, $playerLoc = null, array $options = [], array $allow = [], array $deny = []): static
     {
-        $this->videos[] = new Video($thumbnailLoc, $title, $description, $contentLoc, $playerLoc, $platforms);
+        $this->videos[] = new Video($thumbnailLoc, $title, $description, $contentLoc, $playerLoc, $options, $allow, $deny);
 
         return $this;
     }
