@@ -9,6 +9,6 @@
     <video:player_loc>{{ $video->playerLoc }}</video:player_loc>
 @endif
 @if ($video->platforms && count($video->platforms) > 0)
-    <video:platform relationship="allow">{{ implode(" ", $video->playerLoc) }}</video:platform>
+    <video:platform relationship="allow">{{ implode(" ", $video->platforms) }}</video:platform>
 @endif
 </video:video>
