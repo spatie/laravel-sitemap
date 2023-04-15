@@ -8,7 +8,16 @@
 @if ($video->playerLoc)
     <video:player_loc>{{ $video->playerLoc }}</video:player_loc>
 @endif
-@if ($video->platforms && count($video->platforms) > 0)
-    <video:platform relationship="allow">{{ implode(" ", $video->platforms) }}</video:platform>
-@endif
+@foreach($video->options as $tag => $value)
+    <video:{{$tag}}>{{$value}}</video:{{$tag}}>
+@endforeach
+@foreach($video->allow as $tag => $value)
+    <video:{{$tag}} relationship="allow">{{$value}}</video:{{$tag}}>
+@endforeach
+@foreach($video->deny as $tag => $value)
+    <video:{{$tag}} relationship="deny">{{$value}}</video:{{$tag}}>
+@endforeach
+{{--@if ($video->platforms && count($video->platforms) > 0)--}}
+{{--    <video:platform relationship="allow">{{ implode(" ", $video->platforms) }}</video:platform>--}}
+{{--@endif--}}
 </video:video>
