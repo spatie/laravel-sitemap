@@ -18,13 +18,13 @@ class Video
 
     public string $playerLoc;
 
-    public array $platforms;
+    public ?array $platforms;
 
-    public function __construct(string $thumbnailLoc, string $title, string $description, $contentLoc = null, $playerLoc = null, array $platforms = [])
+    public function __construct(string $thumbnailLoc, string $title, string $description, string $contentLoc = null, string $playerLoc = null, ?array $platforms = null)
     {
         if ($contentLoc === null && $playerLoc === null) {
             // https://developers.google.com/search/docs/crawling-indexing/sitemaps/video-sitemaps
-            throw new \RuntimeException("It's required to provide either a Content Location or Player Location");
+            throw new \Exception("It's required to provide either a Content Location or Player Location");
         }
 
         $this->setThumbnailLoc($thumbnailLoc)
@@ -70,7 +70,7 @@ class Video
         return $this;
     }
 
-    public function setPlatforms(array $platforms): self
+    public function setPlatforms(?array $platforms): self
     {
         $this->platforms = $platforms;
 
