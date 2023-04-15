@@ -8,6 +8,9 @@ class Video
     public const PLATFORM_MOBILE = 'mobile';
     public const PLATFORM_TV     = 'tv';
 
+    public const BOOL_FALSE      = "no";
+    public const BOOL_TRUE       = "yes";
+
     public string $thumbnailLoc;
 
     public string $title;
