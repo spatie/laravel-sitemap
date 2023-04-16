@@ -17,9 +17,9 @@ class Video
 
     public string $description;
 
-    public string $contentLoc;
+    public ?string $contentLoc;
 
-    public string $playerLoc;
+    public ?string $playerLoc;
 
     public array $options;
 
@@ -65,14 +65,14 @@ class Video
         return $this;
     }
 
-    public function setContentLoc(string $contentLoc): self
+    public function setContentLoc(?string $contentLoc): self
     {
         $this->contentLoc = $contentLoc;
 
         return $this;
     }
 
-    public function setPlayerLoc(string $playerLoc): self
+    public function setPlayerLoc(?string $playerLoc): self
     {
         $this->playerLoc = $playerLoc;
 
