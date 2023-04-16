@@ -3,13 +3,14 @@
 use Carbon\Carbon;
 use Spatie\Sitemap\Sitemap;
 use Spatie\Sitemap\Tags\Url;
+use Spatie\Sitemap\Tags\Video;
 
 test('XML has Video tag', function () {
     $expected_xml = '<?xml version="1.0" encoding="UTF-8"?>
                         <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
                             <url>
                                 <loc>https://example.com</loc>
-                                <lastmod>2022-12-31T20:30:00+00:00</lastmod>
+                                <lastmod>2016-01-01T00:00:00+00:00</lastmod>
                                 <changefreq>daily</changefreq>
                                 <priority>0.8</priority>
                                 <video:video>
@@ -24,11 +25,13 @@ test('XML has Video tag', function () {
                                 </video:video>
                             </url>
                         </urlset>';
-
+    
+    $options = ["live" => "no", "family_friendly" => "yes"];
+    $allow = ["platform" => Video::PLATFORM_MOBILE];
+    $deny = ["restriction" => 'CA'];
     $sitemap = Sitemap::create()
         ->add(
             Url::create("https://example.com")
-                ->setLastModificationDate(Carbon::parse('2023-01-01 00:00:00')->setTimezone('+00:00'))
                 ->addVideo("https://example.com/image.jpg", "My Test Title", "My Test Description", "https://example.com/video.mp4", null, $options, $allow, $deny)
         );
 
