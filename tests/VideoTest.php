@@ -1,0 +1,38 @@
+<?php
+
+use Carbon\Carbon;
+use Spatie\Sitemap\Sitemap;
+use Spatie\Sitemap\Tags\Url;
+
+test('XML has Video tag', function () {
+    $expected_xml = '<?xml version="1.0" encoding="UTF-8"?>
+                        <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+                            <url>
+                                <loc>https://example.com</loc>
+                                <lastmod>2022-12-31T20:30:00+00:00</lastmod>
+                                <changefreq>daily</changefreq>
+                                <priority>0.8</priority>
+                                <video:video>
+                                    <video:thumbnail_loc>https://example.com/image.jpg</video:thumbnail_loc>
+                                    <video:title>My Test Title</video:title>
+                                    <video:description>My Test Description</video:description>
+                                    <video:content_loc>https://example.com/video.mp4</video:content_loc>
+                                    <video:live>no</video:live>
+                                    <video:family_friendly>yes</video:family_friendly>
+                                    <video:platform relationship="allow">mobile</video:platform>
+                                    <video:restriction relationship="deny">CA</video:restriction>
+                                </video:video>
+                            </url>
+                        </urlset>';
+
+    $sitemap = Sitemap::create()
+        ->add(
+            Url::create("https://example.com")
+                ->setLastModificationDate(Carbon::parse('2023-01-01 00:00:00')->setTimezone('+00:00'))
+                ->addVideo("https://example.com/image.jpg", "My Test Title", "My Test Description", "https://example.com/video.mp4", null, $options, $allow, $deny)
+        );
+
+    $render_output = $sitemap->render();
+
+    expect($render_output)->toEqualXmlString($expected_xml);
+});
