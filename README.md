@@ -418,8 +418,8 @@ use Spatie\Sitemap\Tags\Url;
 use Spatie\Sitemap\Tags\Video;
 
 
-$options = ['family_friendly' => Video::BOOL_TRUE, 'live' => Video::BOOL_FALSE];
-$allowOptions = ['platform' => Video::PLATFORM_MOBILE];
+$options = ['family_friendly' => Video::OPTION_BOOL_TRUE, 'live' => Video::OPTION_BOOL_FALSE];
+$allowOptions = ['platform' => Video::OPTION_PLATFORM_MOBILE];
 $denyOptions = ['restriction' => 'CA'];
 
 Sitemap::create()

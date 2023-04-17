@@ -4,12 +4,12 @@ namespace Spatie\Sitemap\Tags;
 
 class Video
 {
-    public const PLATFORM_WEB    = 'web';
-    public const PLATFORM_MOBILE = 'mobile';
-    public const PLATFORM_TV     = 'tv';
+    public const OPTION_PLATFORM_WEB    = 'web';
+    public const OPTION_PLATFORM_MOBILE = 'mobile';
+    public const OPTION_PLATFORM_TV     = 'tv';
 
-    public const BOOL_FALSE      = "no";
-    public const BOOL_TRUE       = "yes";
+    public const OPTION_BOOL_FALSE      = "no";
+    public const OPTION_BOOL_TRUE       = "yes";
 
     public string $thumbnailLoc;
 

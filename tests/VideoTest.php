@@ -7,7 +7,7 @@ use Spatie\Sitemap\Tags\Video;
 
 test('XML has Video tag', function () {
     $expected_xml = '<?xml version="1.0" encoding="UTF-8"?>
-                        <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+                        <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
                             <url>
                                 <loc>https://example.com</loc>
                                 <lastmod>2016-01-01T00:00:00+00:00</lastmod>
@@ -25,9 +25,9 @@ test('XML has Video tag', function () {
                                 </video:video>
                             </url>
                         </urlset>';
-    
+
     $options = ["live" => "no", "family_friendly" => "yes"];
-    $allow = ["platform" => Video::PLATFORM_MOBILE];
+    $allow = ["platform" => Video::OPTION_PLATFORM_MOBILE];
     $deny = ["restriction" => 'CA'];
     $sitemap = Sitemap::create()
         ->add(
