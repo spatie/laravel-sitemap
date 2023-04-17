@@ -8,8 +8,8 @@ class Video
     public const OPTION_PLATFORM_MOBILE = 'mobile';
     public const OPTION_PLATFORM_TV     = 'tv';
 
-    public const OPTION_BOOL_FALSE      = "no";
-    public const OPTION_BOOL_TRUE       = "yes";
+    public const OPTION_STR_NO          = "no";
+    public const OPTION_STR_YES         = "yes";
 
     public string $thumbnailLoc;
 

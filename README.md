@@ -418,7 +418,7 @@ use Spatie\Sitemap\Tags\Url;
 use Spatie\Sitemap\Tags\Video;
 
 
-$options = ['family_friendly' => Video::OPTION_BOOL_TRUE, 'live' => Video::OPTION_BOOL_FALSE];
+$options = ['family_friendly' => Video::OPTION_STR_YES, 'live' => Video::OPTION_STR_NO];
 $allowOptions = ['platform' => Video::OPTION_PLATFORM_MOBILE];
 $denyOptions = ['restriction' => 'CA'];
 
