@@ -2,6 +2,21 @@
 
 All notable changes to `laravel-sitemap` will be documented in this file
 
+## 6.3.0 - 2023-04-28
+
+### What's Changed
+
+- Bump dependabot/fetch-metadata from 1.3.5 to 1.3.6 by @dependabot in https://github.com/spatie/laravel-sitemap/pull/491
+- Bump actions/cache from 1 to 3 by @dependabot in https://github.com/spatie/laravel-sitemap/pull/482
+- Bump dependabot/fetch-metadata from 1.3.6 to 1.4.0 by @dependabot in https://github.com/spatie/laravel-sitemap/pull/504
+- Add video tag by @erfansahaf in https://github.com/spatie/laravel-sitemap/pull/503
+
+### New Contributors
+
+- @erfansahaf made their first contribution in https://github.com/spatie/laravel-sitemap/pull/503
+
+**Full Changelog**: https://github.com/spatie/laravel-sitemap/compare/6.2.5...6.3.0
+
 ## 6.2.5 - 2023-01-26
 
 ### What's Changed
