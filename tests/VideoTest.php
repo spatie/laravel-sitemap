@@ -1,6 +1,5 @@
 <?php
 
-use Carbon\Carbon;
 use Spatie\Sitemap\Sitemap;
 use Spatie\Sitemap\Tags\Url;
 use Spatie\Sitemap\Tags\Video;
