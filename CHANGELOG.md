@@ -2,6 +2,21 @@
 
 All notable changes to `laravel-sitemap` will be documented in this file
 
+## 6.3.1 - 2023-06-27
+
+### What's Changed
+
+- Bump dependabot/fetch-metadata from 1.4.0 to 1.5.1 by @dependabot in https://github.com/spatie/laravel-sitemap/pull/506
+- Remove default lastModificationDate = now() by @robindirksen1 in https://github.com/spatie/laravel-sitemap/pull/510
+- Update README.md by @s-light in https://github.com/spatie/laravel-sitemap/pull/499
+
+### New Contributors
+
+- @robindirksen1 made their first contribution in https://github.com/spatie/laravel-sitemap/pull/510
+- @s-light made their first contribution in https://github.com/spatie/laravel-sitemap/pull/499
+
+**Full Changelog**: https://github.com/spatie/laravel-sitemap/compare/6.3.0...6.3.1
+
 ## 6.3.0 - 2023-04-28
 
 ### What's Changed
