@@ -41,8 +41,6 @@ class Url extends Tag
     {
         $this->url = $url;
 
-        $this->lastModificationDate = Carbon::now();
-
         $this->changeFrequency = static::CHANGE_FREQUENCY_DAILY;
     }
 
