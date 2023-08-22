@@ -1,6 +1,10 @@
 <url>
-    @if (! empty($tag->url))
+	@if (! empty($tag->url))
+		@if($tag->url === '.')
+        <loc>{{ url('/') }}</loc>
+        @else
         <loc>{{ url('/') . '/' . $tag->url }}</loc>
+        @endif
     @endif
 @if (count($tag->alternates))
 @foreach ($tag->alternates as $alternate)
