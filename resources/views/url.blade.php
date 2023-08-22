@@ -1,6 +1,6 @@
 <url>
     @if (! empty($tag->url))
-    <loc>{{ url($tag->url) . '/' }}</loc>
+        <loc>{{ url('/') . '/' . $tag->url }}</loc>
     @endif
 @if (count($tag->alternates))
 @foreach ($tag->alternates as $alternate)
