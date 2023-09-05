@@ -9,7 +9,6 @@ test('XML has Video tag', function () {
                         <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
                             <url>
                                 <loc>https://example.com</loc>
-                                <lastmod>2016-01-01T00:00:00+00:00</lastmod>
                                 <changefreq>daily</changefreq>
                                 <priority>0.8</priority>
                                 <video:video>
