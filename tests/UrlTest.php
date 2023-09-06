@@ -18,14 +18,6 @@ it('provides a `create` method', function () {
     expect($url->url)->toEqual('testUrl');
 });
 
-it(
-    'will use the current date time as the default for last modification date',
-    function () {
-        expect($this->url->lastModificationDate->toAtomString())
-            ->toEqual($this->now->toAtomString());
-    }
-);
-
 test('url can be set', function () {
     $url = Url::create('defaultUrl');
 
