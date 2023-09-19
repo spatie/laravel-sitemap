@@ -43,7 +43,8 @@ class Observer extends CrawlObserver
     public function crawled(
         UriInterface $url,
         ResponseInterface $response,
-        ?UriInterface $foundOnUrl = null
+        ?UriInterface $foundOnUrl = null,
+        ?string $linkText = null
     ): void {
         ($this->hasCrawled)($url, $response);
     }
