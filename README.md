@@ -83,13 +83,14 @@ class Post extends Model implements Sitemapable
 }
 ```
 
-Now you can add a single post model to the sitemap or even a whole collection.
+Now you can add a single post model to the sitemap, a whole collection or a query builder which will automatically chunk and process the items.
 ```php
 use Spatie\Sitemap\Sitemap;
 
 Sitemap::create()
     ->add($post)
-    ->add(Post::all());
+    ->add(Post::all())
+    ->add(Post::query());
 ```
 
 This way you can add all your pages super fast without the need to crawl them all.
