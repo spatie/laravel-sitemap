@@ -2,8 +2,10 @@
 
 namespace Spatie\Sitemap;
 
+use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Contracts\Support\Responsable;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Storage;
 use Spatie\Sitemap\Contracts\Sitemapable;
@@ -18,6 +20,17 @@ class Sitemap implements Responsable, Renderable
     public static function create(): static
     {
         return new static();
+    }
+
+    public function addQuery(Builder $query, int $chunkSize = 1000): static
+    {
+        $query->chunk($chunkSize, function(Collection $chunk) {
+            foreach ($chunk as $chunkItem) {
+                $this->add($chunkItem);
+            }
+        });
+
+        return $this;
     }
 
     public function add(string | Url | Sitemapable | iterable $tag): static

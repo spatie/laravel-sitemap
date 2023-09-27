@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Support\Facades\Storage;
 use Spatie\Sitemap\Contracts\Sitemapable;
 use Spatie\Sitemap\Sitemap;
@@ -135,6 +136,32 @@ test('multiple urls can be added in one call', function () {
         '/home',
         Url::create('/home'), // filtered
     ]);
+
+    assertMatchesXmlSnapshot($this->sitemap->render());
+});
+
+test('query builder can be added', function() {
+    $this->sitemap
+        ->addQuery(new class implements Builder {
+            public function chunk($count, callable $callback): void
+            {
+                $callback(collect([
+                    new class implements Sitemapable {
+                        public function toSitemapTag(): Url | string | array
+                        {
+                            return Url::create('/model-1');
+                        }
+                    },
+
+                    new class implements Sitemapable {
+                        public function toSitemapTag(): Url | string | array
+                        {
+                            return Url::create('/model-2');
+                        }
+                    }
+                ]));
+            }
+        });
 
     assertMatchesXmlSnapshot($this->sitemap->render());
 });
