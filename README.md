@@ -90,7 +90,7 @@ use Spatie\Sitemap\Sitemap;
 Sitemap::create()
     ->add($post)
     ->add(Post::all())
-    ->add(Post::query());
+    ->addQuery(Post::query());
 ```
 
 This way you can add all your pages super fast without the need to crawl them all.
