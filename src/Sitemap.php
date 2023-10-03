@@ -2,9 +2,9 @@
 
 namespace Spatie\Sitemap;
 
-use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Contracts\Support\Responsable;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Storage;
