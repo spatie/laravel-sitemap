@@ -18,4 +18,5 @@
     @endif
     @each('sitemap::image', $tag->images, 'image')
     @each('sitemap::video', $tag->videos, 'video')
+    @each('sitemap::news', $tag->news, 'news')
 </url>
