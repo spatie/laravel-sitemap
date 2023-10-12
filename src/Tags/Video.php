@@ -27,7 +27,9 @@ class Video
 
     public array $deny;
 
-    public function __construct(string $thumbnailLoc, string $title, string $description, string $contentLoc = null, string $playerLoc = null, array $options = [], array $allow = [], array $deny = [])
+    public array $tags;
+
+    public function __construct(string $thumbnailLoc, string $title, string $description, string $contentLoc = null, string|array $playerLoc = null, array $options = [], array $allow = [], array $deny = [], array $tags = [])
     {
         if ($contentLoc === null && $playerLoc === null) {
             // https://developers.google.com/search/docs/crawling-indexing/sitemaps/video-sitemaps
@@ -41,7 +43,8 @@ class Video
             ->setPlayerLoc($playerLoc)
             ->setOptions($options)
             ->setAllow($allow)
-            ->setDeny($deny);
+            ->setDeny($deny)
+            ->setTags($tags);
     }
 
     public function setThumbnailLoc(string $thumbnailLoc): self
@@ -96,6 +99,13 @@ class Video
     public function setDeny(array $deny): self
     {
         $this->deny = $deny;
+
+        return $this;
+    }
+
+    public function setTags(array $tags): self
+    {
+        $this->tags = array_slice($tags, 0 , 32); // maximum 32 tags allowed
 
         return $this;
     }
