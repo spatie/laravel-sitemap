@@ -105,7 +105,7 @@ class Video
 
     public function setTags(array $tags): self
     {
-        $this->tags = array_slice($tags, 0 , 32); // maximum 32 tags allowed
+        $this->tags = array_slice($tags, 0, 32); // maximum 32 tags allowed
 
         return $this;
     }
