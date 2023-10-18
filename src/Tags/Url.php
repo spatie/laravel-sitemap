@@ -101,7 +101,8 @@ class Url extends Tag
         return $this;
     }
 
-    public function addNews(string $name, string $language, string $title, DateTimeInterface $publicationDate, array $options = []): static {
+    public function addNews(string $name, string $language, string $title, DateTimeInterface $publicationDate, array $options = []): static
+    {
         $this->news[] = new News($name, $language, $title, $publicationDate, $options);
 
         return $this;
@@ -121,7 +122,7 @@ class Url extends Tag
             ->values()
             ->toArray();
 
-        if (!is_null($index)) {
+        if (! is_null($index)) {
             return $this->segment($index);
         }
 

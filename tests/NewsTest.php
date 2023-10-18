@@ -28,7 +28,7 @@ test('XML has News tag', function () {
 
     $options = [
         'access' => News::OPTION_ACCESS_SUB,
-        'genres' => implode(', ', [News::OPTION_GENRES_BLOG, News::OPTION_GENRES_UG])
+        'genres' => implode(', ', [News::OPTION_GENRES_BLOG, News::OPTION_GENRES_UG]),
     ];
     $sitemap = Sitemap::create()
         ->add(
