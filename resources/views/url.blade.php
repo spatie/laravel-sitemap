@@ -16,4 +16,5 @@
     <priority>{{ number_format($tag->priority,1) }}</priority>
     @each('sitemap::image', $tag->images, 'image')
     @each('sitemap::video', $tag->videos, 'video')
+    @each('sitemap::news', $tag->news, 'news')
 </url>
