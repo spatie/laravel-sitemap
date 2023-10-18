@@ -17,4 +17,7 @@
 @foreach($video->deny as $tag => $value)
     <video:{{$tag}} relationship="deny">{{$value}}</video:{{$tag}}>
 @endforeach
+@foreach($video->tags as $tag)
+    <video:tag>{{ $tag }}</video:tag>
+@endforeach
 </video:video>
