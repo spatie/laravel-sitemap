@@ -20,6 +20,8 @@ test('XML has Video tag', function () {
                                     <video:family_friendly>yes</video:family_friendly>
                                     <video:platform relationship="allow">mobile</video:platform>
                                     <video:restriction relationship="deny">CA</video:restriction>
+                                    <video:tag>tag1</video:tag>
+                                    <video:tag>tag2</video:tag>
                                 </video:video>
                             </url>
                         </urlset>';

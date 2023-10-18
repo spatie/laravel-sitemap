@@ -94,29 +94,14 @@ class Url extends Tag
         return $this;
     }
 
-    public function addVideo(
-        string $thumbnailLoc,
-        string $title,
-        string $description,
-        $contentLoc = null,
-        $playerLoc = null,
-        array $options = [],
-        array $allow = [],
-        array $deny = []
-    ): static {
-        $this->videos[] = new Video($thumbnailLoc, $title, $description, $contentLoc, $playerLoc, $options, $allow,
-            $deny);
+    public function addVideo(string $thumbnailLoc, string $title, string $description, $contentLoc = null, $playerLoc = null, array $options = [], array $allow = [], array $deny = [], array $tags = []): static
+    {
+        $this->videos[] = new Video($thumbnailLoc, $title, $description, $contentLoc, $playerLoc, $options, $allow, $deny, $tags);
 
         return $this;
     }
 
-    public function addNews(
-        string $name,
-        string $language,
-        string $title,
-        DateTimeInterface $publicationDate,
-        array $options = []
-    ): static {
+    public function addNews(string $name, string $language, string $title, DateTimeInterface $publicationDate, array $options = []): static {
         $this->news[] = new News($name, $language, $title, $publicationDate, $options);
 
         return $this;
