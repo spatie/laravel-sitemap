@@ -2,6 +2,25 @@
 
 All notable changes to `laravel-sitemap` will be documented in this file
 
+## 6.4.0 - 2023-10-18
+
+### What's Changed
+
+- Bump dependabot/fetch-metadata from 1.5.1 to 1.6.0 by @dependabot in https://github.com/spatie/laravel-sitemap/pull/513
+- Fix `lastmod` tests by @bakerkretzmar in https://github.com/spatie/laravel-sitemap/pull/516
+- Bump actions/checkout from 3 to 4 by @dependabot in https://github.com/spatie/laravel-sitemap/pull/518
+- Add video tags as separate list by @Briareos17 in https://github.com/spatie/laravel-sitemap/pull/525
+- Allow priority value of `0` by @bakerkretzmar in https://github.com/spatie/laravel-sitemap/pull/517
+- Bump stefanzweifel/git-auto-commit-action from 4 to 5 by @dependabot in https://github.com/spatie/laravel-sitemap/pull/523
+- Add Google News support by @Briareos17 in https://github.com/spatie/laravel-sitemap/pull/526
+
+### New Contributors
+
+- @bakerkretzmar made their first contribution in https://github.com/spatie/laravel-sitemap/pull/516
+- @Briareos17 made their first contribution in https://github.com/spatie/laravel-sitemap/pull/525
+
+**Full Changelog**: https://github.com/spatie/laravel-sitemap/compare/6.3.1...6.4.0
+
 ## 6.3.1 - 2023-06-27
 
 ### What's Changed
