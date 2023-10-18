@@ -87,6 +87,18 @@ it('can render an url with all its set properties', function () {
     assertMatchesXmlSnapshot($this->sitemap->render());
 });
 
+it('can render an url with priority 0', function () {
+    $this->sitemap
+        ->add(
+            Url::create('/home')
+                ->setLastModificationDate($this->now->subDay())
+                ->setChangeFrequency(Url::CHANGE_FREQUENCY_YEARLY)
+                ->setPriority(0.0)
+        );
+
+    assertMatchesXmlSnapshot($this->sitemap->render());
+});
+
 it('can determine if it contains a given url', function () {
     $this->sitemap
         ->add('/page1')
