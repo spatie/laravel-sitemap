@@ -22,7 +22,7 @@ class Observer extends CrawlObserver
      *
      * @param \Psr\Http\Message\UriInterface $url
      */
-    public function willCrawl(UriInterface $url): void
+    public function willCrawl(UriInterface $url, ?string $linkText): void
     {
     }
 
@@ -43,7 +43,8 @@ class Observer extends CrawlObserver
     public function crawled(
         UriInterface $url,
         ResponseInterface $response,
-        ?UriInterface $foundOnUrl = null
+        ?UriInterface $foundOnUrl = null,
+        ?string $linkText = null,
     ): void {
         ($this->hasCrawled)($url, $response);
     }
@@ -58,7 +59,8 @@ class Observer extends CrawlObserver
     public function crawlFailed(
         UriInterface $url,
         RequestException $requestException,
-        ?UriInterface $foundOnUrl = null
+        ?UriInterface $foundOnUrl = null,
+        ?string $linkText = null,
     ): void {
     }
 }

@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-sitemap` will be documented in this file
 
+## 7.0.0 - 2023-10-24
+
+- add compatibility with spatie/crawler v8
+
 ## 6.4.0 - 2023-10-18
 
 ### What's Changed

@@ -1,5 +1,9 @@
 # Upgrading
 
+## From 6.0 to 7.0
+
+- `spatie/crawler` is updated to `^8.0`. 
+
 ## From 5.0 to 6.0
 
 No API changes were made. If you're on PHP 8, you should be able to upgrade from v5 to v6 without having to make any changes.
