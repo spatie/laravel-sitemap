@@ -16,22 +16,21 @@
         }
     ],
     "require": {
-        "php": "^8.0",
-        "guzzlehttp/guzzle": "^7.2",
-        "illuminate/support": "^8.0|^9.0|^10.0",
-        "nesbot/carbon": "^2.63",
-        "spatie/crawler": "^8.0",
-        "spatie/laravel-package-tools": "^1.5",
-        "symfony/dom-crawler": "^5.1.14|^6.0"
+        "php": "^8.2",
+        "guzzlehttp/guzzle": "^7.8",
+        "illuminate/support": "^10.0",
+        "nesbot/carbon": "^2.71",
+        "spatie/crawler": "^8.0.1",
+        "spatie/laravel-package-tools": "^1.16.1",
+        "symfony/dom-crawler": "^6.3.4"
     },
     "require-dev": {
-        "mockery/mockery": "^1.4",
-        "orchestra/testbench": "^6.23|^7.0|^8.0",
-        "pestphp/pest": "^1.22",
-        "phpunit/phpunit": "^9.5",
-        "spatie/pest-plugin-snapshots": "^1.1",
-        "spatie/phpunit-snapshot-assertions": "^4.0",
-        "spatie/temporary-directory": "^2.0"
+        "mockery/mockery": "^1.6.6",
+        "orchestra/testbench": "^8.14",
+        "pestphp/pest": "^2.24",
+        "spatie/pest-plugin-snapshots": "^2.1",
+        "spatie/phpunit-snapshot-assertions": "^5.1.2",
+        "spatie/temporary-directory": "^2.2"
     },
     "config": {
         "sort-packages": true,
