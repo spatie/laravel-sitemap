@@ -58,9 +58,15 @@ class SitemapIndex implements Responsable, Renderable
         return $this;
     }
 
-    public function writeToDisk(string $disk, string $path): static
+    public function writeToDisk(string $disk, string $path, bool $public = false): static
     {
-        Storage::disk($disk)->put($path, $this->render());
+        if($public) {
+            $visibility = 'public';
+        } else {
+            $visibility = 'private';
+        }
+        
+        Storage::disk($disk)->put($path, $this->render(), $visibility);
 
         return $this;
     }
