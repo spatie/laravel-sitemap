@@ -34,8 +34,19 @@ it('can write a sitemap to a file', function () {
 it('can write a sitemap to a storage disk', function () {
     Storage::fake('sitemap');
     $this->sitemap->writeToDisk('sitemap', 'sitemap.xml');
+    $visibility = Storage::disk('sitemap')->getVisibility('sitemap.xml');
 
     assertMatchesXmlSnapshot(Storage::disk('sitemap')->get('sitemap.xml'));
+    expect($visibility)->toBe('private');
+});
+
+it('can write a sitemap to a storage disk with public visibility', function () {
+    Storage::fake('sitemap');
+    $this->sitemap->writeToDisk('sitemap', 'sitemap.xml', true);
+    $visibility = Storage::disk('sitemap')->getVisibility('sitemap.xml');
+
+    assertMatchesXmlSnapshot(Storage::disk('sitemap')->get('sitemap.xml'));
+    expect($visibility)->toBe('public');
 });
 
 test('an url string can be added to the sitemap', function () {
