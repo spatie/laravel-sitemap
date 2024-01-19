@@ -64,6 +64,11 @@ You can also use one of your available filesystem disks to write the sitemap to.
 SitemapGenerator::create('https://example.com')->getSitemap()->writeToDisk('public', 'sitemap.xml');
 ```
 
+You may need to set the file visibility on one of your sitemaps. For example, if you are writing a sitemap to S3 that you want to be publicly available. You can set the third parameter to `true` to make it public. Note: This can only be used on the `->writeToDisk()` method.
+```php
+SitemapGenerator::create('https://example.com')->getSitemap()->writeToDisk('public', 'sitemap.xml', true);
+```
+
 You can also add your models directly by implementing the `\Spatie\Sitemap\Contracts\Sitemapable` interface.
 
 ```php
