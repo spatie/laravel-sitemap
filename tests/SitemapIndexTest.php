@@ -30,11 +30,22 @@ it('can write an index to a file', function () {
     assertMatchesXmlSnapshot(file_get_contents($path));
 });
 
-it('can write a sitemap to a storage disk', function () {
+it('can write a sitemap to a storage disk with private visibility', function () {
     Storage::fake('sitemap');
     $this->index->writeToDisk('sitemap', 'sitemap.xml');
+    $visibility = Storage::disk('sitemap')->getVisibility('sitemap.xml');
 
     assertMatchesXmlSnapshot(Storage::disk('sitemap')->get('sitemap.xml'));
+    expect($visibility)->toBe('private');
+});
+
+it('can write a sitemap to a storage disk with public visibility', function () {
+    Storage::fake('sitemap');
+    $this->index->writeToDisk('sitemap', 'sitemap.xml', true);
+    $visibility = Storage::disk('sitemap')->getVisibility('sitemap.xml');
+
+    assertMatchesXmlSnapshot(Storage::disk('sitemap')->get('sitemap.xml'));
+    expect($visibility)->toBe('public');
 });
 
 test('an url string can be added to the index', function () {
