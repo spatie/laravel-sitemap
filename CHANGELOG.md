@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-sitemap` will be documented in this file
 
+## 7.1.1 - 2024-01-26
+
+### What's Changed
+
+* Symfony Dom Crawler Version Upgrade to 7.0 by @karakhanyans in https://github.com/spatie/laravel-sitemap/pull/537
+
+### New Contributors
+
+* @karakhanyans made their first contribution in https://github.com/spatie/laravel-sitemap/pull/537
+
+**Full Changelog**: https://github.com/spatie/laravel-sitemap/compare/7.1.0...7.1.1
+
 ## 7.1.0 - 2024-01-24
 
 ### What's Changed
