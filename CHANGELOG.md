@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-sitemap` will be documented in this file
 
+## 7.2.0 - 2024-02-15
+
+### What's Changed
+
+* Add Laravel 11 Support by @Jubeki in https://github.com/spatie/laravel-sitemap/pull/538
+
+### New Contributors
+
+* @Jubeki made their first contribution in https://github.com/spatie/laravel-sitemap/pull/538
+
+**Full Changelog**: https://github.com/spatie/laravel-sitemap/compare/7.1.1...7.2.0
+
 ## 7.1.1 - 2024-01-26
 
 ### What's Changed
