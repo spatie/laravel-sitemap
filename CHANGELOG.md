@@ -2,6 +2,20 @@
 
 All notable changes to `laravel-sitemap` will be documented in this file
 
+## 7.2.1 - 2024-06-04
+
+### What's Changed
+
+* remove deprecated tgas from url blade by @rivassh in https://github.com/spatie/laravel-sitemap/pull/545
+* Update README.md by @kamilkozak in https://github.com/spatie/laravel-sitemap/pull/547
+
+### New Contributors
+
+* @rivassh made their first contribution in https://github.com/spatie/laravel-sitemap/pull/545
+* @kamilkozak made their first contribution in https://github.com/spatie/laravel-sitemap/pull/547
+
+**Full Changelog**: https://github.com/spatie/laravel-sitemap/compare/7.2.0...7.2.1
+
 ## 7.2.0 - 2024-02-15
 
 ### What's Changed
