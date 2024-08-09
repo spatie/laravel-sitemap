@@ -91,20 +91,6 @@ it('can render an url with all its set properties', function () {
         ->add(
             Url::create('/home')
                 ->setLastModificationDate($this->now->subDay())
-                ->setChangeFrequency(Url::CHANGE_FREQUENCY_YEARLY)
-                ->setPriority(0.1)
-        );
-
-    assertMatchesXmlSnapshot($this->sitemap->render());
-});
-
-it('can render an url with priority 0', function () {
-    $this->sitemap
-        ->add(
-            Url::create('/home')
-                ->setLastModificationDate($this->now->subDay())
-                ->setChangeFrequency(Url::CHANGE_FREQUENCY_YEARLY)
-                ->setPriority(0.0)
         );
 
     assertMatchesXmlSnapshot($this->sitemap->render());

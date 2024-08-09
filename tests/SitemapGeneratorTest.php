@@ -51,7 +51,7 @@ it('can modify the attributes while generating the sitemap', function () {
     SitemapGenerator::create('http://localhost:4020')
         ->hasCrawled(function (Url $url) {
             if ($url->segment(1) === 'page3') {
-                $url->setPriority(0.6);
+                $url->setLastModificationDate($this->now->subDay());
             }
 
             return $url;

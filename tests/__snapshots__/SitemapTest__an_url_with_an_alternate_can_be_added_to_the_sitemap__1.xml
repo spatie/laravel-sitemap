@@ -4,7 +4,5 @@
     <loc>http://localhost/home</loc>
     <xhtml:link rel="alternate" hreflang="nl" href="http://localhost/thuis"/>
     <xhtml:link rel="alternate" hreflang="fr" href="http://localhost/maison"/>
-    <changefreq>daily</changefreq>
-    <priority>0.8</priority>
   </url>
 </urlset>

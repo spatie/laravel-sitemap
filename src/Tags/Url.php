@@ -19,10 +19,6 @@ class Url extends Tag
 
     public Carbon $lastModificationDate;
 
-    public string $changeFrequency;
-
-    public float $priority = 0.8;
-
     /** @var \Spatie\Sitemap\Tags\Alternate[] */
     public array $alternates = [];
 
@@ -43,8 +39,6 @@ class Url extends Tag
     public function __construct(string $url)
     {
         $this->url = $url;
-
-        $this->changeFrequency = static::CHANGE_FREQUENCY_DAILY;
     }
 
     public function setUrl(string $url = ''): static
@@ -57,20 +51,6 @@ class Url extends Tag
     public function setLastModificationDate(DateTimeInterface $lastModificationDate): static
     {
         $this->lastModificationDate = Carbon::instance($lastModificationDate);
-
-        return $this;
-    }
-
-    public function setChangeFrequency(string $changeFrequency): static
-    {
-        $this->changeFrequency = $changeFrequency;
-
-        return $this;
-    }
-
-    public function setPriority(float $priority): static
-    {
-        $this->priority = max(0, min($priority, 1));
 
         return $this;
     }
