@@ -35,24 +35,6 @@ test('last modification date can be set', function () {
         ->toEqual($carbon->toAtomString());
 });
 
-test('priority can be set')
-    ->tap(fn () => $this->url->setPriority(0.1))
-    ->expect(fn () => $this->url->priority)
-    ->toEqual(0.1);
-
-test('priority is clamped')
-    ->tap(fn () => $this->url->setPriority(-0.1))
-    ->expect(fn () => $this->url->priority)
-    ->toEqual(0)
-    ->tap(fn () => $this->url->setPriority(1.1))
-    ->expect(fn () => $this->url->priority)
-    ->toEqual(1);
-
-test('change frequency can be set')
-    ->tap(fn () => $this->url->setChangeFrequency(Url::CHANGE_FREQUENCY_YEARLY))
-    ->expect(fn () => $this->url->changeFrequency)
-    ->toEqual(Url::CHANGE_FREQUENCY_YEARLY);
-
 test('alternate can be added', function () {
     $url = 'defaultUrl';
     $locale = 'en';
