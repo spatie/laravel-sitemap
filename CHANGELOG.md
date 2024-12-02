@@ -2,6 +2,20 @@
 
 All notable changes to `laravel-sitemap` will be documented in this file
 
+## 7.3.0 - 2024-12-02
+
+### What's Changed
+
+* Bump dependabot/fetch-metadata from 1.6.0 to 2.1.0 by @dependabot in https://github.com/spatie/laravel-sitemap/pull/544
+* Bump dependabot/fetch-metadata from 2.1.0 to 2.2.0 by @dependabot in https://github.com/spatie/laravel-sitemap/pull/553
+* Update PHP version constraints to support PHP 8.4 by @Robinvm in https://github.com/spatie/laravel-sitemap/pull/555
+
+### New Contributors
+
+* @Robinvm made their first contribution in https://github.com/spatie/laravel-sitemap/pull/555
+
+**Full Changelog**: https://github.com/spatie/laravel-sitemap/compare/7.2.1...7.3.0
+
 ## 7.2.1 - 2024-06-04
 
 ### What's Changed
