@@ -120,6 +120,12 @@ composer require spatie/laravel-sitemap
 
 The package will automatically register itself.
 
+If you intend to use the crawler to generate your sitemap, you also need to install the [Spatie's Crawler](https://github.com/spatie/crawler) package:
+
+``` bash
+composer require spatie/crawler
+```
+
 If you want to update your sitemap automatically and frequently you need to perform [some extra steps](https://github.com/spatie/laravel-sitemap#generating-the-sitemap-frequently).
 
 ## Configuration

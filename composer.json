@@ -44,8 +44,7 @@
         }
     },
     "suggest": {
-        "spatie/crawler": "Required to use the crawler feature",
-        "symfony/dom-crawler": "Required to use the crawler feature"
+        "spatie/crawler": "Required to use the crawler feature"
     },
     "autoload": {
         "psr-4": {
