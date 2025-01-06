@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-sitemap` will be documented in this file
 
+## 7.3.1 - 2025-01-06
+
+### What's Changed
+
+* Make BrowserShot Optional in SitemapGenerator by @antonioribeiro in https://github.com/spatie/laravel-sitemap/pull/558
+
+### New Contributors
+
+* @antonioribeiro made their first contribution in https://github.com/spatie/laravel-sitemap/pull/558
+
+**Full Changelog**: https://github.com/spatie/laravel-sitemap/compare/7.3.0...7.3.1
+
 ## 7.3.0 - 2024-12-02
 
 ### What's Changed
