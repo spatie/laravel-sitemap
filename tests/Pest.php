@@ -51,7 +51,7 @@ function checkIfTestServerIsRunning(): void
 function handleTestServerNotRunning(): void
 {
     if (getenv('TRAVIS')) {
-        test()->fail('The test server is not running on GitHub actions.');
+        test()->fail('The test server is not running on Travis.');
     }
 
     test()->markTestSkipped('The test server is not running.');
