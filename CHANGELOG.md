@@ -2,6 +2,14 @@
 
 All notable changes to `laravel-sitemap` will be documented in this file
 
+## 7.3.2 - 2025-01-13
+
+### What's Changed
+
+* Revert PR 558 by @freekmurze in https://github.com/spatie/laravel-sitemap/pull/559
+
+**Full Changelog**: https://github.com/spatie/laravel-sitemap/compare/7.3.1...7.3.2
+
 ## 7.3.1 - 2025-01-06
 
 ### What's Changed
