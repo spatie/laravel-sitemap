@@ -119,7 +119,7 @@ class SitemapGenerator
 
         $this->crawler
             ->setCrawlProfile($this->getCrawlProfile())
-            ->setCrawlObserver($this->getCrawlObserver())
+            ->addCrawlObserver($this->getCrawlObserver())
             ->setConcurrency($this->concurrency)
             ->startCrawling($this->urlToBeCrawled);
 
