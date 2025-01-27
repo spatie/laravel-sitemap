@@ -5,9 +5,6 @@
 @if ($video->contentLoc)
     <video:content_loc>{{ $video->contentLoc }}</video:content_loc>
 @endif
-@if ($video->playerLoc)
-    <video:player_loc>{{ $video->playerLoc }}</video:player_loc>
-@endif
 @foreach($video->options as $tag => $value)
     <video:{{$tag}}>{{$value}}</video:{{$tag}}>
 @endforeach
