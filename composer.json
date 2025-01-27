@@ -1,10 +1,11 @@
 {
     "name": "3xpo/laravel-sitemap",
-    "description": "Create and generate sitemaps with ease",
+    "description": "Added canonical link options",
     "keywords": [
         "spatie",
         "laravel-sitemap"
     ],
+    "version": "1.0.0",
     "homepage": "https://github.com/spatie/laravel-sitemap",
     "license": "MIT",
     "authors": [
@@ -55,7 +56,7 @@
             "Spatie\\Sitemap\\Test\\": "tests"
         }
     },
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "prefer-stable": true,
     "scripts": {
         "test": "vendor/bin/pest"
