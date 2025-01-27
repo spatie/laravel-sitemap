@@ -2,6 +2,19 @@
 
 All notable changes to `laravel-sitemap` will be documented in this file
 
+## 7.3.3 - 2025-01-27
+
+### What's Changed
+
+* Bump dependabot/fetch-metadata from 2.2.0 to 2.3.0 by @dependabot in https://github.com/spatie/laravel-sitemap/pull/561
+* Making possible to add Crawl Observers by @noith in https://github.com/spatie/laravel-sitemap/pull/560
+
+### New Contributors
+
+* @noith made their first contribution in https://github.com/spatie/laravel-sitemap/pull/560
+
+**Full Changelog**: https://github.com/spatie/laravel-sitemap/compare/7.3.2...7.3.3
+
 ## 7.3.2 - 2025-01-13
 
 ### What's Changed
