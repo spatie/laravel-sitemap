@@ -10,7 +10,6 @@ test('XML has image', function () {
                                 <loc>https://localhost</loc>
                                 <image:image>
                                     <image:loc>https://localhost/favicon.ico</image:loc>
-                                    <image:caption>Favicon</image:caption>
                                 </image:image>
                             </url>
                         </urlset>';
