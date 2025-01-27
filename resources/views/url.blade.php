@@ -2,6 +2,11 @@
     @if (! empty($tag->url))
     <loc>{{ url($tag->url) }}</loc>
     @endif
+@if (count($tag->canonicals))
+@foreach ($tag->canonicals as $canonical)
+    <xhtml:link rel="canonical" href="{{ url($canonical->url) }}" />
+    @endforeach
+@endif
 @if (count($tag->alternates))
 @foreach ($tag->alternates as $alternate)
     <xhtml:link rel="alternate" hreflang="{{ $alternate->locale }}" href="{{ url($alternate->url) }}" />

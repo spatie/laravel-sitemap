@@ -26,6 +26,9 @@ class Url extends Tag
     /** @var \Spatie\Sitemap\Tags\Alternate[] */
     public array $alternates = [];
 
+    /** @var \Spatie\Sitemap\Tags\Canonical[] */
+    public array $canonicals = [];
+
     /** @var \Spatie\Sitemap\Tags\Image[] */
     public array $images = [];
 
@@ -78,6 +81,13 @@ class Url extends Tag
     public function addAlternate(string $url, string $locale = ''): static
     {
         $this->alternates[] = new Alternate($url, $locale);
+
+        return $this;
+    }
+
+    public function addCanonical(string $url): static
+    {
+        $this->canonicals[] = new Canonical($url);
 
         return $this;
     }
