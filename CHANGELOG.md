@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-sitemap` will be documented in this file
 
+## 7.3.4 - 2025-01-31
+
+### What's Changed
+
+* Make `$response` param explicitly nullable  by @JonPurvis in https://github.com/spatie/laravel-sitemap/pull/564
+
+### New Contributors
+
+* @JonPurvis made their first contribution in https://github.com/spatie/laravel-sitemap/pull/564
+
+**Full Changelog**: https://github.com/spatie/laravel-sitemap/compare/7.3.3...7.3.4
+
 ## 7.3.3 - 2025-01-27
 
 ### What's Changed
