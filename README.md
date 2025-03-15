@@ -22,25 +22,20 @@ use Spatie\Sitemap\Sitemap;
 use Spatie\Sitemap\Tags\Url;
 
 Sitemap::create()
-
     ->add(Url::create('/home')
-        ->setLastModificationDate(Carbon::yesterday())
-
-   ->add(...)
-
-   ->writeToFile($path);
+        ->setLastModificationDate(Carbon::yesterday()))
+    ->add(...)
+    ->writeToFile($path);
 ```
 
 Or you can have the best of both worlds by generating a sitemap and then adding more links to it:
 
 ```php
 SitemapGenerator::create('https://example.com')
-   ->getSitemap()
-   ->add(Url::create('/extra-page')
-        ->setLastModificationDate(Carbon::yesterday())
-
+    ->getSitemap()
+    ->add(Url::create('/extra-page')
+        ->setLastModificationDate(Carbon::yesterday()))
     ->add(...)
-
     ->writeToFile($path);
 ```
 
@@ -260,14 +255,14 @@ use Spatie\Sitemap\SitemapGenerator;
 use Spatie\Sitemap\Tags\Url;
 
 SitemapGenerator::create('https://example.com')
-   ->hasCrawled(function (Url $url) {
-       if ($url->segment(1) === 'contact') {
-           return;
-       }
+    ->hasCrawled(function (Url $url) {
+        if ($url->segment(1) === 'contact') {
+            return;
+        }
 
-       return $url;
-   })
-   ->writeToFile($sitemapPath);
+        return $url;
+    })
+    ->writeToFile($sitemapPath);
 ```
 
 #### Preventing the crawler from crawling some pages
@@ -280,14 +275,14 @@ use Spatie\Sitemap\SitemapGenerator;
 use Psr\Http\Message\UriInterface;
 
 SitemapGenerator::create('https://example.com')
-   ->shouldCrawl(function (UriInterface $url) {
-       // All pages will be crawled, except the contact page.
-       // Links present on the contact page won't be added to the
-       // sitemap unless they are present on a crawlable page.
+    ->shouldCrawl(function (UriInterface $url) {
+        // All pages will be crawled, except the contact page.
+        // Links present on the contact page won't be added to the
+        // sitemap unless they are present on a crawlable page.
        
-       return strpos($url->getPath(), '/contact') === false;
-   })
-   ->writeToFile($sitemapPath);
+        return strpos($url->getPath(), '/contact') === false;
+    })
+    ->writeToFile($sitemapPath);
 ```
 
 #### Configuring the crawler
@@ -415,10 +410,10 @@ You can also create a sitemap fully manual:
 use Carbon\Carbon;
 
 Sitemap::create()
-   ->add('/page1')
-   ->add('/page2')
-   ->add(Url::create('/page3')->setLastModificationDate(Carbon::create('2016', '1', '1')))
-   ->writeToFile($sitemapPath);
+    ->add('/page1')
+    ->add('/page2')
+    ->add(Url::create('/page3')->setLastModificationDate(Carbon::create('2016', '1', '1')))
+    ->writeToFile($sitemapPath);
 ```
 
 ### Creating a sitemap index
@@ -450,14 +445,14 @@ the generated sitemap index will look similar to this:
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-   <sitemap>
-      <loc>http://www.example.com/pages_sitemap.xml</loc>
-      <lastmod>2016-01-01T00:00:00+00:00</lastmod>
-   </sitemap>
-   <sitemap>
-      <loc>http://www.example.com/posts_sitemap.xml</loc>
-      <lastmod>2015-12-31T00:00:00+00:00</lastmod>
-   </sitemap>
+    <sitemap>
+        <loc>http://www.example.com/pages_sitemap.xml</loc>
+        <lastmod>2016-01-01T00:00:00+00:00</lastmod>
+    </sitemap>
+    <sitemap>
+        <loc>http://www.example.com/posts_sitemap.xml</loc>
+        <lastmod>2015-12-31T00:00:00+00:00</lastmod>
+    </sitemap>
 </sitemapindex>
 ```
 
