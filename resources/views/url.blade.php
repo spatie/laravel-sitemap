@@ -10,6 +10,9 @@
 @if (! empty($tag->lastModificationDate))
     <lastmod>{{ $tag->lastModificationDate->format(DateTime::ATOM) }}</lastmod>
 @endif
+@if (! empty($tag->changeFrequency))
+    <changefreq>{{ $tag->changeFrequency }}</changefreq>
+@endif
     @each('sitemap::image', $tag->images, 'image')
     @each('sitemap::video', $tag->videos, 'video')
     @each('sitemap::news', $tag->news, 'news')
