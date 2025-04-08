@@ -19,7 +19,7 @@ class Url extends Tag
 
     public Carbon $lastModificationDate;
 
-    public string $changeFrequency;
+    public ?string $changeFrequency;
 
     public float $priority = 0.8;
 
@@ -43,8 +43,6 @@ class Url extends Tag
     public function __construct(string $url)
     {
         $this->url = $url;
-
-        $this->changeFrequency = static::CHANGE_FREQUENCY_DAILY;
     }
 
     public function setUrl(string $url = ''): static
