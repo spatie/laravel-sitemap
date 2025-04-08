@@ -17,11 +17,11 @@ class Url extends Tag
 
     public string $url;
 
-    public Carbon $lastModificationDate;
+    public ?Carbon $lastModificationDate = null;
 
-    public string $changeFrequency;
+    public ?string $changeFrequency = null;
 
-    public float $priority = 0.8;
+    public ?float $priority = null;
 
     /** @var \Spatie\Sitemap\Tags\Alternate[] */
     public array $alternates = [];
@@ -43,8 +43,6 @@ class Url extends Tag
     public function __construct(string $url)
     {
         $this->url = $url;
-
-        $this->changeFrequency = static::CHANGE_FREQUENCY_DAILY;
     }
 
     public function setUrl(string $url = ''): static
