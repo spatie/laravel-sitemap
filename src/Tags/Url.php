@@ -17,11 +17,11 @@ class Url extends Tag
 
     public string $url;
 
-    public Carbon $lastModificationDate;
+    public ?Carbon $lastModificationDate;
 
     public ?string $changeFrequency;
 
-    public float $priority = 0.8;
+    public ?float $priority;
 
     /** @var \Spatie\Sitemap\Tags\Alternate[] */
     public array $alternates = [];
