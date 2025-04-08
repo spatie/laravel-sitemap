@@ -4,5 +4,6 @@
     <loc>http://localhost/home</loc>
     <lastmod>2015-12-31T00:00:00+00:00</lastmod>
     <changefreq>yearly</changefreq>
+    <priority>0.1</priority>
   </url>
 </urlset>
