@@ -2,6 +2,22 @@
 
 All notable changes to `laravel-sitemap` will be documented in this file
 
+## 7.3.6 - 2025-04-10
+
+### What's Changed
+
+* Update url.blade.php by @inoha-kudo in https://github.com/spatie/laravel-sitemap/pull/569
+* Fix missing closing tags and some indenting by @NickMous in https://github.com/spatie/laravel-sitemap/pull/570
+* Render <changefreq> and <priority> by @lukas-pierce in https://github.com/spatie/laravel-sitemap/pull/572
+
+### New Contributors
+
+* @inoha-kudo made their first contribution in https://github.com/spatie/laravel-sitemap/pull/569
+* @NickMous made their first contribution in https://github.com/spatie/laravel-sitemap/pull/570
+* @lukas-pierce made their first contribution in https://github.com/spatie/laravel-sitemap/pull/572
+
+**Full Changelog**: https://github.com/spatie/laravel-sitemap/compare/7.3.5...7.3.6
+
 ## 7.3.5 - 2025-02-21
 
 ### What's Changed
