@@ -11,6 +11,7 @@
   </url>
   <url>
     <loc>http://localhost:4020/page3</loc>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>http://localhost:4020/page4</loc>
