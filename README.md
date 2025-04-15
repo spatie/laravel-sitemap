@@ -1,10 +1,20 @@
-# Generate sitemaps with ease
+<div align="left">
+    <a href="https://spatie.be/open-source?utm_source=github&utm_medium=banner&utm_campaign=laravel-sitemap">
+      <picture>
+        <source media="(prefers-color-scheme: dark)" srcset="https://spatie.be/packages/header/laravel-sitemap/html/dark.webp">
+        <img alt="Logo for laravel-sitemap" src=" https://spatie.be/packages/header/laravel-sitemap/html/light.webp" height="190">
+      </picture>
+    </a>
+
+<h1>Generate sitemaps with ease</h1>
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/spatie/laravel-sitemap.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-sitemap)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
 [![Test Status](https://img.shields.io/github/actions/workflow/status/spatie/laravel-sitemap/run-tests.yml?label=tests)](https://github.com/spatie/laravel-sitemap/actions/workflows/run-tests.yml)
 [![Code Style Status](https://img.shields.io/github/actions/workflow/status/spatie/laravel-sitemap/php-cs-fixer.yml?label=code%20style)](https://github.com/spatie/laravel-sitemap/actions/workflows/php-cs-fixer.yml)
 [![Total Downloads](https://img.shields.io/packagist/dt/spatie/laravel-sitemap.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-sitemap)
+
+</div>
 
 This package can generate a sitemap without you having to add urls to it manually. This works by crawling your entire site.
 
