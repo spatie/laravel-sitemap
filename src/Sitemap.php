@@ -34,6 +34,10 @@ class Sitemap implements Responsable, Renderable
             return $this;
         }
 
+        if (is_string($tag) && trim($tag) === '') {
+            return $this;
+        }
+
         if (is_string($tag)) {
             $tag = Url::create($tag);
         }
