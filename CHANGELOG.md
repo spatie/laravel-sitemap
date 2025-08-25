@@ -2,6 +2,21 @@
 
 All notable changes to `laravel-sitemap` will be documented in this file
 
+## 7.3.7 - 2025-08-25
+
+### What's Changed
+
+* Bump dependabot/fetch-metadata from 2.3.0 to 2.4.0 by @dependabot[bot] in https://github.com/spatie/laravel-sitemap/pull/573
+* Skip empty URL string returned from `toSitemapTag()` by @ekateiva in https://github.com/spatie/laravel-sitemap/pull/577
+* Bump actions/checkout from 4 to 5 by @dependabot[bot] in https://github.com/spatie/laravel-sitemap/pull/576
+* Bump stefanzweifel/git-auto-commit-action from 5 to 6 by @dependabot[bot] in https://github.com/spatie/laravel-sitemap/pull/575
+
+### New Contributors
+
+* @ekateiva made their first contribution in https://github.com/spatie/laravel-sitemap/pull/577
+
+**Full Changelog**: https://github.com/spatie/laravel-sitemap/compare/7.3.6...7.3.7
+
 ## 7.3.6 - 2025-04-10
 
 ### What's Changed
