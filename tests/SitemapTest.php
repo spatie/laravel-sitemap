@@ -55,6 +55,13 @@ test('an url string can be added to the sitemap', function () {
     assertMatchesXmlSnapshot($this->sitemap->render());
 });
 
+test('an empty string cannot be added to the sitemap', function () {
+    $this->sitemap->add('');
+    $this->sitemap->add('  ');
+
+    assertMatchesXmlSnapshot($this->sitemap->render());
+});
+
 test('an url cannot be added twice to the sitemap', function () {
     $this->sitemap->add('/home');
     $this->sitemap->add('/home');
@@ -158,6 +165,24 @@ test('multiple urls can be added in one call', function () {
         '/home',
         Url::create('/home'), // filtered
     ]);
+
+    assertMatchesXmlSnapshot($this->sitemap->render());
+});
+
+test('sitemapable object with empty string cannot be added', function () {
+    $this->sitemap
+        ->add(new class implements Sitemapable {
+            public function toSitemapTag(): Url | string | array
+            {
+                return '';
+            }
+        })
+        ->add(new class implements Sitemapable {
+            public function toSitemapTag(): Url | string | array
+            {
+                return '  ';
+            }
+        });
 
     assertMatchesXmlSnapshot($this->sitemap->render());
 });
