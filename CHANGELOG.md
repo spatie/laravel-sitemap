@@ -2,6 +2,21 @@
 
 All notable changes to `laravel-sitemap` will be documented in this file
 
+## 7.3.8 - 2025-11-25
+
+### What's Changed
+
+* Update issue template by @AlexVanderbist in https://github.com/spatie/laravel-sitemap/pull/578
+* Bump stefanzweifel/git-auto-commit-action from 6 to 7 by @dependabot[bot] in https://github.com/spatie/laravel-sitemap/pull/579
+* Added Symfony 8 support to all symfony/* packages. by @thecaliskan in https://github.com/spatie/laravel-sitemap/pull/582
+* Bump actions/checkout from 5 to 6 by @dependabot[bot] in https://github.com/spatie/laravel-sitemap/pull/583
+
+### New Contributors
+
+* @thecaliskan made their first contribution in https://github.com/spatie/laravel-sitemap/pull/582
+
+**Full Changelog**: https://github.com/spatie/laravel-sitemap/compare/7.3.7...7.3.8
+
 ## 7.3.7 - 2025-08-25
 
 ### What's Changed
