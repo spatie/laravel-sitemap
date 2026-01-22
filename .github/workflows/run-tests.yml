@@ -8,7 +8,7 @@ jobs:
         strategy:
             fail-fast: false
             matrix:
-                php: [8.2, 8.3, 8.4]
+                php: [8.2, 8.3, 8.4, 8.5]
                 laravel: [11.*, 12.*]
                 dependency-version: [prefer-stable]
                 os: [ubuntu-latest]
@@ -49,7 +49,11 @@ jobs:
             - name: Install dependencies
               run: |
                   composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" --no-interaction --no-update
-                  composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction --no-suggest
+                  if [ "${{ matrix.php }}" = "8.5" ]; then
+                      composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction --no-suggest --ignore-platform-reqs
+                  else
+                      composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction --no-suggest
+                  fi
 
             - name: Execute tests
               run: vendor/bin/pest
