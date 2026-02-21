@@ -57,11 +57,7 @@ jobs:
       - name: Install dependencies
         run: |
           composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" --no-interaction --no-update
-          if [ "${{ matrix.php }}" = "8.5" ]; then
-              composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction --no-suggest --ignore-platform-reqs
-          else
-              composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction --no-suggest
-          fi
+          composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction
 
       - name: Execute tests
         run: vendor/bin/pest
