@@ -27,7 +27,7 @@
     "require-dev": {
         "mockery/mockery": "^1.6.6",
         "orchestra/testbench": "^9.0|^10.0||^11.0",
-        "pestphp/pest": "^3.7.4",
+        "pestphp/pest": "^3.7.4|^4.0",
         "spatie/pest-plugin-snapshots": "^2.1",
         "spatie/phpunit-snapshot-assertions": "^5.1.2",
         "spatie/temporary-directory": "^2.2"
