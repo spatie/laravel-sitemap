@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-sitemap` will be documented in this file
 
+## 7.4.0 - 2026-02-21
+
+Add Laravel 13 support
+
 ## 7.3.8 - 2025-11-25
 
 ### What's Changed
