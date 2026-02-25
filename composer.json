@@ -25,6 +25,7 @@
         "symfony/dom-crawler": "^6.3.4|^7.0|^8.0"
     },
     "require-dev": {
+        "laravel/pint": "^1.27",
         "mockery/mockery": "^1.6.6",
         "orchestra/testbench": "^9.0|^10.0||^11.0",
         "pestphp/pest": "^3.7.4|^4.0",
