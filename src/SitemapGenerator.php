@@ -4,9 +4,11 @@ namespace Spatie\Sitemap;
 
 use Closure;
 use Illuminate\Support\Collection;
+use Spatie\Browsershot\Browsershot;
 use Spatie\Crawler\Crawler;
 use Spatie\Crawler\CrawlProfiles\CrawlProfile;
 use Spatie\Crawler\CrawlResponse;
+use Spatie\Crawler\JavaScriptRenderers\BrowsershotRenderer;
 use Spatie\Sitemap\Crawler\Profile;
 use Spatie\Sitemap\Tags\Url;
 
@@ -97,11 +99,11 @@ class SitemapGenerator
 
         if (config('sitemap.execute_javascript')) {
             if ($chromeBinaryPath = config('sitemap.chrome_binary_path')) {
-                $browsershot = new \Spatie\Browsershot\Browsershot;
+                $browsershot = new Browsershot;
                 $browsershot->setChromePath($chromeBinaryPath);
 
                 $crawler->executeJavaScript(
-                    new \Spatie\Crawler\JavaScriptRenderers\BrowsershotRenderer($browsershot)
+                    new BrowsershotRenderer($browsershot)
                 );
             } else {
                 $crawler->executeJavaScript();

@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Storage;
 use Spatie\Sitemap\Contracts\Sitemapable;
 use Spatie\Sitemap\Tags\Tag;
 use Spatie\Sitemap\Tags\Url;
+use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
 
 class Sitemap implements Renderable, Responsable
 {
@@ -130,7 +131,7 @@ class Sitemap implements Renderable, Responsable
      * @return array<string, string> Map of file paths to rendered XML content.
      *                               The index sitemap is keyed by the original path.
      */
-    private function buildSplitSitemaps(string $path, ?string $urlPath = null): array
+    protected function buildSplitSitemaps(string $path, ?string $urlPath = null): array
     {
         $urlPath ??= $path;
 
@@ -165,13 +166,13 @@ class Sitemap implements Renderable, Responsable
         return $files;
     }
 
-    private function shouldSplit(): bool
+    protected function shouldSplit(): bool
     {
         return $this->maximumTagsPerSitemap > 0
             && count($this->tags) > $this->maximumTagsPerSitemap;
     }
 
-    private function chunkTags(): array
+    protected function chunkTags(): array
     {
         return collect($this->tags)
             ->unique('url')
@@ -180,13 +181,7 @@ class Sitemap implements Renderable, Responsable
             ->toArray();
     }
 
-    /**
-     * Create an HTTP response that represents the object.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function toResponse($request)
+    public function toResponse($request): SymfonyResponse
     {
         return Response::make($this->render(), 200, [
             'Content-Type' => 'text/xml',

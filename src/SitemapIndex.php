@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Storage;
 use Spatie\Sitemap\Tags\Sitemap;
 use Spatie\Sitemap\Tags\Tag;
+use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
 
 class SitemapIndex implements Renderable, Responsable
 {
@@ -77,13 +78,7 @@ class SitemapIndex implements Renderable, Responsable
         return $this;
     }
 
-    /**
-     * Create an HTTP response that represents the object.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function toResponse($request)
+    public function toResponse($request): SymfonyResponse
     {
         return Response::make($this->render(), 200, [
             'Content-Type' => 'text/xml',
