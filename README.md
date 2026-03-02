@@ -535,17 +535,8 @@ Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recen
 
 ## Testing
 
-First start the test server in a separate terminal session:
-
 ``` bash
-cd tests/server
-./start_server.sh
-```
-
-With the server running you can execute the tests:
-
-``` bash
-$ composer test
+composer test
 ```
 
 ## Contributing

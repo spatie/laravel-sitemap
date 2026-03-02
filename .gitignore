@@ -7,3 +7,4 @@ vendor
 .phpunit.cache
 .php-cs-fixer.cache
 .idea
+tests/.server-pid

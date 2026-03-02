@@ -27,15 +27,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v6
 
-      - name: Install and start test server
-        run: |
-          cd tests/server
-          npm install
-          (node server.js &) || /bin/true
-
-      - name: Wait for server bootup
-        run: sleep 5
-
       - name: Cache dependencies
         uses: actions/cache@v5
         with:

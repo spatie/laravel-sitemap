@@ -8,7 +8,7 @@ use Spatie\Sitemap\Test\CustomCrawlProfile;
 use function Spatie\Snapshots\assertMatchesXmlSnapshot;
 
 beforeEach(function () {
-    checkIfTestServerIsRunning();
+    ensureTestServerIsRunning();
 
     $this->temporaryDirectory = temporaryDirectory();
 });

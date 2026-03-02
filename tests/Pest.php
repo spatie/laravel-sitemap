@@ -39,25 +39,64 @@ expect()->extend('toEqualXmlString', function (string $expected_xml) {
 |--------------------------------------------------------------------------
 */
 
-function checkIfTestServerIsRunning(): void
+function ensureTestServerIsRunning(): void
 {
-    try {
-        file_get_contents('http://localhost:4020');
-    } catch (Throwable $e) {
-        handleTestServerNotRunning();
+    if (isTestServerRunning()) {
+        return;
     }
+
+    $serverScript = __DIR__.'/server.php';
+
+    $command = sprintf(
+        'php -S localhost:4020 %s > /dev/null 2>&1 & echo $!',
+        escapeshellarg($serverScript),
+    );
+
+    $pid = (int) exec($command);
+
+    file_put_contents(__DIR__.'/.server-pid', (string) $pid);
+
+    $maxAttempts = 50;
+
+    for ($i = 0; $i < $maxAttempts; $i++) {
+        if (isTestServerRunning()) {
+            return;
+        }
+
+        usleep(100_000);
+    }
+
+    test()->fail('Could not start the test server.');
 }
 
-function handleTestServerNotRunning(): void
+function isTestServerRunning(): bool
 {
-    if (getenv('TRAVIS')) {
-        test()->fail('The test server is not running on Travis.');
+    $connection = @fsockopen('localhost', 4020, $errno, $errstr, 1);
+
+    if ($connection) {
+        fclose($connection);
+
+        return true;
     }
 
-    test()->markTestSkipped('The test server is not running.');
+    return false;
 }
 
 function temporaryDirectory(): TemporaryDirectory
 {
     return (new TemporaryDirectory())->force()->create();
 }
+
+register_shutdown_function(function () {
+    $pidFile = __DIR__.'/.server-pid';
+
+    if (file_exists($pidFile)) {
+        $pid = (int) file_get_contents($pidFile);
+
+        if ($pid > 0) {
+            @exec("kill {$pid} 2>/dev/null");
+        }
+
+        @unlink($pidFile);
+    }
+});
