@@ -2,6 +2,14 @@
 
 All notable changes to `laravel-sitemap` will be documented in this file
 
+## 8.0.1 - 2026-03-02
+
+### What's Changed
+
+* v8: Upgrade to crawler v9, Pest v4, PHP 8.4+ by @freekmurze in https://github.com/spatie/laravel-sitemap/pull/590
+
+**Full Changelog**: https://github.com/spatie/laravel-sitemap/compare/8.0.0...8.0.1
+
 ## 8.0.0 - 2026-03-02
 
 - Upgrade `spatie/crawler` to v9
