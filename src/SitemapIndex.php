@@ -9,16 +9,16 @@ use Illuminate\Support\Facades\Storage;
 use Spatie\Sitemap\Tags\Sitemap;
 use Spatie\Sitemap\Tags\Tag;
 
-class SitemapIndex implements Responsable, Renderable
+class SitemapIndex implements Renderable, Responsable
 {
-    /** @var \Spatie\Sitemap\Tags\Sitemap[] */
+    /** @var Sitemap[] */
     protected array $tags = [];
 
     protected ?string $stylesheetUrl = null;
 
     public static function create(): static
     {
-        return new static();
+        return new static;
     }
 
     public function setStylesheet(string $url): static
@@ -28,7 +28,7 @@ class SitemapIndex implements Responsable, Renderable
         return $this;
     }
 
-    public function add(string | Sitemap $tag): static
+    public function add(string|Sitemap $tag): static
     {
         if (is_string($tag)) {
             $tag = Sitemap::create($tag);
@@ -70,7 +70,7 @@ class SitemapIndex implements Responsable, Renderable
 
     public function writeToDisk(string $disk, string $path, bool $public = false): static
     {
-        $visibility = ($public) ? 'public' : 'private';
+        $visibility = $public ? 'public' : 'private';
 
         Storage::disk($disk)->put($path, $this->render(), $visibility);
 

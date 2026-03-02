@@ -1,8 +1,9 @@
 <?php
 
 use Carbon\Carbon;
-use function PHPUnit\Framework\assertXmlStringEqualsXmlString;
 use Spatie\TemporaryDirectory\TemporaryDirectory;
+
+use function PHPUnit\Framework\assertXmlStringEqualsXmlString;
 
 /*
 |--------------------------------------------------------------------------
@@ -84,7 +85,7 @@ function isTestServerRunning(): bool
 
 function temporaryDirectory(): TemporaryDirectory
 {
-    return (new TemporaryDirectory())->force()->create();
+    return (new TemporaryDirectory)->force()->create();
 }
 
 register_shutdown_function(function () {

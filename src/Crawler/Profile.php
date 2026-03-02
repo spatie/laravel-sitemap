@@ -9,9 +9,7 @@ class Profile implements CrawlProfile
     /** @var callable */
     protected $callback;
 
-    public function __construct(protected string $baseUrl)
-    {
-    }
+    public function __construct(protected string $baseUrl) {}
 
     public function shouldCrawlCallback(callable $callback): void
     {

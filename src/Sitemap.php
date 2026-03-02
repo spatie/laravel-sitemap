@@ -10,9 +10,9 @@ use Spatie\Sitemap\Contracts\Sitemapable;
 use Spatie\Sitemap\Tags\Tag;
 use Spatie\Sitemap\Tags\Url;
 
-class Sitemap implements Responsable, Renderable
+class Sitemap implements Renderable, Responsable
 {
-    /** @var \Spatie\Sitemap\Tags\Url[] */
+    /** @var Url[] */
     protected array $tags = [];
 
     protected int $maximumTagsPerSitemap = 0;
@@ -21,7 +21,7 @@ class Sitemap implements Responsable, Renderable
 
     public static function create(): static
     {
-        return new static();
+        return new static;
     }
 
     public function maxTagsPerSitemap(int $maximumTagsPerSitemap = 50000): static
@@ -38,7 +38,7 @@ class Sitemap implements Responsable, Renderable
         return $this;
     }
 
-    public function add(string | Url | Sitemapable | iterable $tag): static
+    public function add(string|Url|Sitemapable|iterable $tag): static
     {
         if (is_object($tag) && array_key_exists(Sitemapable::class, class_implements($tag))) {
             $tag = $tag->toSitemapTag();
@@ -134,7 +134,7 @@ class Sitemap implements Responsable, Renderable
     {
         $urlPath ??= $path;
 
-        $index = new SitemapIndex();
+        $index = new SitemapIndex;
 
         if ($this->stylesheetUrl) {
             $index->setStylesheet($this->stylesheetUrl);

@@ -3,13 +3,13 @@
 use Illuminate\Support\Facades\Storage;
 use Spatie\Sitemap\SitemapIndex;
 use Spatie\Sitemap\Tags\Sitemap;
-use function Spatie\Snapshots\assertMatchesXmlSnapshot;
 use Symfony\Component\HttpFoundation\Request;
-
 use Symfony\Component\HttpFoundation\Response;
 
+use function Spatie\Snapshots\assertMatchesXmlSnapshot;
+
 beforeEach(function () {
-    $this->index = new SitemapIndex();
+    $this->index = new SitemapIndex;
 });
 
 it('provides a `create` method', function () {
