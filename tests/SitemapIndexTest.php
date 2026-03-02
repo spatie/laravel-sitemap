@@ -3,13 +3,13 @@
 use Illuminate\Support\Facades\Storage;
 use Spatie\Sitemap\SitemapIndex;
 use Spatie\Sitemap\Tags\Sitemap;
-use function Spatie\Snapshots\assertMatchesXmlSnapshot;
 use Symfony\Component\HttpFoundation\Request;
-
 use Symfony\Component\HttpFoundation\Response;
 
+use function Spatie\Snapshots\assertMatchesXmlSnapshot;
+
 beforeEach(function () {
-    $this->index = new SitemapIndex();
+    $this->index = new SitemapIndex;
 });
 
 it('provides a `create` method', function () {
@@ -110,4 +110,21 @@ test('an instance can return a response', function () {
     $this->index->add('/sitemap1.xml');
 
     expect($this->index->toResponse(new Request))->toBeInstanceOf(Response::class);
+});
+
+it('can render a sitemap index with a stylesheet', function () {
+    $this->index
+        ->setStylesheet('/sitemap-index.xsl')
+        ->add('/sitemap1.xml');
+
+    $rendered = $this->index->render();
+
+    expect($rendered)->toContain('<?xml-stylesheet type="text/xsl" href="/sitemap-index.xsl"?>');
+    assertMatchesXmlSnapshot($rendered);
+});
+
+it('does not render a stylesheet when not set', function () {
+    $this->index->add('/sitemap1.xml');
+
+    expect($this->index->render())->not->toContain('xml-stylesheet');
 });

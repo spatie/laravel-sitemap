@@ -2,6 +2,26 @@
 
 All notable changes to `laravel-sitemap` will be documented in this file
 
+## 8.0.0 - 2026-03-02
+
+- Upgrade `spatie/crawler` to v9
+- Upgrade Pest to v4
+- Require PHP 8.4+
+- Drop Laravel 11 support
+- Add `maxTagsPerSitemap()` to `Sitemap` for automatic splitting into multiple files with a sitemap index
+- Add `setStylesheet()` to `Sitemap` and `SitemapIndex` for XSL stylesheet support
+- Fix fragile URL path extraction in `SitemapGenerator::writeToFile()` when splitting sitemaps
+- Fix nullable type hints in `Video` and `Alternate` tag classes
+- Remove `Spatie\Sitemap\Crawler\Observer` class (use closure callbacks instead)
+- `shouldCrawl` callback now receives `string` instead of `UriInterface`
+- `hasCrawled` callback now receives `CrawlResponse` instead of `ResponseInterface`
+- Custom crawl profiles must implement the `CrawlProfile` interface (was abstract class)
+- Redirects are now followed by default
+- Remove `guzzlehttp/guzzle` and `symfony/dom-crawler` as direct dependencies
+- Simplify config defaults (guzzle options now merged with crawler defaults)
+
+**Full Changelog**: https://github.com/spatie/laravel-sitemap/compare/7.4.0...8.0.0
+
 ## 7.4.0 - 2026-02-21
 
 Add Laravel 13 support

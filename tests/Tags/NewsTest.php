@@ -30,7 +30,7 @@ test('XML has News tag', function () {
     ];
     $sitemap = Sitemap::create()
         ->add(
-            Url::create("https://example.com")
+            Url::create('https://example.com')
                 ->addNews('News name', 'en', 'New news article', $publicationDate, $options)
         );
 

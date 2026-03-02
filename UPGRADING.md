@@ -137,9 +137,10 @@ The guzzle options are now merged with the crawler's defaults (cookies enabled, 
 - Redirects are now followed by default
 - The `configureCrawler` callback now receives the crawler before it starts crawling, instead of during construction. If you were relying on the order of operations, review your `configureCrawler` usage.
 
+
 ## From 6.0 to 7.0
 
-- `spatie/crawler` is updated to `^8.0`. 
+- `spatie/crawler` is updated to `^8.0`.
 
 ## From 5.0 to 6.0
 
@@ -147,8 +148,8 @@ No API changes were made. If you're on PHP 8, you should be able to upgrade from
 
 ## From 4.0 to 5.0
 
-- `spatie/crawler` is updated to `^4.0`. This version made changes to the way custom `Profiles` and `Observers` are made. Please see the [UPGRADING](https://github.com/spatie/crawler/blob/master/UPGRADING.md) guide of `spatie/crawler` to know how to update any custom crawl profiles or observers - if you have any.
+- `spatie/crawler` is updated to `^4.0`. This version made changes to the way custom `Profiles` and `Observers` are made. Please see the [UPGRADING](https://github.com/spatie/crawler/blob/master/UPGRADING.md) guide of `spatie/crawler` to know how to update any custom crawl profiles or observers, if you have any.
 
 ## From 3.0 to 4.0
 
-- `spatie/crawler` is updated to `^3.0`. This version introduced the use of PSR-7 `UriInterface` instead of a custom `Url` class. Please see the [UPGRADING](https://github.com/spatie/crawler/blob/master/UPGRADING.md) guide of `spatie/crawler` to know how to update any custom crawl profiles - if you have any.
+- `spatie/crawler` is updated to `^3.0`. This version introduced the use of PSR-7 `UriInterface` instead of a custom `Url` class. Please see the [UPGRADING](https://github.com/spatie/crawler/blob/master/UPGRADING.md) guide of `spatie/crawler` to know how to update any custom crawl profiles, if you have any.

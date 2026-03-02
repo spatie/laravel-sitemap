@@ -24,14 +24,14 @@ test('XML has Video tag', function () {
                             </url>
                         </urlset>';
 
-    $options = ["live" => "no", "family_friendly" => "yes"];
-    $allow = ["platform" => Video::OPTION_PLATFORM_MOBILE];
-    $deny = ["restriction" => 'CA'];
+    $options = ['live' => 'no', 'family_friendly' => 'yes'];
+    $allow = ['platform' => Video::OPTION_PLATFORM_MOBILE];
+    $deny = ['restriction' => 'CA'];
     $tags = ['tag1', 'tag2'];
     $sitemap = Sitemap::create()
         ->add(
-            Url::create("https://example.com")
-                ->addVideo("https://example.com/image.jpg", "My Test Title", "My Test Description", "https://example.com/video.mp4", null, $options, $allow, $deny, $tags)
+            Url::create('https://example.com')
+                ->addVideo('https://example.com/image.jpg', 'My Test Title', 'My Test Description', 'https://example.com/video.mp4', null, $options, $allow, $deny, $tags)
         );
 
     $render_output = $sitemap->render();

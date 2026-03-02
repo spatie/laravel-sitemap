@@ -8,18 +8,28 @@ use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Storage;
 use Spatie\Sitemap\Tags\Sitemap;
 use Spatie\Sitemap\Tags\Tag;
+use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
 
-class SitemapIndex implements Responsable, Renderable
+class SitemapIndex implements Renderable, Responsable
 {
-    /** @var \Spatie\Sitemap\Tags\Sitemap[] */
+    /** @var Sitemap[] */
     protected array $tags = [];
+
+    protected ?string $stylesheetUrl = null;
 
     public static function create(): static
     {
-        return new static();
+        return new static;
     }
 
-    public function add(string | Sitemap $tag): static
+    public function setStylesheet(string $url): static
+    {
+        $this->stylesheetUrl = $url;
+
+        return $this;
+    }
+
+    public function add(string|Sitemap $tag): static
     {
         if (is_string($tag)) {
             $tag = Sitemap::create($tag);
@@ -45,9 +55,10 @@ class SitemapIndex implements Responsable, Renderable
     public function render(): string
     {
         $tags = $this->tags;
+        $stylesheetUrl = $this->stylesheetUrl;
 
         return view('sitemap::sitemapIndex/index')
-            ->with(compact('tags'))
+            ->with(compact('tags', 'stylesheetUrl'))
             ->render();
     }
 
@@ -60,20 +71,14 @@ class SitemapIndex implements Responsable, Renderable
 
     public function writeToDisk(string $disk, string $path, bool $public = false): static
     {
-        $visibility = ($public) ? 'public' : 'private';
+        $visibility = $public ? 'public' : 'private';
 
         Storage::disk($disk)->put($path, $this->render(), $visibility);
 
         return $this;
     }
 
-    /**
-     * Create an HTTP response that represents the object.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function toResponse($request)
+    public function toResponse($request): SymfonyResponse
     {
         return Response::make($this->render(), 200, [
             'Content-Type' => 'text/xml',

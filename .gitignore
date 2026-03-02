@@ -4,4 +4,12 @@ vendor
 .php_cs.cache
 .phpunit.result.cache
 .phpunit.cache
+<<<<<<< HEAD
+||||||| 8c79e14
+.php-cs-fixer.cache
+=======
+.php-cs-fixer.cache
+.phpstan.cache
+>>>>>>> c663f34c014e2ca92728e167d3a178f8fcdc6f52
 .idea
+tests/.server-pid
