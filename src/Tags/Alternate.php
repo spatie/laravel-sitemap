@@ -13,7 +13,7 @@ class Alternate
         return new static($url, $locale);
     }
 
-    public function __construct(string $url, $locale = '')
+    public function __construct(string $url, string $locale = '')
     {
         $this->setUrl($url);
 

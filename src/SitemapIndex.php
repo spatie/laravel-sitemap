@@ -14,9 +14,18 @@ class SitemapIndex implements Responsable, Renderable
     /** @var \Spatie\Sitemap\Tags\Sitemap[] */
     protected array $tags = [];
 
+    protected ?string $stylesheetUrl = null;
+
     public static function create(): static
     {
         return new static();
+    }
+
+    public function setStylesheet(string $url): static
+    {
+        $this->stylesheetUrl = $url;
+
+        return $this;
     }
 
     public function add(string | Sitemap $tag): static
@@ -45,9 +54,10 @@ class SitemapIndex implements Responsable, Renderable
     public function render(): string
     {
         $tags = $this->tags;
+        $stylesheetUrl = $this->stylesheetUrl;
 
         return view('sitemap::sitemapIndex/index')
-            ->with(compact('tags'))
+            ->with(compact('tags', 'stylesheetUrl'))
             ->render();
     }
 

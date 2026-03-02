@@ -250,7 +250,7 @@ return [
 
 #### Leaving out some links
 
-If you don't want a crawled link to appear in the sitemap, just don't return it in the callable you pass to `hasCrawled `.
+If you don't want a crawled link to appear in the sitemap, just don't return it in the callable you pass to `hasCrawled`.
 
 ```php
 use Spatie\Sitemap\SitemapGenerator;
@@ -542,10 +542,9 @@ The generated sitemap index will look similar to this:
 </sitemapindex>
 ```
 
-### Create a sitemap index with sub-sequent sitemaps
+### Create a sitemap index with subsequent sitemaps
 
-You can call the `maxTagsPerSitemap` method to generate a
-sitemap that only contains the given amount of tags
+When using the sitemap generator, you can call the `maxTagsPerSitemap` method to automatically split into multiple files with a sitemap index:
 
 ```php
 use Spatie\Sitemap\SitemapGenerator;
@@ -553,8 +552,39 @@ use Spatie\Sitemap\SitemapGenerator;
 SitemapGenerator::create('https://example.com')
     ->maxTagsPerSitemap(20000)
     ->writeToFile(public_path('sitemap.xml'));
-
 ```
+
+This also works when building a sitemap manually. When the number of URLs exceeds the limit, `writeToFile` and `writeToDisk` will automatically create chunk files (`sitemap_0.xml`, `sitemap_1.xml`, ...) and write a sitemap index as the main file:
+
+```php
+use Spatie\Sitemap\Sitemap;
+
+Sitemap::create()
+    ->maxTagsPerSitemap(20000)
+    ->add(/* ... */)
+    ->writeToFile(public_path('sitemap.xml'));
+```
+
+### Adding an XSL stylesheet
+
+You can add an XSL stylesheet processing instruction to make your sitemaps human readable in browsers. Call `setStylesheet` on either a `Sitemap` or `SitemapIndex`:
+
+```php
+use Spatie\Sitemap\Sitemap;
+use Spatie\Sitemap\SitemapIndex;
+
+Sitemap::create()
+    ->setStylesheet('/sitemap.xsl')
+    ->add('/page1')
+    ->writeToFile($sitemapPath);
+
+SitemapIndex::create()
+    ->setStylesheet('/sitemap-index.xsl')
+    ->add('/pages_sitemap.xml')
+    ->writeToFile($sitemapIndexPath);
+```
+
+When using `maxTagsPerSitemap` on a `Sitemap` with a stylesheet set, the stylesheet will be propagated to both the generated index and all chunk sitemaps.
 
 ### Returning a sitemap as a response
 

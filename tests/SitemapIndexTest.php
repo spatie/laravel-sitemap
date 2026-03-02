@@ -111,3 +111,20 @@ test('an instance can return a response', function () {
 
     expect($this->index->toResponse(new Request))->toBeInstanceOf(Response::class);
 });
+
+it('can render a sitemap index with a stylesheet', function () {
+    $this->index
+        ->setStylesheet('/sitemap-index.xsl')
+        ->add('/sitemap1.xml');
+
+    $rendered = $this->index->render();
+
+    expect($rendered)->toContain('<?xml-stylesheet type="text/xsl" href="/sitemap-index.xsl"?>');
+    assertMatchesXmlSnapshot($rendered);
+});
+
+it('does not render a stylesheet when not set', function () {
+    $this->index->add('/sitemap1.xml');
+
+    expect($this->index->render())->not->toContain('xml-stylesheet');
+});

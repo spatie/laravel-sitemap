@@ -2,14 +2,16 @@
 
 namespace Spatie\Sitemap\Tags;
 
+use InvalidArgumentException;
+
 class Video
 {
     public const OPTION_PLATFORM_WEB = 'web';
     public const OPTION_PLATFORM_MOBILE = 'mobile';
     public const OPTION_PLATFORM_TV = 'tv';
 
-    public const OPTION_NO = "no";
-    public const OPTION_YES = "yes";
+    public const OPTION_NO = 'no';
+    public const OPTION_YES = 'yes';
 
     public string $thumbnailLoc;
 
@@ -29,11 +31,10 @@ class Video
 
     public array $tags;
 
-    public function __construct(string $thumbnailLoc, string $title, string $description, string $contentLoc = null, string|array $playerLoc = null, array $options = [], array $allow = [], array $deny = [], array $tags = [])
+    public function __construct(string $thumbnailLoc, string $title, string $description, ?string $contentLoc = null, ?string $playerLoc = null, array $options = [], array $allow = [], array $deny = [], array $tags = [])
     {
         if ($contentLoc === null && $playerLoc === null) {
-            // https://developers.google.com/search/docs/crawling-indexing/sitemaps/video-sitemaps
-            throw new \Exception("It's required to provide either a Content Location or Player Location");
+            throw new InvalidArgumentException("It's required to provide either a Content Location or Player Location");
         }
 
         $this->setThumbnailLoc($thumbnailLoc)

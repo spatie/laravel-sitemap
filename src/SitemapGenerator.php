@@ -26,7 +26,7 @@ class SitemapGenerator
 
     protected int $concurrency = 10;
 
-    protected bool | int $maximumTagsPerSitemap = false;
+    protected int $maximumTagsPerSitemap = 0;
 
     protected ?int $maximumCrawlCount = null;
 
@@ -142,19 +142,29 @@ class SitemapGenerator
 
         if ($this->maximumTagsPerSitemap) {
             $sitemap = SitemapIndex::create();
-            $format = str_replace('.xml', '_%d.xml', $path);
+            $fileFormat = str_replace('.xml', '_%d.xml', $path);
+            $urlFormat = str_replace('.xml', '_%d.xml', $this->toUrlPath($path));
 
-            $this->sitemaps->each(function (Sitemap $item, int $key) use ($sitemap, $format) {
-                $path = sprintf($format, $key);
-
-                $item->writeToFile(sprintf($format, $key));
-                $sitemap->add(last(explode('public', $path)));
+            $this->sitemaps->each(function (Sitemap $item, int $key) use ($sitemap, $fileFormat, $urlFormat) {
+                $item->writeToFile(sprintf($fileFormat, $key));
+                $sitemap->add(sprintf($urlFormat, $key));
             });
         }
 
         $sitemap->writeToFile($path);
 
         return $this;
+    }
+
+    protected function toUrlPath(string $filePath): string
+    {
+        $publicPath = rtrim(public_path(), '/').'/';
+
+        if (str_starts_with($filePath, $publicPath)) {
+            return '/'.substr($filePath, strlen($publicPath));
+        }
+
+        return '/'.basename($filePath);
     }
 
     protected function getCrawlProfile(): CrawlProfile
