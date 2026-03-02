@@ -4,13 +4,13 @@ use Illuminate\Support\Facades\Storage;
 use Spatie\Sitemap\Contracts\Sitemapable;
 use Spatie\Sitemap\Sitemap;
 use Spatie\Sitemap\Tags\Url;
-use function Spatie\Snapshots\assertMatchesXmlSnapshot;
 use Symfony\Component\HttpFoundation\Request;
-
 use Symfony\Component\HttpFoundation\Response;
 
+use function Spatie\Snapshots\assertMatchesXmlSnapshot;
+
 beforeEach(function () {
-    $this->sitemap = new Sitemap();
+    $this->sitemap = new Sitemap;
 });
 
 it('provides a create method', function () {
@@ -171,14 +171,16 @@ test('multiple urls can be added in one call', function () {
 
 test('sitemapable object with empty string cannot be added', function () {
     $this->sitemap
-        ->add(new class implements Sitemapable {
-            public function toSitemapTag(): Url | string | array
+        ->add(new class implements Sitemapable
+        {
+            public function toSitemapTag(): Url|string|array
             {
                 return '';
             }
         })
-        ->add(new class implements Sitemapable {
-            public function toSitemapTag(): Url | string | array
+        ->add(new class implements Sitemapable
+        {
+            public function toSitemapTag(): Url|string|array
             {
                 return '  ';
             }
@@ -189,20 +191,23 @@ test('sitemapable object with empty string cannot be added', function () {
 
 test('sitemapable object can be added', function () {
     $this->sitemap
-        ->add(new class implements Sitemapable {
-            public function toSitemapTag(): Url | string | array
+        ->add(new class implements Sitemapable
+        {
+            public function toSitemapTag(): Url|string|array
             {
                 return '/';
             }
         })
-        ->add(new class implements Sitemapable {
-            public function toSitemapTag(): Url | string | array
+        ->add(new class implements Sitemapable
+        {
+            public function toSitemapTag(): Url|string|array
             {
                 return Url::create('/home');
             }
         })
-        ->add(new class implements Sitemapable {
-            public function toSitemapTag(): Url | string | array
+        ->add(new class implements Sitemapable
+        {
+            public function toSitemapTag(): Url|string|array
             {
                 return [
                     'blog/post-1',
@@ -216,20 +221,23 @@ test('sitemapable object can be added', function () {
 
 test('sitemapable objects can be added', function () {
     $this->sitemap->add(collect([
-        new class implements Sitemapable {
-            public function toSitemapTag(): Url | string | array
+        new class implements Sitemapable
+        {
+            public function toSitemapTag(): Url|string|array
             {
                 return 'blog/post-1';
             }
         },
-        new class implements Sitemapable {
-            public function toSitemapTag(): Url | string | array
+        new class implements Sitemapable
+        {
+            public function toSitemapTag(): Url|string|array
             {
                 return 'blog/post-2';
             }
         },
-        new class implements Sitemapable {
-            public function toSitemapTag(): Url | string | array
+        new class implements Sitemapable
+        {
+            public function toSitemapTag(): Url|string|array
             {
                 return 'blog/post-3';
             }
@@ -237,4 +245,107 @@ test('sitemapable objects can be added', function () {
     ]));
 
     assertMatchesXmlSnapshot($this->sitemap->render());
+});
+
+it('can render a sitemap with a stylesheet', function () {
+    $this->sitemap
+        ->setStylesheet('/sitemap.xsl')
+        ->add('/home');
+
+    $rendered = $this->sitemap->render();
+
+    expect($rendered)->toContain('<?xml-stylesheet type="text/xsl" href="/sitemap.xsl"?>');
+    assertMatchesXmlSnapshot($rendered);
+});
+
+it('does not render a stylesheet when not set', function () {
+    $this->sitemap->add('/home');
+
+    expect($this->sitemap->render())->not->toContain('xml-stylesheet');
+});
+
+it('can split a sitemap into multiple files with an index', function () {
+    $path = temporaryDirectory()->path('sitemap.xml');
+
+    $this->sitemap
+        ->maxTagsPerSitemap(2)
+        ->add('/page1')
+        ->add('/page2')
+        ->add('/page3')
+        ->add('/page4')
+        ->add('/page5')
+        ->writeToFile($path);
+
+    $indexContent = file_get_contents($path);
+
+    expect($indexContent)->toContain('<sitemapindex');
+
+    $dir = dirname($path);
+
+    expect(file_exists("{$dir}/sitemap_0.xml"))->toBeTrue()
+        ->and(file_exists("{$dir}/sitemap_1.xml"))->toBeTrue()
+        ->and(file_exists("{$dir}/sitemap_2.xml"))->toBeTrue();
+
+    $chunk0 = file_get_contents("{$dir}/sitemap_0.xml");
+    $chunk1 = file_get_contents("{$dir}/sitemap_1.xml");
+    $chunk2 = file_get_contents("{$dir}/sitemap_2.xml");
+
+    expect($chunk0)->toContain('/page1')->toContain('/page2')
+        ->and($chunk1)->toContain('/page3')->toContain('/page4')
+        ->and($chunk2)->toContain('/page5');
+});
+
+it('does not split when tag count is within the limit', function () {
+    $path = temporaryDirectory()->path('sitemap.xml');
+
+    $this->sitemap
+        ->maxTagsPerSitemap(10)
+        ->add('/page1')
+        ->add('/page2')
+        ->writeToFile($path);
+
+    $content = file_get_contents($path);
+
+    expect($content)->toContain('<urlset')
+        ->and($content)->not->toContain('<sitemapindex');
+});
+
+it('can split a sitemap when writing to disk', function () {
+    Storage::fake('sitemap');
+
+    $this->sitemap
+        ->maxTagsPerSitemap(2)
+        ->add('/page1')
+        ->add('/page2')
+        ->add('/page3')
+        ->writeToDisk('sitemap', 'sitemap.xml');
+
+    expect(Storage::disk('sitemap')->exists('sitemap.xml'))->toBeTrue()
+        ->and(Storage::disk('sitemap')->exists('sitemap_0.xml'))->toBeTrue()
+        ->and(Storage::disk('sitemap')->exists('sitemap_1.xml'))->toBeTrue();
+
+    $indexContent = Storage::disk('sitemap')->get('sitemap.xml');
+
+    expect($indexContent)->toContain('<sitemapindex');
+});
+
+it('propagates stylesheet to chunk sitemaps and index when splitting', function () {
+    $path = temporaryDirectory()->path('sitemap.xml');
+
+    $this->sitemap
+        ->setStylesheet('/sitemap.xsl')
+        ->maxTagsPerSitemap(2)
+        ->add('/page1')
+        ->add('/page2')
+        ->add('/page3')
+        ->writeToFile($path);
+
+    $indexContent = file_get_contents($path);
+    $dir = dirname($path);
+    $chunk0 = file_get_contents("{$dir}/sitemap_0.xml");
+    $chunk1 = file_get_contents("{$dir}/sitemap_1.xml");
+
+    expect($indexContent)->toContain('<?xml-stylesheet type="text/xsl" href="/sitemap.xsl"?>')
+        ->and($chunk0)->toContain('<?xml-stylesheet type="text/xsl" href="/sitemap.xsl"?>')
+        ->and($chunk1)->toContain('<?xml-stylesheet type="text/xsl" href="/sitemap.xsl"?>');
 });

@@ -6,4 +6,6 @@ vendor
 .phpunit.result.cache
 .phpunit.cache
 .php-cs-fixer.cache
+.phpstan.cache
 .idea
+tests/.server-pid

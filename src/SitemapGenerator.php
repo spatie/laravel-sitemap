@@ -3,14 +3,12 @@
 namespace Spatie\Sitemap;
 
 use Closure;
-use GuzzleHttp\Psr7\Uri;
 use Illuminate\Support\Collection;
-use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\UriInterface;
 use Spatie\Browsershot\Browsershot;
 use Spatie\Crawler\Crawler;
 use Spatie\Crawler\CrawlProfiles\CrawlProfile;
-use Spatie\Sitemap\Crawler\Observer;
+use Spatie\Crawler\CrawlResponse;
+use Spatie\Crawler\JavaScriptRenderers\BrowsershotRenderer;
 use Spatie\Sitemap\Crawler\Profile;
 use Spatie\Sitemap\Tags\Url;
 
@@ -18,9 +16,7 @@ class SitemapGenerator
 {
     protected Collection $sitemaps;
 
-    protected Uri $urlToBeCrawled;
-
-    protected Crawler $crawler;
+    protected string $urlToBeCrawled;
 
     /** @var callable */
     protected $shouldCrawl;
@@ -28,9 +24,11 @@ class SitemapGenerator
     /** @var callable */
     protected $hasCrawled;
 
+    protected ?Closure $configureCrawlerCallback = null;
+
     protected int $concurrency = 10;
 
-    protected bool | int $maximumTagsPerSitemap = false;
+    protected int $maximumTagsPerSitemap = 0;
 
     protected ?int $maximumCrawlCount = null;
 
@@ -39,18 +37,16 @@ class SitemapGenerator
         return app(static::class)->setUrl($urlToBeCrawled);
     }
 
-    public function __construct(Crawler $crawler)
+    public function __construct()
     {
-        $this->crawler = $crawler;
-
         $this->sitemaps = new Collection([new Sitemap]);
 
-        $this->hasCrawled = fn (Url $url, ?ResponseInterface $response = null) => $url;
+        $this->hasCrawled = fn (Url $url, ?CrawlResponse $response = null) => $url;
     }
 
     public function configureCrawler(Closure $closure): static
     {
-        call_user_func_array($closure, [$this->crawler]);
+        $this->configureCrawlerCallback = $closure;
 
         return $this;
     }
@@ -78,11 +74,7 @@ class SitemapGenerator
 
     public function setUrl(string $urlToBeCrawled): static
     {
-        $this->urlToBeCrawled = new Uri($urlToBeCrawled);
-
-        if ($this->urlToBeCrawled->getPath() === '') {
-            $this->urlToBeCrawled = $this->urlToBeCrawled->withPath('/');
-        }
+        $this->urlToBeCrawled = $urlToBeCrawled;
 
         return $this;
     }
@@ -103,25 +95,45 @@ class SitemapGenerator
 
     public function getSitemap(): Sitemap
     {
-        if (config('sitemap.execute_javascript')) {
-            $this->crawler->executeJavaScript();
-        }
+        $crawler = Crawler::create($this->urlToBeCrawled, config('sitemap.guzzle_options', []));
 
-        if (config('sitemap.chrome_binary_path')) {
-            $this->crawler
-                ->setBrowsershot((new Browsershot)->setChromePath(config('sitemap.chrome_binary_path')))
-                ->acceptNofollowLinks();
+        if (config('sitemap.execute_javascript')) {
+            if ($chromeBinaryPath = config('sitemap.chrome_binary_path')) {
+                $browsershot = new Browsershot;
+                $browsershot->setChromePath($chromeBinaryPath);
+
+                $crawler->executeJavaScript(
+                    new BrowsershotRenderer($browsershot)
+                );
+            } else {
+                $crawler->executeJavaScript();
+            }
         }
 
         if (! is_null($this->maximumCrawlCount)) {
-            $this->crawler->setTotalCrawlLimit($this->maximumCrawlCount);
+            $crawler->limit($this->maximumCrawlCount);
         }
 
-        $this->crawler
-            ->setCrawlProfile($this->getCrawlProfile())
-            ->addCrawlObserver($this->getCrawlObserver())
-            ->setConcurrency($this->concurrency)
-            ->startCrawling($this->urlToBeCrawled);
+        $crawler
+            ->crawlProfile($this->getCrawlProfile())
+            ->concurrency($this->concurrency)
+            ->onCrawled(function (string $url, CrawlResponse $response) {
+                $sitemapUrl = ($this->hasCrawled)(Url::create($url), $response);
+
+                if ($this->shouldStartNewSitemapFile()) {
+                    $this->sitemaps->push(new Sitemap);
+                }
+
+                if ($sitemapUrl) {
+                    $this->sitemaps->last()->add($sitemapUrl);
+                }
+            });
+
+        if ($this->configureCrawlerCallback) {
+            ($this->configureCrawlerCallback)($crawler);
+        }
+
+        $crawler->start();
 
         return $this->sitemaps->first();
     }
@@ -132,14 +144,12 @@ class SitemapGenerator
 
         if ($this->maximumTagsPerSitemap) {
             $sitemap = SitemapIndex::create();
-            $format = str_replace('.xml', '_%d.xml', $path);
+            $fileFormat = str_replace('.xml', '_%d.xml', $path);
+            $urlFormat = str_replace('.xml', '_%d.xml', $this->toUrlPath($path));
 
-            // Parses each sub-sitemaps, writes and push them into the sitemap index
-            $this->sitemaps->each(function (Sitemap $item, int $key) use ($sitemap, $format) {
-                $path = sprintf($format, $key);
-
-                $item->writeToFile(sprintf($format, $key));
-                $sitemap->add(last(explode('public', $path)));
+            $this->sitemaps->each(function (Sitemap $item, int $key) use ($sitemap, $fileFormat, $urlFormat) {
+                $item->writeToFile(sprintf($fileFormat, $key));
+                $sitemap->add(sprintf($urlFormat, $key));
             });
         }
 
@@ -148,10 +158,21 @@ class SitemapGenerator
         return $this;
     }
 
+    protected function toUrlPath(string $filePath): string
+    {
+        $publicPath = rtrim(public_path(), '/').'/';
+
+        if (str_starts_with($filePath, $publicPath)) {
+            return '/'.substr($filePath, strlen($publicPath));
+        }
+
+        return '/'.basename($filePath);
+    }
+
     protected function getCrawlProfile(): CrawlProfile
     {
-        $shouldCrawl = function (UriInterface $url) {
-            if ($url->getHost() !== $this->urlToBeCrawled->getHost()) {
+        $shouldCrawl = function (string $url) {
+            if (parse_url($url, PHP_URL_HOST) !== parse_url($this->urlToBeCrawled, PHP_URL_HOST)) {
                 return false;
             }
 
@@ -170,23 +191,6 @@ class SitemapGenerator
         }
 
         return $profile;
-    }
-
-    protected function getCrawlObserver(): Observer
-    {
-        $performAfterUrlHasBeenCrawled = function (UriInterface $crawlerUrl, ?ResponseInterface $response = null) {
-            $sitemapUrl = ($this->hasCrawled)(Url::create((string) $crawlerUrl), $response);
-
-            if ($this->shouldStartNewSitemapFile()) {
-                $this->sitemaps->push(new Sitemap);
-            }
-
-            if ($sitemapUrl) {
-                $this->sitemaps->last()->add($sitemapUrl);
-            }
-        };
-
-        return new Observer($performAfterUrlHasBeenCrawled);
     }
 
     protected function shouldStartNewSitemapFile(): bool
