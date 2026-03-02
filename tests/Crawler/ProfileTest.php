@@ -3,7 +3,7 @@
 use Spatie\Crawler\CrawlProfiles\CrawlInternalUrls;
 use Spatie\Crawler\CrawlProfiles\CrawlSubdomains;
 use Spatie\Sitemap\Crawler\Profile;
-use Spatie\Sitemap\Test\CustomCrawlProfile;
+use Spatie\Sitemap\Test\Crawler\CustomCrawlProfile;
 
 it('can use default profile with callback', function () {
     $profile = new Profile('https://example.com');

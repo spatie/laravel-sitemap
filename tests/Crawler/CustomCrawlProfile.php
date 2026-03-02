@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\Sitemap\Test;
+namespace Spatie\Sitemap\Test\Crawler;
 
 use Spatie\Crawler\CrawlProfiles\CrawlProfile;
 

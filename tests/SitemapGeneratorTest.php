@@ -3,7 +3,7 @@
 use Spatie\Crawler\Crawler;
 use Spatie\Sitemap\SitemapGenerator;
 use Spatie\Sitemap\Tags\Url;
-use Spatie\Sitemap\Test\CustomCrawlProfile;
+use Spatie\Sitemap\Test\Crawler\CustomCrawlProfile;
 
 use function Spatie\Snapshots\assertMatchesXmlSnapshot;
 
