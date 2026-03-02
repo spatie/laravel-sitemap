@@ -20,6 +20,8 @@ All notable changes to `laravel-sitemap` will be documented in this file
 - Remove `guzzlehttp/guzzle` and `symfony/dom-crawler` as direct dependencies
 - Simplify config defaults (guzzle options now merged with crawler defaults)
 
+**Full Changelog**: https://github.com/spatie/laravel-sitemap/compare/7.4.0...8.0.0
+
 ## 7.4.0 - 2026-02-21
 
 Add Laravel 13 support
