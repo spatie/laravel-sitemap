@@ -2,17 +2,20 @@
 
 namespace Spatie\Sitemap\Test;
 
-use Psr\Http\Message\UriInterface;
 use Spatie\Crawler\CrawlProfiles\CrawlProfile;
 
-class CustomCrawlProfile extends CrawlProfile
+class CustomCrawlProfile implements CrawlProfile
 {
-    public function shouldCrawl(UriInterface $url): bool
+    public function __construct(protected string $baseUrl)
     {
-        if ($url->getHost() !== 'localhost') {
+    }
+
+    public function shouldCrawl(string $url): bool
+    {
+        if (parse_url($url, PHP_URL_HOST) !== 'localhost') {
             return false;
         }
 
-        return $url->getPath() === '/';
+        return parse_url($url, PHP_URL_PATH) === '/';
     }
 }

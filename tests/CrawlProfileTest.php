@@ -1,74 +1,36 @@
 <?php
 
-use Spatie\Crawler\Crawler;
 use Spatie\Crawler\CrawlProfiles\CrawlInternalUrls;
 use Spatie\Crawler\CrawlProfiles\CrawlSubdomains;
 use Spatie\Sitemap\Crawler\Profile;
-use Spatie\Sitemap\Sitemap;
-use Spatie\Sitemap\SitemapGenerator;
 use Spatie\Sitemap\Test\CustomCrawlProfile;
 
-beforeEach(function () {
-    $this->crawler = $this->createMock(Crawler::class);
+it('can use default profile with callback', function () {
+    $profile = new Profile('https://example.com');
+    $profile->shouldCrawlCallback(fn (string $url) => parse_url($url, PHP_URL_HOST) === 'example.com');
 
-    $this->crawler->method('setCrawlObserver')->willReturn($this->crawler);
-    $this->crawler->method('setConcurrency')->willReturn($this->crawler);
-});
-
-it('can use default profile', function () {
-    $this->crawler
-        ->method('setCrawlProfile')
-        ->with($this->isInstanceOf(Profile::class))
-        ->willReturn($this->crawler);
-
-    $sitemapGenerator = new SitemapGenerator($this->crawler);
-
-    $sitemap = $sitemapGenerator->setUrl('')->getSitemap();
-
-    expect($sitemap)->toBeInstanceOf(Sitemap::class);
+    expect($profile->shouldCrawl('https://example.com/page'))->toBeTrue()
+        ->and($profile->shouldCrawl('https://other.com/page'))->toBeFalse();
 });
 
 it('can use the custom profile', function () {
-    config(['sitemap.crawl_profile' => CustomCrawlProfile::class]);
+    $profile = new CustomCrawlProfile('http://localhost');
 
-    $this->crawler
-        ->method('setCrawlProfile')
-        ->with($this->isInstanceOf(CustomCrawlProfile::class))
-        ->willReturn($this->crawler);
-
-    $sitemapGenerator = new SitemapGenerator($this->crawler);
-
-    $sitemap = $sitemapGenerator->setUrl('')->getSitemap();
-
-    expect($sitemap)->toBeInstanceOf(Sitemap::class);
+    expect($profile->shouldCrawl('http://localhost/'))->toBeTrue()
+        ->and($profile->shouldCrawl('http://localhost/page'))->toBeFalse()
+        ->and($profile->shouldCrawl('https://external.com/'))->toBeFalse();
 });
 
 it('can use the subdomain profile', function () {
-    config(['sitemap.crawl_profile' => CrawlSubdomains::class]);
+    $profile = new CrawlSubdomains('https://example.com');
 
-    $this->crawler
-        ->method('setCrawlProfile')
-        ->with($this->isInstanceOf(CrawlSubdomains::class))
-        ->willReturn($this->crawler);
-
-    $sitemapGenerator = new SitemapGenerator($this->crawler);
-
-    $sitemap = $sitemapGenerator->setUrl('')->getSitemap();
-
-    expect($sitemap)->toBeInstanceOf(Sitemap::class);
+    expect($profile->shouldCrawl('https://sub.example.com/page'))->toBeTrue()
+        ->and($profile->shouldCrawl('https://other.com/page'))->toBeFalse();
 });
 
 it('can use the internal profile', function () {
-    config(['sitemap.crawl_profile' => CrawlInternalUrls::class]);
+    $profile = new CrawlInternalUrls('https://example.com');
 
-    $this->crawler
-        ->method('setCrawlProfile')
-        ->with($this->isInstanceOf(CrawlInternalUrls::class))
-        ->willReturn($this->crawler);
-
-    $sitemapGenerator = new SitemapGenerator($this->crawler);
-
-    $sitemap = $sitemapGenerator->setUrl('')->getSitemap();
-
-    expect($sitemap)->toBeInstanceOf(Sitemap::class);
+    expect($profile->shouldCrawl('https://example.com/page'))->toBeTrue()
+        ->and($profile->shouldCrawl('https://other.com/page'))->toBeFalse();
 });

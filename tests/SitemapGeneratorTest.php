@@ -1,6 +1,5 @@
 <?php
 
-use Psr\Http\Message\UriInterface;
 use Spatie\Crawler\Crawler;
 use Spatie\Sitemap\SitemapGenerator;
 use Spatie\Sitemap\Tags\Url;
@@ -80,12 +79,12 @@ it(
     }
 );
 
-it('will not crawl an url of shouldCrawl() returns false', function () {
+it('will not crawl an url if shouldCrawl() returns false', function () {
     $sitemapPath = $this->temporaryDirectory->path('test.xml');
 
     SitemapGenerator::create('http://localhost:4020')
-        ->shouldCrawl(function (UriInterface $url) {
-            return ! strpos($url->getPath(), 'page3');
+        ->shouldCrawl(function (string $url) {
+            return ! str_contains(parse_url($url, PHP_URL_PATH) ?? '', 'page3');
         })
         ->writeToFile($sitemapPath);
 
