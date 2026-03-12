@@ -1,6 +1,7 @@
 <?php
 
 use Carbon\Carbon;
+use Spatie\Sitemap\Test\TestCase;
 use Spatie\TemporaryDirectory\TemporaryDirectory;
 
 use function PHPUnit\Framework\assertXmlStringEqualsXmlString;
@@ -11,7 +12,7 @@ use function PHPUnit\Framework\assertXmlStringEqualsXmlString;
 |--------------------------------------------------------------------------
 */
 
-uses(\Spatie\Sitemap\Test\TestCase::class)
+uses(TestCase::class)
     ->beforeEach(function () {
         $this->now = Carbon::create('2016', '1', '1', '0', '0', '0');
 
