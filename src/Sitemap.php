@@ -187,4 +187,11 @@ class Sitemap implements Renderable, Responsable
             'Content-Type' => 'text/xml',
         ]);
     }
+
+    public function sort(): static
+    {
+        sort($this->tags);
+
+        return $this;
+    }
 }

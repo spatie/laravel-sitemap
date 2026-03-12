@@ -349,3 +349,85 @@ it('propagates stylesheet to chunk sitemaps and index when splitting', function 
         ->and($chunk0)->toContain('<?xml-stylesheet type="text/xsl" href="/sitemap.xsl"?>')
         ->and($chunk1)->toContain('<?xml-stylesheet type="text/xsl" href="/sitemap.xsl"?>');
 });
+
+it('can sort urls alphabetically', function () {
+    $this->sitemap
+        ->add('/zebra')
+        ->add('/apple')
+        ->add('/monkey')
+        ->add('/banana')
+        ->sort();
+
+    $tags = $this->sitemap->getTags();
+
+    expect($tags[0]->url)->toBe('/apple')
+        ->and($tags[1]->url)->toBe('/banana')
+        ->and($tags[2]->url)->toBe('/monkey')
+        ->and($tags[3]->url)->toBe('/zebra');
+});
+
+it('returns itself when sorting for method chaining', function () {
+    $result = $this->sitemap
+        ->add('/zebra')
+        ->add('/apple')
+        ->sort();
+
+    expect($result)->toBe($this->sitemap);
+});
+
+it('can sort an empty sitemap without errors', function () {
+    $result = $this->sitemap->sort();
+
+    expect($result)->toBe($this->sitemap)
+        ->and($this->sitemap->getTags())->toBeEmpty();
+});
+
+it('renders sorted urls in correct order', function () {
+    $this->sitemap
+        ->add('/zoo')
+        ->add('/about')
+        ->add('/contact')
+        ->add('/blog')
+        ->sort();
+
+    $rendered = $this->sitemap->render();
+
+    // Check that URLs appear in alphabetical order in the rendered XML
+    $aboutPos = strpos($rendered, '/about');
+    $blogPos = strpos($rendered, '/blog');
+    $contactPos = strpos($rendered, '/contact');
+    $zooPos = strpos($rendered, '/zoo');
+
+    expect($aboutPos)->toBeLessThan($blogPos)
+        ->and($blogPos)->toBeLessThan($contactPos)
+        ->and($contactPos)->toBeLessThan($zooPos);
+});
+
+it('can sort url objects with different properties', function () {
+    $this->sitemap
+        ->add(Url::create('/zoo')->setPriority(1.0))
+        ->add(Url::create('/about')->setPriority(0.5))
+        ->add(Url::create('/blog')->setChangeFrequency(Url::CHANGE_FREQUENCY_DAILY))
+        ->sort();
+
+    $tags = $this->sitemap->getTags();
+
+    expect($tags[0]->url)->toBe('/about')
+        ->and($tags[1]->url)->toBe('/blog')
+        ->and($tags[2]->url)->toBe('/zoo');
+});
+
+it('sorts urls case-sensitively with uppercase first', function () {
+    $this->sitemap
+        ->add('/Zebra')
+        ->add('/apple')
+        ->add('/BANANA')
+        ->sort();
+
+    $tags = $this->sitemap->getTags();
+
+    // PHP's sort() compares strings case-sensitively, uppercase letters come before lowercase
+    expect($tags[0]->url)->toBe('/BANANA')
+        ->and($tags[1]->url)->toBe('/Zebra')
+        ->and($tags[2]->url)->toBe('/apple');
+});
