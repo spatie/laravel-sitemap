@@ -2,6 +2,12 @@
 
 All notable changes to `laravel-sitemap` will be documented in this file
 
+## 8.1.0 - 2026-03-12
+
+### What's new
+
+- Add `sort()` method to sitemap for consistent URL ordering (#592)
+
 ## 8.0.1 - 2026-03-02
 
 ### What's Changed
