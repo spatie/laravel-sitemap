@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-sitemap` will be documented in this file
 
+## 7.3.2 - 2026-04-26
+
+### What's Changed
+
+* feat: add Laravel 13 support by @seebaermichi in https://github.com/benbjurstrom/laravel-sitemap-lite/pull/3
+
+### New Contributors
+
+* @seebaermichi made their first contribution in https://github.com/benbjurstrom/laravel-sitemap-lite/pull/3
+
+**Full Changelog**: https://github.com/benbjurstrom/laravel-sitemap-lite/compare/7.3.1...7.3.2
+
 ## 7.3.0 - 2024-12-02
 
 ### What's Changed
