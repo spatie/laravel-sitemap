@@ -19,13 +19,13 @@
     ],
     "require": {
         "php": "^8.2||^8.3||^8.4",
-        "illuminate/support": "^10.0|^11.0|^12.0",
+        "illuminate/support": "^10.0|^11.0|^12.0|^13.0",
         "nesbot/carbon": "^2.71|^3.0",
         "spatie/laravel-package-tools": "^1.16.1"
     },
     "require-dev": {
         "mockery/mockery": "^1.6.6",
-        "orchestra/testbench": "^8.14|^9.0",
+        "orchestra/testbench": "^8.14|^9.0|^11.0",
         "pestphp/pest": "^2.24",
         "spatie/pest-plugin-snapshots": "^2.1",
         "spatie/phpunit-snapshot-assertions": "^5.1.2",
