@@ -10,9 +10,9 @@
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/spatie/laravel-sitemap.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-sitemap)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
-[![Test Status](https://img.shields.io/github/actions/workflow/status/spatie/laravel-sitemap/run-tests.yml?label=tests)](https://github.com/spatie/laravel-sitemap/actions/workflows/run-tests.yml)
-[![Code Style Status](https://img.shields.io/github/actions/workflow/status/spatie/laravel-sitemap/fix-php-code-style-issues.yml?label=code%20style)](https://github.com/spatie/laravel-sitemap/actions/workflows/fix-php-code-style-issues.yml)
-[![PHPStan](https://img.shields.io/github/actions/workflow/status/spatie/laravel-sitemap/phpstan.yml?label=PHPStan)](https://github.com/spatie/laravel-sitemap/actions/workflows/phpstan.yml)
+[![Test Status](https://github.com/spatie/laravel-sitemap/actions/workflows/run-tests.yml/badge.svg)](https://github.com/spatie/laravel-sitemap/actions/workflows/run-tests.yml)
+[![Code Style Status](https://github.com/spatie/laravel-sitemap/actions/workflows/fix-php-code-style-issues.yml/badge.svg)](https://github.com/spatie/laravel-sitemap/actions/workflows/fix-php-code-style-issues.yml)
+[![PHPStan](https://github.com/spatie/laravel-sitemap/actions/workflows/phpstan.yml/badge.svg)](https://github.com/spatie/laravel-sitemap/actions/workflows/phpstan.yml)
 [![Total Downloads](https://img.shields.io/packagist/dt/spatie/laravel-sitemap.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-sitemap)
 
 </div>
