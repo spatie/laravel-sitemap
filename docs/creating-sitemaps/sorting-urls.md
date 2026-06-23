@@ -1,6 +1,6 @@
 ---
 title: Sorting URLs
-weight: 7
+weight: 8
 ---
 
 You can sort the URLs in your sitemap alphabetically using the `sort()` method. This is useful for maintaining a consistent order in your sitemap files.

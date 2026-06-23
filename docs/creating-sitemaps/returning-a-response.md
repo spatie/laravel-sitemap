@@ -1,6 +1,6 @@
 ---
 title: Returning a response
-weight: 6
+weight: 7
 ---
 
 Both `Sitemap` and `SitemapIndex` implement Laravel's `Responsable` interface, so you can return them directly from a route or controller:
