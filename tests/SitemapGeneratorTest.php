@@ -122,3 +122,74 @@ it('can use a custom profile', function () {
 
     assertMatchesXmlSnapshot(file_get_contents($sitemapPath));
 });
+
+it('can write grouped sitemaps using a closure', function () {
+    $page3Path = $this->temporaryDirectory->path('sitemap-page3.xml');
+    $pagesPath = $this->temporaryDirectory->path('sitemap-pages.xml');
+
+    SitemapGenerator::create('http://localhost:4020')
+        ->writeToFile(fn (Url $url) => $url->segment(1) === 'page3' ? $page3Path : $pagesPath);
+
+    expect(file_get_contents($pagesPath))
+        ->toContain('/page1')
+        ->not->toContain('/page3');
+
+    expect(file_get_contents($page3Path))
+        ->toContain('/page3')
+        ->not->toContain('/page1');
+});
+
+it('writes a sitemap index when an index path is set', function () {
+    $indexPath = $this->temporaryDirectory->path('sitemap.xml');
+    $page3Path = $this->temporaryDirectory->path('sitemap-page3.xml');
+    $pagesPath = $this->temporaryDirectory->path('sitemap-pages.xml');
+
+    SitemapGenerator::create('http://localhost:4020')
+        ->sitemapIndexPath($indexPath)
+        ->writeToFile(fn (Url $url) => $url->segment(1) === 'page3' ? $page3Path : $pagesPath);
+
+    expect(file_get_contents($indexPath))
+        ->toContain('<sitemapindex')
+        ->toContain('sitemap-page3.xml')
+        ->toContain('sitemap-pages.xml');
+});
+
+it('does not write a sitemap index when no index path is set', function () {
+    $indexPath = $this->temporaryDirectory->path('sitemap.xml');
+    $pagesPath = $this->temporaryDirectory->path('sitemap-pages.xml');
+
+    SitemapGenerator::create('http://localhost:4020')
+        ->writeToFile(fn (Url $url) => $pagesPath);
+
+    expect(file_exists($indexPath))->toBeFalse();
+});
+
+it('skips a url when the group closure returns null', function () {
+    $pagesPath = $this->temporaryDirectory->path('sitemap-pages.xml');
+
+    SitemapGenerator::create('http://localhost:4020')
+        ->writeToFile(fn (Url $url) => $url->segment(1) === 'page3' ? null : $pagesPath);
+
+    expect(file_get_contents($pagesPath))
+        ->toContain('/page1')
+        ->not->toContain('/page3');
+});
+
+it('splits an overflowing group and lists each chunk in the index', function () {
+    $indexPath = $this->temporaryDirectory->path('sitemap.xml');
+    $pagesPath = $this->temporaryDirectory->path('sitemap-pages.xml');
+
+    SitemapGenerator::create('http://localhost:4020')
+        ->maxTagsPerSitemap(1)
+        ->sitemapIndexPath($indexPath)
+        ->writeToFile(fn (Url $url) => $pagesPath);
+
+    $index = file_get_contents($indexPath);
+
+    expect($index)
+        ->toContain('sitemap-pages_0.xml')
+        ->toContain('sitemap-pages_1.xml');
+
+    expect(file_get_contents($this->temporaryDirectory->path('sitemap-pages_0.xml')))
+        ->toContain('<url>');
+});
