@@ -183,7 +183,7 @@ class SitemapGenerator
         $index = $this->sitemapIndexPath ? SitemapIndex::create() : null;
 
         $tagsByPath->each(
-            fn (Collection $tags, string $path) => $this->writeSitemapGroup($path, $tags->all(), $index)
+            fn (Collection $tags, string $path) => $this->writeSitemapGroup($path, $tags, $index)
         );
 
         if ($index) {
@@ -193,29 +193,28 @@ class SitemapGenerator
         return $this;
     }
 
-    /** @param Url[] $tags */
-    protected function writeSitemapGroup(string $path, array $tags, ?SitemapIndex $index): void
+    /** @param Collection<int, Url> $tags */
+    protected function writeSitemapGroup(string $path, Collection $tags, ?SitemapIndex $index): void
     {
         $chunks = $this->maximumTagsPerSitemap
-            ? array_chunk($tags, $this->maximumTagsPerSitemap)
-            : [$tags];
+            ? $tags->chunk($this->maximumTagsPerSitemap)
+            : collect([$tags]);
 
-        $shouldSplit = count($chunks) > 1;
-        $fileFormat = str_replace('.xml', '_%d.xml', $path);
+        $shouldSplit = $chunks->count() > 1;
 
-        foreach ($chunks as $key => $chunkTags) {
-            $chunkPath = $shouldSplit ? sprintf($fileFormat, $key) : $path;
+        $chunks->each(function (Collection $chunkTags, int $key) use ($path, $shouldSplit, $index) {
+            $chunkPath = $shouldSplit
+                ? str_replace('.xml', '_'.$key.'.xml', $path)
+                : $path;
 
             $sitemap = new Sitemap;
 
-            foreach ($chunkTags as $tag) {
-                $sitemap->add($tag);
-            }
+            $chunkTags->each(fn (Url $tag) => $sitemap->add($tag));
 
             $sitemap->writeToFile($chunkPath);
 
             $index?->add($this->toUrlPath($chunkPath));
-        }
+        });
     }
 
     protected function toUrlPath(string $filePath): string
