@@ -180,21 +180,21 @@ class SitemapGenerator
             ->groupBy(fn (Url $tag) => (string) $determineSitemapPath($tag))
             ->forget('');
 
-        $index = $this->sitemapIndexPath ? SitemapIndex::create() : null;
+        $sitemapIndex = $this->sitemapIndexPath ? SitemapIndex::create() : null;
 
         $tagsByPath->each(
-            fn (Collection $tags, string $path) => $this->writeSitemapGroup($path, $tags, $index)
+            fn (Collection $tags, string $path) => $this->writeSitemapGroup($path, $tags, $sitemapIndex)
         );
 
-        if ($index) {
-            $index->writeToFile($this->sitemapIndexPath);
+        if ($sitemapIndex) {
+            $sitemapIndex->writeToFile($this->sitemapIndexPath);
         }
 
         return $this;
     }
 
     /** @param Collection<int, Url> $tags */
-    protected function writeSitemapGroup(string $path, Collection $tags, ?SitemapIndex $index): void
+    protected function writeSitemapGroup(string $path, Collection $tags, ?SitemapIndex $sitemapIndex): void
     {
         $chunks = $this->maximumTagsPerSitemap
             ? $tags->chunk($this->maximumTagsPerSitemap)
@@ -202,7 +202,7 @@ class SitemapGenerator
 
         $shouldSplit = $chunks->count() > 1;
 
-        $chunks->each(function (Collection $chunkTags, int $key) use ($path, $shouldSplit, $index) {
+        $chunks->each(function (Collection $chunkTags, int $key) use ($path, $shouldSplit, $sitemapIndex) {
             $chunkPath = $shouldSplit
                 ? str_replace('.xml', '_'.$key.'.xml', $path)
                 : $path;
@@ -213,7 +213,7 @@ class SitemapGenerator
 
             $sitemap->writeToFile($chunkPath);
 
-            $index?->add($this->toUrlPath($chunkPath));
+            $sitemapIndex?->add($this->toUrlPath($chunkPath));
         });
     }
 
