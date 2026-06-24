@@ -1,6 +1,6 @@
 ---
 title: Adding an XSL stylesheet
-weight: 5
+weight: 6
 ---
 
 You can add an XSL stylesheet processing instruction to make your sitemaps human readable in browsers. Call `setStylesheet` on either a `Sitemap` or `SitemapIndex`:

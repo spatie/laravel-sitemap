@@ -32,6 +32,8 @@ class SitemapGenerator
 
     protected ?int $maximumCrawlCount = null;
 
+    protected ?string $sitemapIndexPath = null;
+
     public static function create(string $urlToBeCrawled): static
     {
         return app(static::class)->setUrl($urlToBeCrawled);
@@ -68,6 +70,13 @@ class SitemapGenerator
     public function maxTagsPerSitemap(int $maximumTagsPerSitemap = 50000): static
     {
         $this->maximumTagsPerSitemap = $maximumTagsPerSitemap;
+
+        return $this;
+    }
+
+    public function sitemapIndexPath(string $path): static
+    {
+        $this->sitemapIndexPath = $path;
 
         return $this;
     }
@@ -138,8 +147,12 @@ class SitemapGenerator
         return $this->sitemaps->first();
     }
 
-    public function writeToFile(string $path): static
+    public function writeToFile(string|Closure $path): static
     {
+        if ($path instanceof Closure) {
+            return $this->writeGroupedToFile($path);
+        }
+
         $sitemap = $this->getSitemap();
 
         if ($this->maximumTagsPerSitemap) {
@@ -156,6 +169,52 @@ class SitemapGenerator
         $sitemap->writeToFile($path);
 
         return $this;
+    }
+
+    protected function writeGroupedToFile(Closure $determineSitemapPath): static
+    {
+        $this->getSitemap();
+
+        $tagsByPath = $this->sitemaps
+            ->flatMap(fn (Sitemap $sitemap) => $sitemap->getTags())
+            ->groupBy(fn (Url $tag) => (string) $determineSitemapPath($tag))
+            ->forget('');
+
+        $sitemapIndex = $this->sitemapIndexPath ? SitemapIndex::create() : null;
+
+        $tagsByPath->each(
+            fn (Collection $tags, string $path) => $this->writeSitemapGroup($path, $tags, $sitemapIndex)
+        );
+
+        if ($sitemapIndex) {
+            $sitemapIndex->writeToFile($this->sitemapIndexPath);
+        }
+
+        return $this;
+    }
+
+    /** @param Collection<int, Url> $tags */
+    protected function writeSitemapGroup(string $path, Collection $tags, ?SitemapIndex $sitemapIndex): void
+    {
+        $chunks = $this->maximumTagsPerSitemap
+            ? $tags->chunk($this->maximumTagsPerSitemap)
+            : collect([$tags]);
+
+        $shouldSplit = $chunks->count() > 1;
+
+        $chunks->each(function (Collection $chunkTags, int $key) use ($path, $shouldSplit, $sitemapIndex) {
+            $chunkPath = $shouldSplit
+                ? str_replace('.xml', '_'.$key.'.xml', $path)
+                : $path;
+
+            $sitemap = new Sitemap;
+
+            $chunkTags->each(fn (Url $tag) => $sitemap->add($tag));
+
+            $sitemap->writeToFile($chunkPath);
+
+            $sitemapIndex?->add($this->toUrlPath($chunkPath));
+        });
     }
 
     protected function toUrlPath(string $filePath): string
