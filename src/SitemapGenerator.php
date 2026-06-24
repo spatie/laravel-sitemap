@@ -175,25 +175,16 @@ class SitemapGenerator
     {
         $this->getSitemap();
 
-        $tagsByPath = [];
-
-        foreach ($this->sitemaps as $sitemap) {
-            foreach ($sitemap->getTags() as $tag) {
-                $path = $determineSitemapPath($tag);
-
-                if (! $path) {
-                    continue;
-                }
-
-                $tagsByPath[$path][] = $tag;
-            }
-        }
+        $tagsByPath = $this->sitemaps
+            ->flatMap(fn (Sitemap $sitemap) => $sitemap->getTags())
+            ->groupBy(fn (Url $tag) => (string) $determineSitemapPath($tag))
+            ->forget('');
 
         $index = $this->sitemapIndexPath ? SitemapIndex::create() : null;
 
-        foreach ($tagsByPath as $path => $tags) {
-            $this->writeSitemapGroup($path, $tags, $index);
-        }
+        $tagsByPath->each(
+            fn (Collection $tags, string $path) => $this->writeSitemapGroup($path, $tags->all(), $index)
+        );
 
         if ($index) {
             $index->writeToFile($this->sitemapIndexPath);
