@@ -2,6 +2,16 @@
 
 All notable changes to `laravel-sitemap` will be documented in this file
 
+## 8.2.0 - 2026-06-24
+
+### What's Changed
+
+* Bump dependabot/fetch-metadata from 2.5.0 to 3.0.0 by @dependabot[bot] in https://github.com/spatie/laravel-sitemap/pull/593
+* Bump dependabot/fetch-metadata from 3.0.0 to 3.1.0 by @dependabot[bot] in https://github.com/spatie/laravel-sitemap/pull/594
+* Add support for grouping a crawl into multiple sitemaps by @freekmurze in https://github.com/spatie/laravel-sitemap/pull/597
+
+**Full Changelog**: https://github.com/spatie/laravel-sitemap/compare/8.1.0...8.2.0
+
 ## 8.1.0 - 2026-03-12
 
 ### What's new
