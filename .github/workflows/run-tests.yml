@@ -11,13 +11,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php: [8.4, 8.5]
-        laravel: ['12.*', '13.*']
+        php: ['8.4', '8.5', '8.6']
+        laravel: ['13.*']
         dependency-version: [prefer-stable]
         os: [ubuntu-latest]
         include:
-          - laravel: 12.*
-            testbench: 10.*
           - laravel: 13.*
             testbench: 11.*
 
@@ -39,6 +37,10 @@ jobs:
           php-version: ${{ matrix.php }}
           extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, mysql, mysqli, pdo_mysql, bcmath, soap, intl, gd, exif, iconv, imagick
           coverage: none
+
+      - name: Verify PHP version
+        run: |
+          php -r "echo PHP_VERSION, PHP_EOL; exit(str_starts_with(PHP_VERSION, '${{ matrix.php }}.') ? 0 : 1);"
 
       - name: Install dependencies
         run: |
